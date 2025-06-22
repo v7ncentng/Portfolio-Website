@@ -1,0 +1,203 @@
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Body and Page Styling */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #000000; /* black background */
+  color: #ffffff;            /* white text */
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+/* Navigation Bar */
+.topnav {
+  background-color: #000000;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  width: 100vw;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.topnav a {
+  color: #ffffff;
+  padding: 0 1rem;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease, word-spacing 0.3s ease;
+}
+
+.topnav a:hover {
+  color: #06790a;             /* green hover */
+  word-spacing: -0.2em;
+}
+
+.topnav a.active {
+  border-bottom: 2px solid #04AA6D;
+  color: #04AA6D;
+}
+
+/* Headers */
+h1, h2, h3 {
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.intro-heading {
+  font-size: 2.2em;
+  font-weight: bold;
+  margin-left: 1rem;
+}
+
+.background-label {
+  margin: 1rem 0;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+/* Profile Photo */
+.photo {
+  position: fixed;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  top: 6rem;
+  right: 1.5rem;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Typewriter Section Layout */
+.text-block {
+  margin-top: 0.5rem;
+  padding-right: calc(150px + 1.5rem + 2rem);
+  text-align: left;
+}
+
+.typewriter-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 80vh;
+  padding: 0 5vw;
+  gap: 3rem;
+}
+
+.im-label {
+  font-size: 2em;
+  font-family: monospace;
+  font-weight: 600;
+  white-space: nowrap;
+  margin-left: 1rem 0;
+}
+
+.typewriter-boxes {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-left: 1rem;
+}
+
+/* Typewriter Text Styling */
+.text,
+.background-text {
+  font-family: monospace;
+  border-right: 2px solid white;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  animation:
+    typing 2s steps(var(--steps), end) forwards,
+    blink-cursor 0.6s step-end infinite;
+    animation-delay: var(--delay);
+  animation-fill-mode: forwards;
+  margin-left: 1rem;
+}
+
+.text {
+  font-size: 2em;
+}
+
+.background-text {
+  font-size: 1.2em;
+  margin-top: 0.5rem;
+}
+
+/* Cursor + Typing Animations */
+@keyframes typing {
+  from { width: 0; }
+  to { width: calc(var(--steps) * 1ch); }
+}
+
+@keyframes blink-cursor {
+  0%, 100% { border-right-color: white; }
+  50% { border-right-color: transparent; }
+}
+
+/* Buttons */
+.btn {
+  padding: 0.5rem 1.2rem;
+  margin: 0.5rem 0.5rem 0 0;
+  border: none;
+  background-color: #007acc;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  background-color: #06790a;
+}
+
+/* Links (outside navbar) */
+a {
+  color: #007acc;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Section Spacing */
+.section {
+  margin-bottom: 2rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .topnav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .photo {
+    top: 5rem;
+    right: 1rem;
+  }
+
+  .btn {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .text-block {
+    padding-right: 1rem;
+  }
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vincent Ng | Software Engineer</title>
+  <link rel="stylesheet" href="index.css?v=debug1" />  
+  <script>
+    function openLink(url) {
+      window.open(url, '_blank');
+    }
+  </script>
+</head>
+<body>
+  <div class="topnav">
+    <a href="index.html">// Home //</a>
+    <a href="WangNg.pdf" target="_blank">// Resume //</a>
+    <a href="projects.html">// Projects //</a>
+    <a href="contact.html">// Contact //</a>
+    <a href="background.html">// About //</a>
+  </div>
+
+  <div class="container">
+    <img src="vince.jpg" alt="A photo of Vincent Ng" class="photo"/>
+    <div class="text-block">
+      <h1 class="intro-heading">Hi, I'm Vincent Ng!</h1>
+      <div class="im-label">I'm</div>
+      <div class="text" style="--steps:23; --delay: 0s;"> a software developer.</div>
+      <div class="text" style="--steps: 19; --delay: 2s;">a lifelong student.</div>
+      <div class="text" style="--steps: 24; --delay: 4s;">consistently developing.</div>
+      <div class="text" style="--steps: 27; --delay: 6s;">an aspiring business owner.</div>
+    </div>
+    <div class="section" id="Skills"></div>
+    <h2 class="background-label">Background:</h2>
+    <div style="max-width: 90vw;">
+      <div class="background-text" style="--steps: 68; --delay: 8s;"><strong>Education:</strong> B.S. in Computer Science, UC Davis (2023–2027), GPA: 3.7.</div>
+      <div class="background-text" style="--steps:135; --delay:10s"> <strong>Languages & Tools:</strong> Python, C++, Java, C, React.js, Javascript, CSS, Flask, Pandas, Supabase, NumPy, Tensorflow, MatPlotLib.</div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const navLinks = document.querySelectorAll('.topnav a');
+
+        navLinks.forEach(link => {
+            // Store the original full text (e.g., "// Home //") in a data attribute
+            link.dataset.originalText = link.textContent;
+
+            link.addEventListener('mouseover', () => {
+                const originalText = link.dataset.originalText;
+                // Use a regular expression to precisely target spaces around the central word
+                // assuming the format is always "// Word //"
+                const match = originalText.match(/^\/\/\s*(.*?)\s*\/\/$/);
+                if (match && match[1]) {
+                    // Reconstruct the text as "//Word//"
+                    link.textContent = `//${match[1]}//`;
+                } else {
+                    // Fallback: if format is unexpected, just remove all whitespace
+                    link.textContent = originalText.replace(/\s+/g, '');
+                }
+            });
+
+            link.addEventListener('mouseout', () => {
+                // Revert to the original text stored in the data attribute
+                link.textContent = link.dataset.originalText;
+            });
+        });
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const lines = document.querySelectorAll(".text, .background-text");
+    
+      lines.forEach((line) => {
+        // Parse the custom properties set on the element (e.g. --steps and --delay)
+        const styles = getComputedStyle(line);
+        const delay = parseFloat(styles.getPropertyValue('--delay')) || 0;
+        const steps = parseInt(styles.getPropertyValue('--steps')) || line.textContent.length;
+        
+        const durationPerChar = 2 / steps; // Assuming 2s total for full line
+        const typingDuration = steps * durationPerChar;
+    
+        const totalTime = (delay + typingDuration) * 1000;
+    
+        setTimeout(() => {
+          line.style.borderRight = "none";
+        }, totalTime);
+      });
+    });
+    </script>
+    
+  
+</body>
+</html>
