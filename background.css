@@ -73,7 +73,7 @@ body {
 .about-text {
   margin: 0 3rem 2rem 3rem;
   font-family: monospace;
-  font-size: clamp(0.7rem, 2vw, 1.2rem);
+  font-size: clamp(0.5rem, 1.5vw, 1rem);
   line-height: 1.8;
   text-align: left;
   padding-left: 2rem;
@@ -81,7 +81,7 @@ body {
 
 /* Link Styling (non-nav) */
 a {
-  color: #00bcd4;
+  color: #04AA6D;
   text-decoration: none;
 }
 
