@@ -40,7 +40,7 @@ body {
 }
 
 .topnav a:hover {
-  color: #06790a;
+  color:#04AA6D; 
   word-spacing: -0.2em;
   text-decoration: underline; /* ✅ Add this line */
 }
