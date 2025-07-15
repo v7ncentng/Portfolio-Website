@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - Wang Ng</title>
-    <link rel="stylesheet" href="background.css">
+    <link rel="stylesheet" href="background.css?v=debug1">
+    <script>
+        function openLink(url) {
+            window.open(url, '_blank');
+          }
+        </script>
 </head>
 <body>
     <div class="topnav">
@@ -13,16 +18,47 @@
         <a href="projects.html">// Experience //</a>
         <a href="background.html" class="active">// About //</a>
       </div>
-      <div class="about-box">
-        <h1 class="about-heading">A bit about me:</h1>
-        <p class="about-text">
-          Hello fellow internet user! My name is Vincent Ng and I was born in Hong Kong, and spent a majority of my life in the SF Bay area. </p>
-          <p class="about-text">My journey into coding began at age 10 on platforms like Scratch and Code.org, where I built simple games like hangman, tag, and tic-tac-toe. The early curiosity stemmed from connecting my childhood to software and evolved into a passion for programming that still burns as I reach my third year in UC Davis.</p>
-          <p class="about-text">I have been especially hooked on building my programming skillset through fullstack projects, with an emphasis on AI/machine learning and deep learning applications.</p>
-          <p class="about-text">My passion continuously grows at UC Davis, where I'm studying Computer Science, Statistics, and Technology Management, creating projects intertwining my personal interests and user experience.</p>
-          <p class="about-text">When I'm not behind a computer, I love to practice boxing, hike, lift weights, and explore new food cuisines!</p> 
-          <p class="about-text">I'm looking forward to connecting!</p>
-      </div>
+      <div class="about-section">
+        <div class="about-box">
+            <h1 class="about-heading">A bit about me:</h1>
+            <p class="about-text">
+            Hello fellow internet user! My name is Vincent Ng and I was born in Hong Kong, and spent a majority of my life in the SF Bay area. </p>
+            <p class="about-text">My journey into coding began at age 10 on platforms like Scratch and Code.org, where I built simple games like hangman, mastermind, and tic-tac-toe. The early curiosity stemmed from connecting my childhood to software and evolved into a passion for programming that still burns as I reach my third year in UC Davis.</p>
+            <p class="about-text">I have been especially hooked on building my programming skillset through fullstack projects, with an emphasis on AI/machine learning and deep learning applications.</p>
+            <p class="about-text">My passion continuously grows at UC Davis, where I'm currently studying Computer Science, Statistics, and Technology Management, creating projects intertwining my personal interests and user experience.</p>
+            <p class="about-text">When I'm not behind a computer, I love to practice boxing, hike, lift weights, and explore new food cuisines!</p> 
+            <p class="about-text">I'm looking forward to connecting!</p>
+        </div>
+        <div class="side-images">
+            <!-- Image 1: Golden Gate -->
+            <div class="image-container">
+            <img src="Hike1.png" alt="Golden Gate Overlook" class="clickable-img" onclick="openModal('modal1')">
+            <p>Me and a friend at <a href="https://www.google.com/maps/place/Hawk+Hill/" target="_blank" style="color:#007acc; text-decoration: underline;">Golden Gate Bridge Overlook</a>! 📍</p>
+            </div>
+        
+            <!-- Image 2: Mission Peak -->
+            <div class="image-container">
+            <img src="Hike2.png" alt="Mission Peak Summit" class="clickable-img" onclick="openModal('modal2')">
+            <p>Summit of <a href="https://www.google.com/maps/place/Mission+Peak/" target="_blank" style="color:#007acc; text-decoration: underline;">Mission Peak</a> on a Windy morning! 📍</p>
+            </div>
+        </div>
+        
+        <!-- Modal 1 -->
+        <div id="modal1" class="img-modal" onclick="closeModal('modal1')">
+            <span class="close">&times;</span>
+            <img class="modal-content" src="Hike1.png" alt="Golden Gate Overlook">
+        </div>
+        
+        <!-- Modal 2 -->
+        <div id="modal2" class="img-modal" onclick="closeModal('modal2')">
+            <span class="close">&times;</span>
+            <img class="modal-content" src="Hike2.png" alt="Mission Peak">
+        </div>
+    </div>
+      
+      
+    </div>
+    </body>
       <div class="social-icons">
         <a href="https://github.com/v7ncentng" target="_blank">
           <img src="github.png" alt="GitHub" class="icon">
@@ -34,6 +70,24 @@
           <img src="linkedin.png" alt="LinkedIn" class="icon">
         </a>
       </div>
+
+    <script>
+    function openModal(id) {
+        document.getElementById(id).style.display = 'block';
+    }
+    
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+    
+    // Optional: Close modal on ESC key
+    window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+        document.querySelectorAll('.img-modal').forEach(m => m.style.display = 'none');
+        }
+    });
+    </script>
+           
       
 </body>
 </html>
