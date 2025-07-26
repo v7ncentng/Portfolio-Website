@@ -24,12 +24,11 @@
     .project-heading {
       text-align: center;
       font-size: 2.75em;
-      color: #df7366;
-      margin-bottom: 2em;
+      color: #000000;
     }
 
     .timeline-wrapper {
-      padding: 6em 2em;
+      padding: 6em 2em 6em;
       overflow-x: auto;
     }
 
@@ -41,10 +40,9 @@
       min-width: 800px;
       margin: 0 auto;
       max-width: 1200px;
-      height: 500px; /* Increased height to prevent cutoff */
+      height: 500px;
     }
 
-    /* Horizontal line connecting all dots */
     .horizontal-timeline::before {
       content: '';
       position: absolute;
@@ -68,7 +66,6 @@
       z-index: 2;
     }
 
-    /* Dots - always centered on the line */
     .timeline-dot {
       position: absolute;
       top: 50%;
@@ -82,6 +79,7 @@
       box-shadow: 0 0 0 2px #df7366, 0 0 10px rgba(223, 115, 102, 0.3);
       z-index: 3;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
     }
 
     .timeline-dot:hover {
@@ -89,31 +87,27 @@
       box-shadow: 0 0 0 2px #df7366, 0 0 20px rgba(223, 115, 102, 0.5);
     }
 
-    /* Alternating positioning */
     .timeline-event:nth-child(odd) .content {
       position: absolute;
-      top: 30%;
+      top: 40%;
       transform: translateY(-100%);
       opacity: 1;
     }
 
     .timeline-event:nth-child(even) .content {
       position: absolute;
-      bottom: 30%;
+      bottom: 40%;
       transform: translateY(100%);
       opacity: 1;
     }
 
-
-
-    /* Connecting lines from dots to content boxes */
     .timeline-event:nth-child(odd)::after {
       content: '';
       position: absolute;
       top: 50%;
       left: 50%;
       width: 2px;
-      height: 30%;
+      height: 15%;
       background-color: #df7366;
       z-index: 1;
       opacity: 0.6;
@@ -126,7 +120,7 @@
       top: 50%;
       left: 50%;
       width: 2px;
-      height: 30%;
+      height: 15%;
       background-color: #df7366;
       z-index: 1;
       opacity: 0.6;
@@ -142,6 +136,7 @@
       width: 200px;
       text-align: center;
       position: relative;
+      cursor: pointer;
     }
 
     .content:hover {
@@ -149,7 +144,6 @@
       box-shadow: 0 8px 25px rgba(0,0,0,0.15);
     }
 
-    /* Speech bubble arrows */
     .timeline-event:nth-child(odd) .content::after {
       content: '';
       position: absolute;
@@ -168,6 +162,10 @@
       transform: translateX(-50%);
       border: 8px solid transparent;
       border-bottom-color: #f9f9f9;
+    }
+
+    .text {
+      text-align: left;
     }
 
     .content h3 {
@@ -192,6 +190,143 @@
 
     .content a:hover {
       text-decoration: underline;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      position: absolute;
+      right: 50px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #fff;
+      width: 400px;
+      max-width: 90vw;
+      border-radius: 15px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: slideInRight 0.4s ease-out;
+      overflow: hidden;
+    }
+
+    @keyframes slideInRight {
+      from {
+        transform: translate(100%, -50%);
+        opacity: 0;
+      }
+      to {
+        transform: translate(0, -50%);
+        opacity: 1;
+      }
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, #df7366, #ef8376);
+      color: white;
+      padding: 1.5em;
+      position: relative;
+    }
+
+    .modal-title {
+      margin: 0;
+      font-size: 1.8em;
+      font-weight: 600;
+    }
+
+    .modal-subtitle {
+      margin: 0.5em 0 0;
+      opacity: 0.9;
+      font-size: 1em;
+    }
+
+    .close {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background-color 0.3s;
+    }
+
+    .close:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .modal-body {
+      padding: 2em;
+    }
+
+    .modal-description {
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 1.5em;
+      font-size: 1.1em;
+    }
+
+    .tech-stack {
+      margin-bottom: 1.5em;
+    }
+
+    .tech-stack h4 {
+      color: #483949;
+      margin: 0 0 0.8em;
+      font-size: 1.1em;
+    }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5em;
+    }
+
+    .tech-tag {
+      background: #f0f0f0;
+      color: #555;
+      padding: 0.3em 0.8em;
+      border-radius: 20px;
+      font-size: 0.85em;
+      font-weight: 500;
+    }
+
+    .modal-links {
+      display: flex;
+      gap: 1em;
+      margin-top: 1.5em;
+    }
+
+    .modal-link {
+      flex: 1;
+      padding: 0.8em 1.2em;
+      background: #df7366;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+
+    .modal-link:hover {
+      background: #c85d50;
+      color: white;
     }
 
     .social-icons {
@@ -261,6 +396,13 @@
       .timeline-event:nth-child(even) .content::after {
         display: none;
       }
+
+      .modal-content {
+        right: 20px;
+        left: 20px;
+        width: auto;
+        max-width: none;
+      }
     }
   </style>
 </head>
@@ -282,41 +424,165 @@
     <div class="horizontal-timeline">
       
       <div class="timeline-event">
-        <div class="content">
+        <div class="content" onclick="openModal('aggie-housing')">
           <h3>Aggie Housing</h3>
-          <p>Find your ideal Davis apartment by hearing what other students think!</p>
-          <a href="https://github.com/v7ncentng/MasterMind-Game" target="_blank">GitHub ↗</a>
+          <p class="text">Find your ideal Davis apartment by hearing what other students think!</p>
+          <a href="https://github.com/v7ncentng/MasterMind-Game" target="_blank" onclick="event.stopPropagation()">GitHub ↗</a>
         </div>
-        <div class="timeline-dot"></div>
+        <div class="timeline-dot" onclick="openModal('aggie-housing')"></div>
       </div>
 
       <div class="timeline-event">
-        <div class="content">
+        <div class="content" onclick="openModal('connect4-bot')">
           <h3>Connect-4 Bot</h3>
-          <p>Try to win against Connie, my AI-powered Connect-4 bot.</p>
-          <a href="https://github.com/v7ncentng/Typing-Test" target="_blank">GitHub ↗</a>
+          <p class="text">Try to win against Connie, my AI-powered Connect-4 bot.</p>
+          <a href="https://github.com/v7ncentng/Typing-Test" target="_blank" onclick="event.stopPropagation()">GitHub ↗</a>
         </div>
-        <div class="timeline-dot"></div>
+        <div class="timeline-dot" onclick="openModal('connect4-bot')"></div>
       </div>
 
       <div class="timeline-event">
-        <div class="content">
+        <div class="content" onclick="openModal('typing-test')">
           <h3>ML Typing Speed Test</h3>
-          <p>A speed typing app that learns your typing patterns with machine learning.</p>
-          <a href="https://github.com/v7ncentng/Typing-Test" target="_blank">GitHub ↗</a>
+          <p class="text">A speed typing app that learns your typing patterns with machine learning.</p>
+          <a href="https://github.com/v7ncentng/Typing-Test" target="_blank" onclick="event.stopPropagation()">GitHub ↗</a>
         </div>
-        <div class="timeline-dot"></div>
+        <div class="timeline-dot" onclick="openModal('typing-test')"></div>
       </div>
 
       <div class="timeline-event">
-        <div class="content">
+        <div class="content" onclick="openModal('mastermind')">
           <h3>Mastermind Game</h3>
-          <p>A Python terminal-based color logic game with a scoring system.</p>
-          <a href="https://github.com/v7ncentng/MasterMind-Game" target="_blank">GitHub ↗</a>
+          <p class="text">A Python terminal-based color logic game with a scoring system.</p>
+          <a href="https://github.com/v7ncentng/MasterMind-Game" target="_blank" onclick="event.stopPropagation()">GitHub ↗</a>
         </div>
-        <div class="timeline-dot"></div>
+        <div class="timeline-dot" onclick="openModal('mastermind')"></div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- Modals -->
+  <div id="aggie-housing-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Aggie Housing</h2>
+        <p class="modal-subtitle">Student Housing Review Platform</p>
+        <span class="close" onclick="closeModal('aggie-housing-modal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">
+          A comprehensive web platform designed specifically for UC Davis students to find and review housing options. 
+          The application features user authentication, detailed property listings, and a robust review system that helps 
+          students make informed decisions about their living arrangements.
+        </p>
+        <div class="tech-stack">
+          <h4>Technologies Used:</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">Node.js</span>
+            <span class="tech-tag">MongoDB</span>
+            <span class="tech-tag">Express.js</span>
+            <span class="tech-tag">CSS3</span>
+          </div>
+        </div>
+        <div class="modal-links">
+          <a href="https://github.com/v7ncentng/aggie-housing" target="_blank" class="modal-link">View Code</a>
+          <a href="#" class="modal-link">Live Demo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="connect4-bot-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Connect-4 Bot</h2>
+        <p class="modal-subtitle">AI-Powered Game Bot</p>
+        <span class="close" onclick="closeModal('connect4-bot-modal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">
+          Meet Connie, an intelligent Connect-4 bot powered by minimax algorithm with alpha-beta pruning. 
+          The bot analyzes game states up to 7 moves ahead and implements strategic heuristics to provide 
+          a challenging gaming experience for players of all skill levels.
+        </p>
+        <div class="tech-stack">
+          <h4>Technologies Used:</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Pygame</span>
+            <span class="tech-tag">Minimax Algorithm</span>
+            <span class="tech-tag">Alpha-Beta Pruning</span>
+          </div>
+        </div>
+        <div class="modal-links">
+          <a href="https://github.com/v7ncentng/connect4-bot" target="_blank" class="modal-link">View Code</a>
+          <a href="#" class="modal-link">Play Game</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="typing-test-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">ML Typing Speed Test</h2>
+        <p class="modal-subtitle">Machine Learning Enhanced Typing Practice</p>
+        <span class="close" onclick="closeModal('typing-test-modal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">
+          An intelligent typing speed test application that uses machine learning to analyze your typing patterns 
+          and provide personalized feedback. The system tracks accuracy, speed, and identifies common mistakes to 
+          help users improve their typing skills through adaptive practice sessions.
+        </p>
+        <div class="tech-stack">
+          <h4>Technologies Used:</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">TensorFlow</span>
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">Chart.js</span>
+          </div>
+        </div>
+        <div class="modal-links">
+          <a href="https://github.com/v7ncentng/Typing-Test" target="_blank" class="modal-link">View Code</a>
+          <a href="#" class="modal-link">Try It Out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="mastermind-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Mastermind Game</h2>
+        <p class="modal-subtitle">Terminal-Based Logic Puzzle</p>
+        <span class="close" onclick="closeModal('mastermind-modal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">
+          A Python implementation of the classic Mastermind board game featuring colorful terminal graphics, 
+          multiple difficulty levels, and an intelligent scoring system. Players must use logic and deduction 
+          to crack the secret color code within a limited number of attempts.
+        </p>
+        <div class="tech-stack">
+          <h4>Technologies Used:</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Colorama</span>
+            <span class="tech-tag">Terminal Graphics</span>
+            <span class="tech-tag">Object-Oriented Design</span>
+          </div>
+        </div>
+        <div class="modal-links">
+          <a href="https://github.com/v7ncentng/MasterMind-Game" target="_blank" class="modal-link">View Code</a>
+          <a href="#" class="modal-link">Download</a>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -326,5 +592,38 @@
     <a href="mailto:v7ncentng@gmail.com" target="_blank"><img src="gmail.png" alt="Email" class="icon"></a>
     <a href="https://www.linkedin.com/in/wang-ng-8805b2213/" target="_blank"><img src="linkedin.png" alt="LinkedIn" class="icon"></a>
   </div>
+
+  <script>
+    function openModal(projectId) {
+      const modal = document.getElementById(projectId + '-modal');
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+      if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        const openModal = document.querySelector('.modal[style*="block"]');
+        if (openModal) {
+          openModal.style.display = 'none';
+          document.body.style.overflow = 'auto';
+        }
+      }
+    });
+  </script>
 </body>
 </html>
