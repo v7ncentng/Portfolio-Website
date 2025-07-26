@@ -1,93 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - Wang Ng</title>
-    <link rel="stylesheet" href="background.css?v=debug1">
-    <script>
-        function openLink(url) {
-            window.open(url, '_blank');
-          }
-        </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact - Wang Ng</title>
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic,600" />
+  <style>
+    .topnav {
+      text-align: center;
+      padding: 2em 0;
+    }
+    .topnav a {
+      margin: 0 1em;
+      font-weight: 600;
+      color: #483949;
+      border: none;
+    }
+    .topnav a:hover {
+      color: #ef8376;
+    }
+
+    .about-section {
+      padding: 3em 1em;
+      background: #fff;
+    }
+
+    .about-layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4em;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-box {
+      flex: 1 1 50%;
+      max-width: 600px;
+      text-align: left;
+    }
+
+    .about-heading {
+      font-size: 2.5em;
+      color: #df7366;
+      margin-bottom: 1em;
+    }
+
+    .about-text {
+      font-size: 1.1em;
+      line-height: 1.75;
+      margin-bottom: 1.5em;
+      color: #5b5b5b;
+    }
+
+    .side-images {
+      flex: 1 1 40%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2em;
+    }
+
+    .image-container {
+      max-width: 300px;
+      text-align: center;
+    }
+
+    .clickable-img {
+      width: 100%;
+      border-radius: 0.5em;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .clickable-img:hover {
+      transform: scale(1.05);
+    }
+
+    .img-modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      padding-top: 80px;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.8);
+    }
+
+    .modal-content {
+      display: block;
+      margin: 0 auto;
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 1em;
+    }
+
+    .close {
+      position: absolute;
+      top: 40px;
+      right: 50px;
+      color: white;
+      font-size: 40px;
+      cursor: pointer;
+    }
+
+    .social-icons {
+      text-align: center;
+      margin: 3em 0;
+    }
+
+    .icon {
+      width: 40px;
+      height: 40px;
+      margin: 0 1em;
+      transition: transform 0.3s;
+    }
+
+    .icon:hover {
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 960px) {
+      .about-layout {
+        flex-direction: column;
+      }
+      .about-box, .side-images {
+        max-width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+  <script>
+    function openLink(url) {
+      window.open(url, '_blank');
+    }
+    function openModal(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.img-modal').forEach(m => m.style.display = 'none');
+      }
+    });
+  </script>
 </head>
-<body>
-    <div class="topnav">
-        <a href="index.html" class="nav-icon">// Home //</a>
-        <a href="WangNg.pdf" target="_blank">// Resume //</a>
-        <a href="projects.html">// Experience //</a>
-        <a href="background.html" class="active">// About //</a>
-      </div>
-      <div class="about-section">
+
+<body class="is-preload">
+  <div class="topnav">
+    <a href="index.html">// Home //</a>
+    <a href="WangNg.pdf" target="_blank">// Resume //</a>
+    <a href="projects.html">// Experience //</a>
+    <a href="background.html" class="active">// About //</a>
+  </div>
+
+  <section class="wrapper style2 about-section">
+    <div class="container">
+      <div class="about-layout">
+        <!-- LEFT: Text -->
         <div class="about-box">
-            <h1 class="about-heading">A bit about me:</h1>
-            <p class="about-text">
-            Hello fellow internet user! My name is Vincent Ng and I was born in Hong Kong, and spent a majority of my life in the SF Bay area. </p>
-            <p class="about-text">My journey into coding began at age 10 on platforms like Scratch and Code.org, where I built simple games like hangman, mastermind, and tic-tac-toe. The early curiosity stemmed from connecting my childhood to software and evolved into a passion for programming that still burns as I reach my third year in UC Davis.</p>
-            <p class="about-text">I have been especially hooked on building my programming skillset through fullstack projects, with an emphasis on AI/machine learning and deep learning applications.</p>
-            <p class="about-text">My passion continuously grows at UC Davis, where I'm currently studying Computer Science, Statistics, and Technology Management, creating projects intertwining my personal interests and user experience.</p>
-            <p class="about-text">When I'm not behind a computer, I love to practice boxing, hike, lift weights, and explore new food cuisines!</p> 
-            <p class="about-text">I'm looking forward to connecting!</p>
+          <h1 class="about-heading">A bit about me:</h1>
+          <p class="about-text">
+            My name is Vincent Ng and I was born in Hong Kong, and spent a majority of my life in the SF Bay area.
+          </p>
+          <p class="about-text">
+            My journey into coding began at age 10 on platforms like Scratch and Code.org, where I built simple games like hangman, mastermind, and tic-tac-toe.
+          </p>
+          <p class="about-text">
+            I have been especially hooked on building my programming skillset through fullstack projects, with an emphasis on AI/machine learning and deep learning applications.
+          </p>
+          <p class="about-text">
+            At UC Davis, I study Computer Science, Statistics, and Technology Management—creating projects that intertwine personal interest and user experience.
+          </p>
+          <p class="about-text">
+            When I'm not coding, I enjoy boxing, hiking, lifting weights, and exploring new cuisines!
+          </p>
+          <p class="about-text">I'm looking forward to connecting!</p>
         </div>
+
+        <!-- RIGHT: Photos -->
         <div class="side-images">
-            <!-- Image 1: Golden Gate -->
-            <div class="image-container">
+          <!-- Image 1 -->
+          <div class="image-container">
             <img src="Hike1.png" alt="Golden Gate Overlook" class="clickable-img" onclick="openModal('modal1')">
             <p>Me and a friend at <a href="https://www.google.com/maps/place/Hawk+Hill/" target="_blank" style="color:#007acc; text-decoration: underline;">Golden Gate Bridge Overlook</a>! 📍</p>
-            </div>
-        
-            <!-- Image 2: Mission Peak -->
-            <div class="image-container">
-            <img src="Hike2.png" alt="Mission Peak Summit" class="clickable-img" onclick="openModal('modal2')">
-            <p>Summit of <a href="https://www.google.com/maps/place/Mission+Peak/" target="_blank" style="color:#007acc; text-decoration: underline;">Mission Peak</a> on a Windy morning! 📍</p>
-            </div>
-        </div>
-        
-        <!-- Modal 1 -->
-        <div id="modal1" class="img-modal" onclick="closeModal('modal1')">
-            <span class="close">&times;</span>
-            <img class="modal-content" src="Hike1.png" alt="Golden Gate Overlook">
-        </div>
-        
-        <!-- Modal 2 -->
-        <div id="modal2" class="img-modal" onclick="closeModal('modal2')">
-            <span class="close">&times;</span>
-            <img class="modal-content" src="Hike2.png" alt="Mission Peak">
-        </div>
-    </div>
-      
-      
-    </div>
-    </body>
-      <div class="social-icons">
-        <a href="https://github.com/v7ncentng" target="_blank">
-          <img src="github.png" alt="GitHub" class="icon">
-        </a>
-        <a href="mailto:v7ncentng@gmail.com" target="_blank">
-          <img src="gmail.png" alt="Email" class="icon">
-        </a>
-        <a href="https://www.linkedin.com/in/wang-ng-8805b2213/" target="_blank">
-          <img src="linkedin.png" alt="LinkedIn" class="icon">
-        </a>
-      </div>
+          </div>
 
-    <script>
-    function openModal(id) {
-        document.getElementById(id).style.display = 'block';
-    }
-    
-    function closeModal(id) {
-        document.getElementById(id).style.display = 'none';
-    }
-    
-    // Optional: Close modal on ESC key
-    window.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-        document.querySelectorAll('.img-modal').forEach(m => m.style.display = 'none');
-        }
-    });
-    </script>
-           
-      
+          <!-- Image 2 -->
+          <div class="image-container">
+            <img src="Hike2.png" alt="Mission Peak Summit" class="clickable-img" onclick="openModal('modal2')">
+            <p>Summit of <a href="https://www.google.com/maps/place/Mission+Peak/" target="_blank" style="color:#007acc; text-decoration: underline;">Mission Peak</a> on a windy morning! 📍</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modals -->
+  <div id="modal1" class="img-modal" onclick="closeModal('modal1')">
+    <span class="close">&times;</span>
+    <img class="modal-content" src="Hike1.png" alt="Golden Gate Overlook">
+  </div>
+
+  <div id="modal2" class="img-modal" onclick="closeModal('modal2')">
+    <span class="close">&times;</span>
+    <img class="modal-content" src="Hike2.png" alt="Mission Peak">
+  </div>
+
+  <div class="social-icons">
+    <a href="https://github.com/v7ncentng" target="_blank">
+      <img src="github.png" alt="GitHub" class="icon">
+    </a>
+    <a href="mailto:v7ncentng@gmail.com" target="_blank">
+      <img src="gmail.png" alt="Email" class="icon">
+    </a>
+    <a href="https://www.linkedin.com/in/wang-ng-8805b2213/" target="_blank">
+      <img src="linkedin.png" alt="LinkedIn" class="icon">
+    </a>
+  </div>
 </body>
 </html>

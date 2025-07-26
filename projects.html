@@ -4,9 +4,269 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Projects - Vincent Ng</title>
-  <link rel="stylesheet" href="projects.css" />
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic,600">
+  <style>
+    .topnav {
+      text-align: center;
+      padding: 2em 0;
+    }
+    .topnav a {
+      margin: 0 1em;
+      font-weight: 600;
+      color: #483949;
+      border: none;
+    }
+    .topnav a:hover {
+      color: #ef8376;
+    }
+
+    .project-heading {
+      text-align: center;
+      font-size: 2.75em;
+      color: #df7366;
+      margin-bottom: 2em;
+    }
+
+    .timeline-wrapper {
+      padding: 6em 2em;
+      overflow-x: auto;
+    }
+
+    .horizontal-timeline {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-width: 800px;
+      margin: 0 auto;
+      max-width: 1200px;
+      height: 500px; /* Increased height to prevent cutoff */
+    }
+
+    /* Horizontal line connecting all dots */
+    .horizontal-timeline::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #df7366, #ef8376);
+      z-index: 1;
+      transform: translateY(-50%);
+    }
+
+    .timeline-event {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      z-index: 2;
+    }
+
+    /* Dots - always centered on the line */
+    .timeline-dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      background-color: #df7366;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      box-shadow: 0 0 0 2px #df7366, 0 0 10px rgba(223, 115, 102, 0.3);
+      z-index: 3;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .timeline-dot:hover {
+      transform: translate(-50%, -50%) scale(1.2);
+      box-shadow: 0 0 0 2px #df7366, 0 0 20px rgba(223, 115, 102, 0.5);
+    }
+
+    /* Alternating positioning */
+    .timeline-event:nth-child(odd) .content {
+      position: absolute;
+      top: 30%;
+      transform: translateY(-100%);
+      opacity: 1;
+    }
+
+    .timeline-event:nth-child(even) .content {
+      position: absolute;
+      bottom: 30%;
+      transform: translateY(100%);
+      opacity: 1;
+    }
+
+
+
+    /* Connecting lines from dots to content boxes */
+    .timeline-event:nth-child(odd)::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 2px;
+      height: 30%;
+      background-color: #df7366;
+      z-index: 1;
+      opacity: 0.6;
+      transform: translate(-50%, -100%);
+    }
+
+    .timeline-event:nth-child(even)::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 2px;
+      height: 30%;
+      background-color: #df7366;
+      z-index: 1;
+      opacity: 0.6;
+      transform: translateX(-50%);
+    }
+
+    .content {
+      background: #f9f9f9;
+      padding: 1.5em;
+      border-radius: 0.8em;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: 200px;
+      text-align: center;
+      position: relative;
+    }
+
+    .content:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    /* Speech bubble arrows */
+    .timeline-event:nth-child(odd) .content::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 8px solid transparent;
+      border-top-color: #f9f9f9;
+    }
+
+    .timeline-event:nth-child(even) .content::after {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 8px solid transparent;
+      border-bottom-color: #f9f9f9;
+    }
+
+    .content h3 {
+      margin: 0 0 0.5em;
+      font-size: 1.3em;
+      color: #483949;
+    }
+
+    .content p {
+      margin: 0 0 1em;
+      color: #666;
+      font-size: 0.95em;
+      line-height: 1.4;
+    }
+
+    .content a {
+      color: #007acc;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 0.9em;
+    }
+
+    .content a:hover {
+      text-decoration: underline;
+    }
+
+    .social-icons {
+      text-align: center;
+      margin: 4em 0 2em;
+    }
+
+    .icon {
+      width: 40px;
+      height: 40px;
+      margin: 0 1em;
+      transition: transform 0.3s;
+    }
+
+    .icon:hover {
+      transform: scale(1.1);
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .timeline-wrapper {
+        padding: 2em 1em;
+      }
+      
+      .horizontal-timeline {
+        flex-direction: column;
+        min-width: auto;
+        gap: 3em;
+      }
+
+      .horizontal-timeline::before {
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        right: auto;
+        width: 3px;
+        height: auto;
+        background: linear-gradient(180deg, #df7366, #ef8376);
+      }
+
+      .timeline-event {
+        flex-direction: row;
+        width: 100%;
+      }
+
+      .timeline-event:nth-child(odd) {
+        flex-direction: row-reverse;
+      }
+
+      .timeline-event:nth-child(odd) .content,
+      .timeline-event:nth-child(even) .content {
+        margin: 0;
+        order: 1;
+        width: calc(50% - 2em);
+      }
+
+      .timeline-dot {
+        order: 2;
+        margin: 0 1em;
+      }
+
+      .timeline-event::after {
+        display: none;
+      }
+
+      .timeline-event:nth-child(odd) .content::after,
+      .timeline-event:nth-child(even) .content::after {
+        display: none;
+      }
+    }
+  </style>
 </head>
-<body>
+
+<body class="is-preload">
+  <!-- Navigation -->
   <div class="topnav">
     <a href="index.html">// Home //</a>
     <a href="WangNg.pdf" target="_blank">// Resume //</a>
@@ -14,40 +274,53 @@
     <a href="background.html">// About //</a>
   </div>
 
+  <!-- Page Header -->
   <h1 class="project-heading">Projects:</h1>
 
-
+  <!-- Timeline -->
   <div class="timeline-wrapper">
     <div class="horizontal-timeline">
-    
-      <div class="timeline-event top">
-        <div class="dot-wrapper">
-          <div class="dot"></div>
-          <div class="content">
-            <h3>Aggie Housing</h3>
-            <p>Find your ideal Davis apartment by hearing what other students think!</p>
-            <a href="https://github.com/v7ncentng/MasterMind-Game" target="_blank">GitHub ↗</a>
-          </div>
+      
+      <div class="timeline-event">
+        <div class="content">
+          <h3>Aggie Housing</h3>
+          <p>Find your ideal Davis apartment by hearing what other students think!</p>
+          <a href="https://github.com/v7ncentng/MasterMind-Game" target="_blank">GitHub ↗</a>
         </div>
+        <div class="timeline-dot"></div>
       </div>
-  
-      <div class="timeline-event bottom">
-        <div class="dot-wrapper">
-          <div class="dot"></div>
-          <div class="content">
-            <h3>Connect-4 Bot</h3>
-            <p>Try to win against Connie, my AI powered Connect-4 bot.</p>
-            <a href="https://github.com/v7ncentng/Typing-Test" target="_blank">GitHub ↗</a>
-            </div>
+
+      <div class="timeline-event">
+        <div class="content">
+          <h3>Connect-4 Bot</h3>
+          <p>Try to win against Connie, my AI-powered Connect-4 bot.</p>
+          <a href="https://github.com/v7ncentng/Typing-Test" target="_blank">GitHub ↗</a>
         </div>
+        <div class="timeline-dot"></div>
       </div>
-  
-    </div>
-  </div>
-  
+
+      <div class="timeline-event">
+        <div class="content">
+          <h3>ML Typing Speed Test</h3>
+          <p>A speed typing app that learns your typing patterns with machine learning.</p>
+          <a href="https://github.com/v7ncentng/Typing-Test" target="_blank">GitHub ↗</a>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+
+      <div class="timeline-event">
+        <div class="content">
+          <h3>Mastermind Game</h3>
+          <p>A Python terminal-based color logic game with a scoring system.</p>
+          <a href="https://github.com/v7ncentng/MasterMind-Game" target="_blank">GitHub ↗</a>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+
     </div>
   </div>
 
+  <!-- Social Links -->
   <div class="social-icons">
     <a href="https://github.com/v7ncentng" target="_blank"><img src="github.png" alt="GitHub" class="icon"></a>
     <a href="mailto:v7ncentng@gmail.com" target="_blank"><img src="gmail.png" alt="Email" class="icon"></a>

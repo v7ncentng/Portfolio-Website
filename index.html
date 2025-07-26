@@ -2,99 +2,199 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      <title>Vincent Ng | Software Engineer</title>
-    <link rel="stylesheet" href="index.css?v=debug1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title class="name">Vincent Ng | Software Engineer</title>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic,600">
     <script>
       function openLink(url) {
         window.open(url, '_blank');
       }
     </script>
-  </head>
-<body>
-  <div class="topnav">
-  <a href="index.html" class="active">// Home //</a>
-  <a href="WangNg.pdf" target="_blank">// Resume //</a>
-  <a href="projects.html">// Experience //</a>
-  <a href="background.html">// About //</a>
-</div>
-<div class="container">
-  <img src="vince.jpg" alt="A photo of Vincent Ng" class="photo"/>
-    <div class="text-block">
-    <h1 class="intro-heading">Vincent Ng | Software Developer</h1>
-      <div class="im-label">I'm</div>
-      <div class="text" style="--steps:21; --delay: 0s;"> an initiative-taker.</div>
-      <div class="text" style="--steps: 30; --delay: 2s;">constantly inspired to create.</div>
-      <div class="text" style="--steps: 24; --delay: 4s;">consistently developing.</div>
-      <div class="text" style="--steps: 27; --delay: 6s;">an aspiring business owner.</div>
-    </div>
-    <div class="section" id="Skills"></div>
-      <h2 class="background-label">Background:</h2>
-        <div style="max-width: 90vw;">
-        <div class="background-text" style="--steps: 68; --delay: 8s;"><strong>Education:</strong> B.S. in Computer Science, UC Davis (2023–2027), GPA: 3.7.</div>
-        <div class="background-text" style="--steps:135; --delay:10s"> <strong>Languages & Tools:</strong> Python, C++, Java, C, React.js, Javascript, CSS, Flask, Pandas, Supabase, NumPy, Tensorflow, MatPlotLib.</div>
-  </div>
-</div>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const lines = document.querySelectorAll(".text, .background-text");
-    lines.forEach((line) => {
-      const styles = getComputedStyle(line);
-      const delay = parseFloat(styles.getPropertyValue('--delay')) || 0;
-      const steps = parseInt(styles.getPropertyValue('--steps')) || line.textContent.trim().length;
-      const text = line.textContent.trim();
-      const isBackgroundText = line.classList.contains('background-text');
-  
-      if (isBackgroundText) {
-        line.style.opacity = '1';
-      } else {
-        const originalText = text;
-        line.textContent = ''; // Clear the text initially
-        line.style.width = 'auto';
-        line.style.overflow = 'visible';
-        line.style.whiteSpace = 'nowrap';
-  
-        // Create a span for the text and a span for the cursor
-        const textSpan = document.createElement('span');
-        const cursorSpan = document.createElement('span');
-        cursorSpan.className = 'cursor';
-        line.appendChild(textSpan);
-        line.appendChild(cursorSpan);
-  
-        let currentStep = 0;
-        const typingSpeed = 2000 / Math.max(steps, 1);
-  
-        const typeCharacter = () => {
-          if (currentStep < steps && currentStep < originalText.length) {
-            textSpan.textContent = originalText.substring(0, currentStep + 1);
-            cursorSpan.style.display = 'inline-block';
-            currentStep++;
-            setTimeout(typeCharacter, typingSpeed);
-          } else {
-            textSpan.textContent = originalText;
-            cursorSpan.style.display = 'none'; // Hide cursor when done
-            line.classList.add('text-complete');
-          }
-        };
-  
-        setTimeout(() => {
-          typeCharacter();
-        }, delay * 1000);
+    <style>
+      .name {
+        color: black;
       }
-    });
-  });
-</script>
-<div class="social-icons">
-  <a href="https://github.com/v7ncentng" target="_blank">
-    <img src="github.png" alt="GitHub" class="icon">
-  </a>
-  <a href="mailto:v7ncentng@gmail.com" target="_blank">
-    <img src="gmail.png" alt="Email" class="icon">
-  </a>
-  <a href="https://www.linkedin.com/in/wang-ng-8805b2213/" target="_blank">
-    <img src="linkedin.png" alt="LinkedIn" class="icon">
-  </a>
-</div>
+      .topnav {
+        text-align: center;
+        padding: 2em 0;
+      }
+      .topnav a {
+        margin: 0 1em;
+        font-weight: 600;
+        color: #000000;
+        border: none;
+      }
+      .topnav a:hover {
+        color: #ef8376;
+      }
+      .text-block {
+        margin-top: 2em;
+        text-align: left;
+      }
+      .intro-heading {
+        font-size: 2.5em;
+        color: #000000;
+      }
+      .im-label {
+        font-size: 1.5em;
+        color: #df7366;
+      }
+      .text {
+        font-size: 1.25em;
+        font-weight: 400;
+        font-family: monospace;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+        margin-top: 0.5em;
+      }
+      .text-complete {
+        border-right: none !important;
+      }
+      .background-label {
+        margin-top: 3em;
+        color: #df7366;
+        font-size: 1.75em;
+      }
+      .background-text {
+        font-size: 1.1em;
+        margin-top: 1em;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+      }
+      .icon {
+        width: 40px;
+        height: 40px;
+        margin: 0 1em;
+        transition: transform 0.3s;
+      }
+      .icon:hover {
+        transform: scale(1.1);
+      }
+      .social-icons {
+        text-align: center;
+        margin-top: 3em;
+      }
+      .photo {
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 50%;
+        display: block;
+        margin-left: 0; /* Left-align the photo */
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+      }
+      
+      .cursor {
+        display: inline-block;
+        width: 2px;
+        height: 1.2em;
+        background-color: #333;
+        animation: blink 1s step-start infinite;
+        margin-left: 2px;
+        vertical-align: baseline;
+        border-radius: 1px;
+        box-shadow: 0 0 1px rgba(0,0,0,0.3);
+      }
+      
+      @keyframes blink {
+        50% { opacity: 0; }
+      }
+      
+      /* Ensure the photo column is left-aligned */
+      .col-4 {
+        text-align: left;
+      }
+      
+    </style>
+  </head>
+  <body class="is-preload">
+    <div class="topnav">
+      <a href="index.html" class="active">// Home //</a>
+      <a href="WangNg.pdf" target="_blank">// Resume //</a>
+      <a href="projects.html">// Experience //</a>
+      <a href="background.html">// About //</a>
+    </div>
 
-</body>
+    <section class="wrapper style2">
+      <div class="container">
+        <div class="row aln-center">
+          <div class="col-4">
+            <img src="vince.jpg" alt="A photo of Vincent Ng" class="photo"/>
+          </div>
+          <div class="col-8">
+            <div class="text-block">
+              <h1 class="intro-heading">Vincent Ng: Software Developer</h1>
+              <div class="im-label">I'm</div>
+              <div class="text" style="--steps:21; --delay: 0s;"> an initiative-taker.</div>
+              <div class="text" style="--steps:30; --delay: 2s;">constantly inspired to create.</div>
+              <div class="text" style="--steps:24; --delay: 4s;">consistently developing.</div>
+              <div class="text" style="--steps:27; --delay: 6s;">an aspiring business owner.</div>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="background-label">Background:</h2>
+        <div class="background-text" style="--steps: 68; --delay: 6s;">
+          <strong>Education:</strong> B.S. in Computer Science, UC Davis (2023–2027), GPA: 3.7.
+        </div>
+        <div class="background-text" style="--steps:135; --delay:8s;">
+          <strong>Languages & Tools:</strong> Python, C++, Java, C, React.js, Javascript, CSS, Flask, Pandas, Supabase, NumPy, Tensorflow, MatPlotLib.
+        </div>
+      </div>
+    </section>
+
+    <div class="social-icons">
+      <p style="font-size: 1.2em; color: #000000; margin-bottom: 1em; font-weight: 600; text-align: center;">Connect with me here!</p>
+      <a href="https://github.com/v7ncentng" target="_blank">
+        <img src="github.png" alt="GitHub" class="icon">
+      </a>
+      <a href="mailto:v7ncentng@gmail.com" target="_blank">
+        <img src="gmail.png" alt="Email" class="icon">
+      </a>
+      <a href="https://www.linkedin.com/in/wang-ng-8805b2213/" target="_blank">
+        <img src="linkedin.png" alt="LinkedIn" class="icon">
+      </a>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const lines = document.querySelectorAll(".text, .background-text");
+        lines.forEach((line) => {
+          const styles = getComputedStyle(line);
+          const delay = parseFloat(styles.getPropertyValue('--delay')) || 0;
+          const steps = parseInt(styles.getPropertyValue('--steps')) || line.textContent.trim().length;
+          const text = line.textContent.trim();
+          const isBackgroundText = line.classList.contains('background-text');
+
+          if (isBackgroundText) {
+            setTimeout(() => { line.style.opacity = '1'; }, delay * 1000);
+          } else {
+            const originalText = text;
+            line.textContent = '';
+            
+            const textSpan = document.createElement('span');
+            line.appendChild(textSpan);
+            
+            let currentStep = 0;
+            const typingSpeed = 2000 / Math.max(steps, 1);
+            
+            const typeCharacter = () => {
+              if (currentStep < steps && currentStep < originalText.length) {
+                textSpan.innerHTML = originalText.substring(0, currentStep + 1) + '<span class="cursor"></span>';
+                currentStep++;
+                setTimeout(typeCharacter, typingSpeed);
+              } else {
+                textSpan.textContent = originalText;
+                line.classList.add('text-complete');
+              }
+            };
+            
+            setTimeout(typeCharacter, delay * 1000);
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
