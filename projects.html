@@ -10,6 +10,7 @@
     .topnav {
       text-align: center;
       padding: 2em 0;
+      margin: 0;
     }
     .topnav a {
       margin: 0 1em;
@@ -27,16 +28,15 @@
       color: #000000;
     }
 
-    /* Projects section background wrapper */
-    .projects-section {
-      background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
-      padding-top: 2em;
+    .timeline-wrapper {
+      padding: 4em 2em 6em;
+      overflow-x: auto;
+      background: #ffffff;
+      margin-top: 0;
     }
 
-    .timeline-wrapper {
-      padding: 2em 2em 6em;
-      overflow-x: auto;
-      margin-top: 0;
+    body {
+      background-color: #ffffff;
     }
 
     .horizontal-timeline {
@@ -355,6 +355,7 @@
     /* Experience Section Styles */
     .experience-section {
       padding: 6em 2em 4em;
+      background: #F8F8F8
     }
 
     .experience-heading {
@@ -537,14 +538,14 @@
     <a href="background.html">// About //</a>
   </div>
 
-  <!-- Projects Section -->
-  <div class="projects-section">
+  <!-- Projects Section with White Background -->
+  <div style="background: #ffffff; padding: 2em 0;">
     <!-- Page Header -->
     <h1 class="project-heading">Projects:</h1>
-    
+
     <!-- Timeline -->
     <div class="timeline-wrapper">
-      <div class="horizontal-timeline">
+    <div class="horizontal-timeline">
       
       <div class="timeline-event">
         <div class="content" onclick="openModal('aggie-housing')">
@@ -615,7 +616,6 @@
         </div>
       </div>
     </div>
-  </div>
   </div>
 
   <div id="connect4-bot-modal" class="modal">
