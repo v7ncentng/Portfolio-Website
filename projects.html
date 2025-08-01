@@ -27,9 +27,16 @@
       color: #000000;
     }
 
+    /* Projects section background wrapper */
+    .projects-section {
+      background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+      padding-top: 2em;
+    }
+
     .timeline-wrapper {
-      padding: 6em 2em 6em;
+      padding: 2em 2em 6em;
       overflow-x: auto;
+      margin-top: 0;
     }
 
     .horizontal-timeline {
@@ -345,7 +352,121 @@
       transform: scale(1.1);
     }
 
-    /* Mobile responsiveness */
+    /* Experience Section Styles */
+    .experience-section {
+      padding: 6em 2em 4em;
+    }
+
+    .experience-heading {
+      text-align: center;
+      font-size: 2.75em;
+      color: #000000;
+      margin-bottom: 2em;
+    }
+
+    .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2em;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .experience-card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 2em;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      border: 1px solid #f0f0f0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .experience-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #df7366, #ef8376);
+    }
+
+    .experience-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .experience-header {
+      margin-bottom: 1.2em;
+    }
+
+    .experience-header h3 {
+      margin: 0 0 0.5em;
+      font-size: 1.4em;
+      color: #483949;
+      font-weight: 600;
+    }
+
+    .company {
+      display: block;
+      color: #df7366;
+      font-weight: 600;
+      font-size: 1.1em;
+      margin-bottom: 0.3em;
+    }
+
+    .duration {
+      display: block;
+      color: #888;
+      font-size: 0.9em;
+      font-style: italic;
+    }
+
+    .experience-description {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 1.5em;
+      font-size: 1em;
+      text-align: left;
+    }
+
+    .experience-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5em;
+    }
+
+    .skill-tag {
+      background: linear-gradient(135deg, #df7366, #ef8376);
+      color: white;
+      padding: 0.4em 0.8em;
+      border-radius: 15px;
+      font-size: 0.8em;
+      font-weight: 500;
+    }
+
+    /* Mobile responsiveness for experience section */
+    @media (max-width: 768px) {
+      .experience-section {
+        padding: 4em 1em 2em;
+      }
+
+      .experience-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5em;
+      }
+
+      .experience-card {
+        padding: 1.5em;
+      }
+
+      .experience-heading {
+        font-size: 2.2em;
+      }
+    }
     @media (max-width: 768px) {
       .timeline-wrapper {
         padding: 2em 1em;
@@ -416,12 +537,14 @@
     <a href="background.html">// About //</a>
   </div>
 
-  <!-- Page Header -->
-  <h1 class="project-heading">Projects:</h1>
-
-  <!-- Timeline -->
-  <div class="timeline-wrapper">
-    <div class="horizontal-timeline">
+  <!-- Projects Section -->
+  <div class="projects-section">
+    <!-- Page Header -->
+    <h1 class="project-heading">Projects:</h1>
+    
+    <!-- Timeline -->
+    <div class="timeline-wrapper">
+      <div class="horizontal-timeline">
       
       <div class="timeline-event">
         <div class="content" onclick="openModal('aggie-housing')">
@@ -492,6 +615,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 
   <div id="connect4-bot-modal" class="modal">
@@ -587,10 +711,222 @@
   </div>
 
   <!-- Social Links -->
+  <!-- Experience Section -->
+  <section class="experience-section">
+    <h1 class="experience-heading">Experience:</h1>
+    <div class="experience-grid">
+      
+      <div class="experience-card" onclick="openModal('data-analytics')">
+        <div class="experience-header">
+          <h3>Data Analytics & Human Resources Intern</h3>
+          <span class="company">Insperity Inc.</span>
+          <span class="duration">Aug 2022 - Dec 2023</span>
+        </div>
+        <p class="experience-description">
+          Coordinated weekly client service reports and generated 25+ actionable data visuals for numerous client companies.
+        </p>
+        <div class="experience-skills">
+          <span class="skill-tag">Data Analytics</span>
+          <span class="skill-tag">Excel</span>
+          <span class="skill-tag">Reporting</span>
+        </div>
+      </div>
+
+      <div class="experience-card" onclick="openModal('qualitative-research')">
+        <div class="experience-header">
+          <h3>Qualitative Research Intern</h3>
+          <span class="company">Stanford John W. Gardner Center</span>
+          <span class="duration">Jan 2022 - June 2022</span>
+        </div>
+        <p class="experience-description">
+          Conducted and facilitated 15+ student interviews regarding areas of improvement within the Oakland Unified School District.
+        </p>
+        <div class="experience-skills">
+          <span class="skill-tag">Research</span>
+          <span class="skill-tag">Interviews</span>
+          <span class="skill-tag">Analysis</span>
+        </div>
+      </div>
+
+      <div class="experience-card" onclick="openModal('deep-learning')">
+        <div class="experience-header">
+          <h3>Deep Learning Researcher</h3>
+          <span class="company">KAIST</span>
+          <span class="duration">July 2024 - July 2024</span>
+        </div>
+        <p class="experience-description">
+          Developed UNet models for road segmentation from satellite images.
+        </p>
+        <div class="experience-skills">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">TensorFlow</span>
+          <span class="skill-tag">UNet</span>
+        </div>
+      </div>
+
+      <div class="experience-card" onclick="openModal('research-assistant')">
+        <div class="experience-header">
+          <h3>Research Assistant</h3>
+          <span class="company">UC Davis Research Lab</span>
+          <span class="duration">September 2023 - Present</span>
+        </div>
+        <p class="experience-description">
+          Find your ideal Davis apartment by hearing what other students think!
+        </p>
+        <div class="experience-skills">
+          <span class="skill-tag">Machine Learning</span>
+          <span class="skill-tag">Data Analysis</span>
+          <span class="skill-tag">Python</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Experience Modals -->
+  <div id="data-analytics-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Data Analytics & Human Resources Intern</h2>
+        <p class="modal-subtitle">Insperity Inc. • Aug 2022 - Dec 2023</p>
+        <span class="close" onclick="closeModal('data-analytics-modal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">
+          Coordinated weekly client service reports and generated 25+ actionable data visuals for numerous client 
+          companies, analyzing marginal rates, employee training rates, and new hires and termination frequency. 
+          Developed comprehensive reporting systems that provided valuable insights for HR decision-making and 
+          strategic planning across multiple client organizations.
+        </p>
+        <div class="tech-stack">
+          <h4>Technologies Used:</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">Excel</span>
+            <span class="tech-tag">Data Analytics</span>
+            <span class="tech-tag">Reporting</span>
+            <span class="tech-tag">Data Visualization</span>
+            <span class="tech-tag">HR Analytics</span>
+            <span class="tech-tag">Statistical Analysis</span>
+          </div>
+        </div>
+        <div class="modal-links">
+          <a href="https://www.insperity.com" target="_blank" class="modal-link">Insperity Inc.</a>
+          <a href="#" class="modal-link">View Certificate</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="qualitative-research-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Qualitative Research Intern</h2>
+        <p class="modal-subtitle">Stanford John W. Gardner Center • Jan 2022 - June 2022</p>
+        <span class="close" onclick="closeModal('qualitative-research-modal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">
+          Conducted and facilitated 15+ student interviews regarding areas of improvement within the Oakland 
+          Unified School District. Developed interview protocols, analyzed qualitative data, and synthesized 
+          findings into comprehensive reports that informed educational policy recommendations. Collaborated 
+          with research teams to identify key themes and patterns in student feedback.
+        </p>
+        <div class="tech-stack">
+          <h4>Technologies Used:</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">Qualitative Research</span>
+            <span class="tech-tag">Interview Techniques</span>
+            <span class="tech-tag">Data Analysis</span>
+            <span class="tech-tag">Report Writing</span>
+            <span class="tech-tag">Educational Research</span>
+            <span class="tech-tag">Policy Analysis</span>
+          </div>
+        </div>
+        <div class="modal-links">
+          <a href="https://gardnercenter.stanford.edu" target="_blank" class="modal-link">Gardner Center</a>
+          <a href="#" class="modal-link">Research Findings</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="deep-learning-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Deep Learning Researcher</h2>
+        <p class="modal-subtitle">KAIST • July 2024</p>
+        <span class="close" onclick="closeModal('deep-learning-modal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">
+          Participated in an intensive research program at Korea Advanced Institute of Science and Technology (KAIST), 
+          focusing on computer vision applications for geospatial analysis. Developed and trained UNet neural network 
+          models for accurate road segmentation from high-resolution satellite imagery. Implemented data preprocessing 
+          pipelines and model evaluation metrics to achieve state-of-the-art segmentation accuracy.
+        </p>
+        <div class="tech-stack">
+          <h4>Technologies Used:</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">TensorFlow</span>
+            <span class="tech-tag">UNet</span>
+            <span class="tech-tag">Computer Vision</span>
+            <span class="tech-tag">Satellite Imagery</span>
+            <span class="tech-tag">Deep Learning</span>
+          </div>
+        </div>
+        <div class="modal-links">
+          <a href="https://kaist.ac.kr" target="_blank" class="modal-link">KAIST</a>
+          <a href="#" class="modal-link">Research Paper</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="research-assistant-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Research Assistant</h2>
+        <p class="modal-subtitle">UC Davis Research Lab • September 2023 - Present</p>
+        <span class="close" onclick="closeModal('research-assistant-modal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">
+          Supporting ongoing research initiatives in machine learning and data science applications. Conducting 
+          literature reviews, implementing experimental algorithms, and analyzing large datasets to extract meaningful 
+          insights. Collaborating with graduate students and faculty members on research projects, contributing to 
+          paper submissions and conference presentations.
+        </p>
+        <div class="tech-stack">
+          <h4>Technologies Used:</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Machine Learning</span>
+            <span class="tech-tag">Data Analysis</span>
+            <span class="tech-tag">Statistical Modeling</span>
+            <span class="tech-tag">Research Methods</span>
+            <span class="tech-tag">Academic Writing</span>
+          </div>
+        </div>
+        <div class="modal-links">
+          <a href="https://ucdavis.edu" target="_blank" class="modal-link">UC Davis</a>
+          <a href="#" class="modal-link">Publications</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="social-icons">
-    <a href="https://github.com/v7ncentng" target="_blank"><img src="github.png" alt="GitHub" class="icon"></a>
-    <a href="mailto:v7ncentng@gmail.com" target="_blank"><img src="gmail.png" alt="Email" class="icon"></a>
-    <a href="https://www.linkedin.com/in/wang-ng-8805b2213/" target="_blank"><img src="linkedin.png" alt="LinkedIn" class="icon"></a>
+    <p style="font-size: 1.2em; color: #000000; margin-bottom: 1em; font-weight: 600; text-align: center;">Connect with me here!</p>
+    <a href="https://github.com/v7ncentng" target="_blank">
+      <img src="github.png" alt="GitHub" class="icon">
+    </a>
+    <a href="mailto:v7ncentng@gmail.com" target="_blank">
+      <img src="gmail.png" alt="Email" class="icon">
+    </a>
+    <a href="https://www.linkedin.com/in/wang-ng-8805b2213/" target="_blank">
+      <img src="linkedin.png" alt="LinkedIn" class="icon">
+    </a>
   </div>
 
   <script>

@@ -15,6 +15,8 @@
       .name {
         color: black;
       }
+      
+      /* Navbar styling - identical to background.html */
       .topnav {
         text-align: center;
         padding: 2em 0;
@@ -22,24 +24,59 @@
       .topnav a {
         margin: 0 1em;
         font-weight: 600;
-        color: #000000;
+        color: #483949;
         border: none;
+        text-decoration: none;
       }
       .topnav a:hover {
         color: #ef8376;
       }
+      
+      /* Main content section - using similar structure to background.html */
+      .main-section {
+        padding: 3em 1em;
+        background: #fff;
+      }
+      
+      .main-layout {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4em;
+        align-items: flex-start;
+        justify-content: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      
+      .photo-container {
+        flex: 0 0 300px;
+        text-align: center;
+        align-self: flex-start;
+      }
+      
+      .content-container {
+        flex: 1 1 500px;
+        max-width: 600px;
+        align-self: flex-start;
+      }
+      
       .text-block {
-        margin-top: 2em;
         text-align: left;
       }
+      
       .intro-heading {
         font-size: 2.5em;
         color: #000000;
+        margin-bottom: 0.5em;
       }
+      
       .im-label {
         font-size: 1.5em;
+        font-weight: 700;
         color: #df7366;
+        margin-bottom: 0.5em;
       }
+      
       .text {
         font-size: 1.25em;
         font-weight: 400;
@@ -47,42 +84,55 @@
         white-space: nowrap;
         overflow: hidden;
         display: block;
-        margin-top: 0.5em;
+        margin-bottom: 0.3em;
       }
+      
       .text-complete {
         border-right: none !important;
       }
+      
       .background-label {
         margin-top: 3em;
         color: #df7366;
         font-size: 1.75em;
+        margin-bottom: 1em;
+        position: relative;
+        top: 0;
+        height: 2.5em;
+        display: block;
       }
+      
+      .background-container {
+        position: relative;
+        min-height: 120px;
+      }
+      
       .background-text {
         font-size: 1.1em;
-        margin-top: 1em;
+        line-height: 1.6;
+        color: #5b5b5b;
+        position: absolute;
+        width: 100%;
+        visibility: hidden;
         opacity: 0;
         transition: opacity 1s ease-in-out;
       }
-      .icon {
-        width: 40px;
-        height: 40px;
-        margin: 0 1em;
-        transition: transform 0.3s;
+      
+      .background-text:first-of-type {
+        top: 0;
       }
-      .icon:hover {
-        transform: scale(1.1);
+      
+      .background-text:last-of-type {
+        top: 2.2em;
       }
-      .social-icons {
-        text-align: center;
-        margin-top: 3em;
-      }
+      
       .photo {
         width: 250px;
         height: 250px;
         object-fit: cover;
         border-radius: 50%;
         display: block;
-        margin-left: 0; /* Left-align the photo */
+        margin: 0 auto;
         box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
       }
       
@@ -102,14 +152,46 @@
         50% { opacity: 0; }
       }
       
-      /* Ensure the photo column is left-aligned */
-      .col-4 {
-        text-align: left;
+      .social-icons {
+        text-align: center;
+        margin: 3em 0;
       }
       
+      .icon {
+        width: 40px;
+        height: 40px;
+        margin: 0 1em;
+        transition: transform 0.3s;
+      }
+      
+      .icon:hover {
+        transform: scale(1.1);
+      }
+      
+      /* Responsive design */
+      @media (max-width: 960px) {
+        .main-layout {
+          flex-direction: column;
+          text-align: center;
+        }
+        
+        .photo-container {
+          flex: none;
+        }
+        
+        .content-container {
+          flex: none;
+          max-width: 100%;
+        }
+        
+        .text-block {
+          text-align: center;
+        }
+      }
     </style>
   </head>
   <body class="is-preload">
+    <!-- Navbar - identical structure to background.html -->
     <div class="topnav">
       <a href="index.html" class="active">// Home //</a>
       <a href="WangNg.pdf" target="_blank">// Resume //</a>
@@ -117,34 +199,42 @@
       <a href="background.html">// About //</a>
     </div>
 
-    <section class="wrapper style2">
-      <div class="container">
-        <div class="row aln-center">
-          <div class="col-4">
-            <img src="vince.jpg" alt="A photo of Vincent Ng" class="photo"/>
-          </div>
-          <div class="col-8">
-            <div class="text-block">
-              <h1 class="intro-heading">Vincent Ng: Software Developer</h1>
-              <div class="im-label">I'm</div>
-              <div class="text" style="--steps:21; --delay: 0s;"> an initiative-taker.</div>
-              <div class="text" style="--steps:30; --delay: 2s;">constantly inspired to create.</div>
-              <div class="text" style="--steps:24; --delay: 4s;">consistently developing.</div>
-              <div class="text" style="--steps:27; --delay: 6s;">an aspiring business owner.</div>
-            </div>
+    <!-- Main content with improved layout -->
+    <section class="main-section">
+      <div class="main-layout">
+        <!-- Photo container -->
+        <div class="photo-container">
+          <img src="vince.jpg" alt="A photo of Vincent Ng" class="photo"/>
+        </div>
+        
+        <!-- Content container -->
+        <div class="content-container">
+          <div class="text-block">
+            <h1 class="intro-heading">Vincent Ng: Software Developer</h1>
+            <div class="im-label">I'm</div>
+            <div class="text" style="--steps:21; --delay: 0s;"> an initiative-taker.</div>
+            <div class="text" style="--steps:30; --delay: 2s;">constantly inspired to create.</div>
+            <div class="text" style="--steps:24; --delay: 4s;">consistently developing.</div>
+            <div class="text" style="--steps:27; --delay: 6s;">an aspiring business owner.</div>
           </div>
         </div>
-
+      </div>
+      
+      <!-- Background section -->
+      <div style="max-width: 1200px; margin: 0 auto; padding: 0 1em;">
         <h2 class="background-label">Background:</h2>
-        <div class="background-text" style="--steps: 68; --delay: 6s;">
-          <strong>Education:</strong> B.S. in Computer Science, UC Davis (2023–2027), GPA: 3.7.
-        </div>
-        <div class="background-text" style="--steps:135; --delay:8s;">
-          <strong>Languages & Tools:</strong> Python, C++, Java, C, React.js, Javascript, CSS, Flask, Pandas, Supabase, NumPy, Tensorflow, MatPlotLib.
+        <div class="background-container">
+          <div class="background-text" style="--steps: 68; --delay: 6s;">
+            <strong>Education:</strong> B.S. in Computer Science, UC Davis (2023–2027), GPA: 3.7.
+          </div>
+          <div class="background-text" style="--steps:135; --delay:8s;">
+            <strong>Languages & Tools:</strong> Python, C++, Java, C, React.js, Javascript, CSS, Flask, Pandas, Supabase, NumPy, Tensorflow, MatPlotLib.
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- Social icons -->
     <div class="social-icons">
       <p style="font-size: 1.2em; color: #000000; margin-bottom: 1em; font-weight: 600; text-align: center;">Connect with me here!</p>
       <a href="https://github.com/v7ncentng" target="_blank">
@@ -169,6 +259,7 @@
           const isBackgroundText = line.classList.contains('background-text');
 
           if (isBackgroundText) {
+            line.style.visibility = 'visible';
             setTimeout(() => { line.style.opacity = '1'; }, delay * 1000);
           } else {
             const originalText = text;
