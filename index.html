@@ -1,289 +1,629 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title class="name">Vincent Ng | Software Engineer</title>
-    <link rel="stylesheet" href="main.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic,600">
-    <script>
-      function openLink(url) {
-        window.open(url, '_blank');
-      }
-    </script>
-    <style>
-      .name {
-        color: black;
-      }
-      .topnav {
-        text-align: center;
-        padding: 2em 0;
-      }
-      .topnav a {
-        margin: 0 1em;
-        font-weight: 600;
-        color: #483949;
-        border: none;
-        text-decoration: none;
-      }
-      .topnav a:hover {
-        color: #ef8376;
-      }
-      
-      /* Main content section - using similar structure to background.html */
-      .main-section {
-        padding: 3em 1em;
-        background: #fff;
-      }
-      
-      .main-layout {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 4em;
-        align-items: flex-start;
-        justify-content: center;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-      
-      .photo-container {
-        flex: 0 0 300px;
-        text-align: center;
-        align-self: flex-start;
-      }
-      
-      .content-container {
-        flex: 1 1 500px;
-        max-width: 600px;
-        align-self: flex-start;
-      }
-      
-      .text-block {
-        text-align: left;
-      }
-      
-      .intro-heading {
-        font-size: 2.5em;
-        color: #000000;
-        margin-bottom: 0.5em;
-      }
-      
-      .im-label {
-        font-size: 1.5em;
-        font-weight: 700;
-        color: #df7366;
-        margin-bottom: 0.5em;
-      }
-      
-      .text {
-        font-size: 1.25em;
-        font-weight: 400;
-        font-family: monospace;
-        white-space: nowrap;
-        overflow: hidden;
-        display: block;
-        margin-bottom: 0.3em;
-      }
-      
-      .text-complete {
-        border-right: none !important;
-      }
-      
-      .background-label {
-        margin-top: 3em;
-        color: #df7366;
-        font-size: 1.75em;
-        margin-bottom: 1em;
-        position: relative;
-        top: 0;
-        height: 2.5em;
-        display: block;
-      }
-      
-      .background-container {
-        position: relative;
-        min-height: 120px;
-      }
-      
-      .background-text {
-        font-size: 1.1em;
-        line-height: 1.6;
-        color: #5b5b5b;
-        position: absolute;
-        width: 100%;
-        visibility: hidden;
-        opacity: 0;
-        transition: opacity 1s ease-in-out;
-      }
-      
-      .background-text:first-of-type {
-        top: 0;
-      }
-      
-      .background-text:last-of-type {
-        top: 2.2em;
-      }
-      
-      .photo {
-        width: 250px;
-        height: 250px;
-        object-fit: cover;
-        border-radius: 50%;
-        display: block;
-        margin: 0 auto;
-        box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-      }
-      
-      .cursor {
-        display: inline-block;
-        width: 2px;
-        height: 1.2em;
-        background-color: #333;
-        animation: blink 1s step-start infinite;
-        margin-left: 2px;
-        vertical-align: baseline;
-        border-radius: 1px;
-        box-shadow: 0 0 1px rgba(0,0,0,0.3);
-      }
-      
-      @keyframes blink {
-        50% { opacity: 0; }
-      }
-      
-      .social-icons {
-        text-align: center;
-        margin: 3em 0;
-      }
-      
-      .icon {
-        width: 40px;
-        height: 40px;
-        margin: 0 1em;
-        transition: transform 0.3s;
-      }
-      
-      .icon:hover {
-        transform: scale(1.1);
-      }
-      
-      /* Responsive design */
-      @media (max-width: 960px) {
-        .main-layout {
-          flex-direction: column;
-          text-align: center;
-        }
-        
-        .photo-container {
-          flex: none;
-        }
-        
-        .content-container {
-          flex: none;
-          max-width: 100%;
-        }
-        
-        .text-block {
-          text-align: center;
-        }
-      }
-    </style>
-  </head>
-  <body class="is-preload">
-    <!-- Navbar - identical structure to background.html -->
-    <div class="topnav">
-      <a href="index.html" class="active">// Home //</a>
-      <a href="WangNg.pdf" target="_blank">// Resume //</a>
-      <a href="projects.html">// Experience //</a>
-      <a href="background.html">// About //</a>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title class="name">Vincent Ng | Software Engineer</title>
+<link rel="stylesheet" href="main.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic,600">
+<script>
+function openLink(url) {
+  window.open(url, '_blank');
+}
+</script>
+<style>
+  .name {
+    color: black;
+  }
+  .topnav {
+    text-align: center;
+    padding: 2em 0;
+  }
+  .topnav a {
+    margin: 0 1em;
+    font-weight: 600;
+    color: #483949;
+    border: none;
+    text-decoration: none;
+  }
+  .topnav a:hover {
+    color: #ef8376;
+  }
+  
+  /* Main content section - using similar structure to background.html */
+  .main-section {
+    padding: 3em 1em;
+    background: #fff;
+  }
+  
+  .main-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4em;
+    align-items: flex-start;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .photo-container {
+    flex: 0 0 300px;
+    text-align: center;
+    align-self: flex-start;
+  }
+  
+  .content-container {
+    flex: 1 1 500px;
+    max-width: 600px;
+    align-self: flex-start;
+  }
+  
+  .text-block {
+    text-align: left;
+  }
+  
+  .intro-heading {
+    font-size: 2.5em;
+    color: #000000;
+    margin-bottom: 0.5em;
+  }
+  
+  .im-label {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #df7366;
+    margin-bottom: 0.5em;
+  }
+  
+  .text {
+    font-size: 1.25em;
+    font-weight: 400;
+    font-family: monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    margin-bottom: 0.3em;
+  }
+  
+  .text-complete {
+    border-right: none !important;
+  }
+  
+  .background-label {
+    /* Reduced margin-top for less space above the heading */
+    margin-top: 1em;
+    color: #df7366;
+    font-size: 1.75em;
+    /* Reduced margin-bottom for less space between the heading and the text */
+    margin-bottom: 0.5em; 
+    position: relative;
+    top: 0;
+    height: auto;
+    display: block;
+  }
+  
+  .background-container {
+    position: relative;
+    /* Reduced min-height to allow the container to shrink */
+    min-height: 80px; 
+    /* Added a bottom margin to create some space between this section and the next */
+
+  }
+  
+  .background-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #5b5b5b;
+    position: absolute;
+    width: 100%;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  }
+  
+  
+  
+  .photo {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    background-color: #333;
+    animation: blink 1s step-start infinite;
+    margin-left: 2px;
+    vertical-align: baseline;
+    border-radius: 1px;
+    box-shadow: 0 0 1px rgba(0,0,0,0.3);
+  }
+  
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+  
+  .social-icons {
+    text-align: center;
+    margin: 3em 0;
+  }
+
+/* Skills Section Styles */
+.skills-section {
+  max-width: 1200px;
+  margin: 4em auto 2em auto;
+  padding: 3em 1em;
+  background: transparent;
+  border-radius: 12px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1.2s ease;
+  
+}
+
+.skills-section.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skills-title {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2em;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  height: 2em;
+}
+
+.skills-title-text {
+  transform: translateY(100%);
+  transition: transform 1s ease 0.5s;
+  display: block;
+}
+
+.skills-title.animate .skills-title-text {
+  transform: translateY(0);
+}
+
+.skills-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0.5em;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: #ef8376;
+  transition: width 1s ease;
+}
+
+.skills-title.animate::after {
+  width: 100%;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3em 4em;
+  margin-bottom: 3em;
+}
+
+.skills-category {
+  margin-bottom: 2em;
+}
+
+.category-title {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1.5em;
+  text-align: center;
+}
+
+.skill-item {
+  margin-bottom: 1em;
+}
+
+.skill-name {
+  font-size: 0.9em;
+  color: #e0e0e0;
+  margin-bottom: 0.3em;
+  font-weight: 500;
+}
+
+.skill-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #404040;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.skill-progress {
+  height: 100%;
+  background-color: #ef8376;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* Spoken Languages Section */
+.languages-section {
+  grid-column: 1 / -1;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 960px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 2em;
+  }
+  
+  .languages-section {
+    max-width: 100%;
+  }
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 1em;
+  transition: transform 0.3s;
+}
+
+.icon:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive design */
+@media (max-width: 960px) {
+  .main-layout {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .photo-container {
+    flex: none;
+  }
+  
+  .content-container {
+    flex: none;
+    max-width: 100%;
+  }
+  
+  .text-block {
+    text-align: center;
+  }
+}
+</style>
+</head>
+<body class="is-preload">
+<div class="topnav">
+<a href="index.html" class="active">// Home //</a>
+<a href="WangNg.pdf" target="_blank">// Resume //</a>
+<a href="projects.html">// Experience //</a>
+<a href="background.html">// About //</a>
+</div>
+
+<section class="main-section">
+<div class="main-layout">
+  <div class="photo-container">
+    <img src="vince.jpg" alt="A photo of Vincent Ng" class="photo"/>
+  </div>
+  
+  <div class="content-container">
+    <div class="text-block">
+      <h1 class="intro-heading">Vincent Ng: Software Developer</h1>
+      <div class="im-label">I'm</div>
+      <div class="text" style="--steps:21; --delay: 0s;"> an initiative-taker.</div>
+      <div class="text" style="--steps:30; --delay: 2s;">constantly inspired to create.</div>
+      <div class="text" style="--steps:24; --delay: 4s;">consistently developing.</div>
+      <div class="text" style="--steps:27; --delay: 6s;">an aspiring business owner.</div>
     </div>
+  </div>
+</div>
 
-    <!-- Main content with improved layout -->
-    <section class="main-section">
-      <div class="main-layout">
-        <!-- Photo container -->
-        <div class="photo-container">
-          <img src="vince.jpg" alt="A photo of Vincent Ng" class="photo"/>
-        </div>
-        
-        <!-- Content container -->
-        <div class="content-container">
-          <div class="text-block">
-            <h1 class="intro-heading">Vincent Ng: Software Developer</h1>
-            <div class="im-label">I'm</div>
-            <div class="text" style="--steps:21; --delay: 0s;"> an initiative-taker.</div>
-            <div class="text" style="--steps:30; --delay: 2s;">constantly inspired to create.</div>
-            <div class="text" style="--steps:24; --delay: 4s;">consistently developing.</div>
-            <div class="text" style="--steps:27; --delay: 6s;">an aspiring business owner.</div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Background section -->
-      <div style="max-width: 1200px; margin: 0 auto; padding: 0 1em;">
-        <h2 class="background-label">Background:</h2>
-        <div class="background-container">
-          <div class="background-text" style="--steps: 68; --delay: 6s;">
-            <strong>Education:</strong> B.S. in Computer Science, UC Davis (2023–2027), GPA: 3.7.
-          </div>
-          <div class="background-text" style="--steps:135; --delay:8s;">
-            <strong>Languages & Tools:</strong> Python, C++, Java, C, React.js, Javascript, CSS, Flask, Pandas, Supabase, NumPy, Tensorflow, MatPlotLib.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Social icons -->
-    <div class="social-icons">
-      <p style="font-size: 1.2em; color: #000000; margin-bottom: 1em; font-weight: 600; text-align: center;">Connect with me here!</p>
-      <a href="https://github.com/v7ncentng" target="_blank">
-        <img src="github.png" alt="GitHub" class="icon">
-      </a>
-      <a href="mailto:v7ncentng@gmail.com" target="_blank">
-        <img src="gmail.png" alt="Email" class="icon">
-      </a>
-      <a href="https://www.linkedin.com/in/wang-ng-8805b2213/" target="_blank">
-        <img src="linkedin.png" alt="LinkedIn" class="icon">
-      </a>
+<div class="main-layout">
+  <div class="photo-container">
     </div>
+  
+  <div class="content-container">
+    <h2 class="background-label">Education:</h2>
+    <div class="background-container">
+      <div class="background-text" style="--steps: 68; --delay: 6s;">
+        <strong>Education:</strong> B.S. in Computer Science, UC Davis (2023–2027), GPA: 3.7.
+      </div>
+    </div>
+  </div>
+</div>
+</section>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const lines = document.querySelectorAll(".text, .background-text");
-        lines.forEach((line) => {
-          const styles = getComputedStyle(line);
-          const delay = parseFloat(styles.getPropertyValue('--delay')) || 0;
-          const steps = parseInt(styles.getPropertyValue('--steps')) || line.textContent.trim().length;
-          const text = line.textContent.trim();
-          const isBackgroundText = line.classList.contains('background-text');
+<section class="skills-section">
+<h2 class="skills-title">
+  <span class="skills-title-text">SKILLS</span>
+</h2>
+<div class="skills-grid">
+  <div class="skills-category">
+    <h3 class="category-title">Programming Languages</h3>
+    <div class="skill-item">
+      <div class="skill-name">Python</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 90%;"></div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">Java</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 85%;"></div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">JavaScript</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 80%;"></div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">C++</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 75%;"></div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">HTML/CSS</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 85%;"></div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">Assembly</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 60%;"></div>
+      </div>
+    </div>
+  </div>
 
-          if (isBackgroundText) {
-            line.style.visibility = 'visible';
-            setTimeout(() => { line.style.opacity = '1'; }, delay * 1000);
+  <div class="skills-category">
+    <h3 class="category-title">Developer Tools</h3>
+    <div class="skill-item">
+      <div class="skill-name">PyTorch</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 80%;"></div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">TensorFlow</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 75%;"></div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">React.JS</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 80%;"></div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">Node.JS</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 75%;"></div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">Flask</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 85%;"></div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">Git</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 90%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skills-category">
+    <h3 class="category-title">Libraries & Frameworks</h3>
+    <div class="skill-item">
+      <div class="skill-name">NumPy</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 85%;"></div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">MatPlotLib</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 80%;"></div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">Tailwind CSS</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 75%;"></div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">Pandas</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 85%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skills-category">
+    <h3 class="category-title">Specializations</h3>
+    <div class="skill-item">
+      <div class="skill-name">Machine Learning</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 80%;"></div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">Computer Vision</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 75%;"></div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">Natural Language Processing</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 70%;"></div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">Artificial Intelligence</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 75%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skills-category languages-section">
+    <h3 class="category-title">Spoken languages</h3>
+    <div class="skill-item">
+      <div class="skill-name">English</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 95%;"></div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">Cantonese</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 80%;"></div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">Spanish</div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="width: 60%;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="social-icons">
+<p style="font-size: 1.2em; color: #000000; margin-bottom: 1em; font-weight: 600; text-align: center;">Connect with me here!</p>
+<a href="https://github.com/v7ncentng" target="_blank">
+  <img src="github.png" alt="GitHub" class="icon">
+</a>
+<a href="mailto:v7ncentng@gmail.com" target="_blank">
+  <img src="gmail.png" alt="Email" class="icon">
+</a>
+<a href="https://www.linkedin.com/in/wang-ng-8805b2213/" target="_blank">
+  <img src="linkedin.png" alt="LinkedIn" class="icon">
+</a>
+</div>
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const lines = document.querySelectorAll(".text, .background-text");
+    lines.forEach((line) => {
+      const styles = getComputedStyle(line);
+      const delay = parseFloat(styles.getPropertyValue('--delay')) || 0;
+      const steps = parseInt(styles.getPropertyValue('--steps')) || line.textContent.trim().length;
+      const text = line.textContent.trim();
+      const isBackgroundText = line.classList.contains('background-text');
+
+      if (isBackgroundText) {
+        line.style.visibility = 'visible';
+        setTimeout(() => { line.style.opacity = '1'; }, delay * 1000);
+      } else {
+        const originalText = text;
+        line.textContent = '';
+        
+        const textSpan = document.createElement('span');
+        line.appendChild(textSpan);
+        
+        let currentStep = 0;
+        const typingSpeed = 2000 / Math.max(steps, 1);
+        
+        const typeCharacter = () => {
+          if (currentStep < steps && currentStep < originalText.length) {
+            textSpan.innerHTML = originalText.substring(0, currentStep + 1) + '<span class="cursor"></span>';
+            currentStep++;
+            setTimeout(typeCharacter, typingSpeed);
           } else {
-            const originalText = text;
-            line.textContent = '';
-            
-            const textSpan = document.createElement('span');
-            line.appendChild(textSpan);
-            
-            let currentStep = 0;
-            const typingSpeed = 2000 / Math.max(steps, 1);
-            
-            const typeCharacter = () => {
-              if (currentStep < steps && currentStep < originalText.length) {
-                textSpan.innerHTML = originalText.substring(0, currentStep + 1) + '<span class="cursor"></span>';
-                currentStep++;
-                setTimeout(typeCharacter, typingSpeed);
-              } else {
-                textSpan.textContent = originalText;
-                line.classList.add('text-complete');
-              }
-            };
-            
-            setTimeout(typeCharacter, delay * 1000);
+            textSpan.textContent = originalText;
+            line.classList.add('text-complete');
           }
-        });
-      });
-    </script>
-  </body>
+        };
+        
+        setTimeout(typeCharacter, delay * 1000);
+      }
+    });
+  });
+// Scroll-based background color change
+function updateBackgroundOnScroll() {
+  const skillsSection = document.querySelector('.skills-section');
+  if (!skillsSection) return;
+
+  const rect = skillsSection.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+
+  // Calculate the percentage of the skills section visible on the screen
+  let visibilityPercentage = 0;
+  if (rect.top < windowHeight && rect.bottom > 0) {
+    const visibleHeight = Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0);
+    visibilityPercentage = visibleHeight / windowHeight;
+  }
+  
+  // Cap the percentage at 1
+  visibilityPercentage = Math.min(visibilityPercentage, 1);
+  
+  // Calculate the new color value for the white-to-black spectrum
+  // 255 (white) - 255 (black) * visibilityPercentage
+  const colorValue = 255 - Math.round(255 * visibilityPercentage);
+  
+  // Apply the new color to the body's background
+  document.body.style.background = `rgb(${colorValue}, ${colorValue}, ${colorValue})`;
+}
+
+window.addEventListener('scroll', updateBackgroundOnScroll);
+document.addEventListener('DOMContentLoaded', updateBackgroundOnScroll);
+
+
+// Skills section animation
+const observerOptions = {
+  threshold: 0.3,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animate');
+    }
+  });
+}, observerOptions);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const skillsTitle = document.querySelector('.skills-title');
+  const skillsSection = document.querySelector('.skills-section');
+  
+  if (skillsTitle) {
+    observer.observe(skillsTitle);
+  }
+  
+  if (skillsSection) {
+    observer.observe(skillsSection);
+  }
+  
+  // Add scroll listener for background color
+  window.addEventListener('scroll', updateBackgroundOnScroll);
+  
+  // Initialize background color
+  updateBackgroundOnScroll();
+});
+</script>
+</body>
 </html>
