@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title class="name">Vincent Ng | Software Engineer</title>
 <link rel="stylesheet" href="main.css" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic,600">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic,600,700,800,900">
 <script>
 function openLink(url) {
   window.open(url, '_blank');
@@ -18,6 +18,7 @@ function openLink(url) {
   .topnav {
     text-align: center;
     padding: 2em 0;
+    background:#ffffff;
   }
   .topnav a {
     margin: 0 1em;
@@ -63,9 +64,23 @@ function openLink(url) {
   }
   
   .intro-heading {
-    font-size: 2.5em;
+    font-size: 3.2em;
     color: #000000;
     margin-bottom: 0.5em;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .intro-heading .name-highlight {
+    font-weight: 900;
+    color: #000000;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.15);
+  }
+  
+  .intro-heading .title-part {
+    font-weight: 700;
+    color: #df7366;
   }
   
   .im-label {
@@ -301,6 +316,10 @@ function openLink(url) {
   .text-block {
     text-align: center;
   }
+  
+  .intro-heading {
+    font-size: 2.5em;
+  }
 }
 </style>
 </head>
@@ -320,7 +339,9 @@ function openLink(url) {
   
   <div class="content-container">
     <div class="text-block">
-      <h1 class="intro-heading">Vincent Ng: Software Developer</h1>
+      <h1 class="intro-heading">
+        <span class="name-highlight">Vincent Ng</span>: <span class="title-part">Software Developer</span>
+      </h1>
       <div class="im-label">I'm</div>
       <div class="text" style="--steps:21; --delay: 0s;"> an initiative-taker.</div>
       <div class="text" style="--steps:30; --delay: 2s;">constantly inspired to create.</div>
@@ -511,16 +532,16 @@ function openLink(url) {
 </section>
 
 <div class="social-icons">
-<p style="font-size: 1.2em; color: #000000; margin-bottom: 1em; font-weight: 600; text-align: center;">Connect with me here!</p>
-<a href="https://github.com/v7ncentng" target="_blank">
-  <img src="github.png" alt="GitHub" class="icon">
-</a>
-<a href="mailto:v7ncentng@gmail.com" target="_blank">
-  <img src="gmail.png" alt="Email" class="icon">
-</a>
-<a href="https://www.linkedin.com/in/wang-ng-8805b2213/" target="_blank">
-  <img src="linkedin.png" alt="LinkedIn" class="icon">
-</a>
+  <p style="font-size: 1.2em; color: #000000; margin-bottom: 1em; font-weight: 600; text-align: center;">Connect with me here!</p>
+  <a href="https://github.com/v7ncentng" target="_blank">
+    <img src="github.png" alt="GitHub" class="icon">
+  </a>
+  <a href="mailto:v7ncentng@gmail.com" target="_blank">
+    <img src="gmail.png" alt="Email" class="icon">
+  </a>
+  <a href="https://www.linkedin.com/in/wang-ng-8805b2213/" target="_blank">
+    <img src="linkedin.png" alt="LinkedIn" class="icon">
+  </a>
 </div>
 
 <script>
