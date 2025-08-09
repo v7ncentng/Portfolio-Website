@@ -1,297 +1,1034 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title class="name">Vincent Ng | Software Engineer</title>
-    <link rel="stylesheet" href="main.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic,600">
-    <script>
-      function openLink(url) {
-        window.open(url, '_blank');
-      }
-    </script>
-    <style>
-      .name {
-        color: black;
-      }
-      .topnav {
-        text-align: center;
-        padding: 2em 0;
-      }
-      .topnav a {
-        margin: 0 1em;
-        font-weight: 600;
-        color: #483949;
-        border: none;
-        text-decoration: none;
-      }
-      .topnav a:hover {
-        color: #ef8376;
-      }
-      
-      /* Main content section - using similar structure to background.html */
-      .main-section {
-        padding: 3em 1em;
-        background: #fff;
-      }
-      
-      .main-layout {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 4em;
-        align-items: flex-start;
-        justify-content: center;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-      
-      .photo-container {
-        flex: 0 0 300px;
-        text-align: center;
-        align-self: flex-start;
-      }
-      
-      .content-container {
-        flex: 1 1 500px;
-        max-width: 600px;
-        align-self: flex-start;
-      }
-      
-      .text-block {
-        text-align: left;
-      }
-      
-      .intro-heading {
-        font-size: 2.5em;
-        color: #000000;
-        margin-bottom: 0.5em;
-      }
-      
-      .im-label {
-        font-size: 1.5em;
-        font-weight: 700;
-        color: #df7366;
-        margin-bottom: 0.5em;
-      }
-      
-      .text {
-        font-size: 1.25em;
-        font-weight: 400;
-        font-family: monospace;
-        white-space: nowrap;
-        overflow: hidden;
-        display: block;
-        margin-bottom: 0.3em;
-      }
-      
-      .text-complete {
-        border-right: none !important;
-      }
-      
-      .background-label {
-        margin-top: 1em;
-        color: #df7366;
-        font-size: 1.75em;
-        margin-bottom: 1em;
-        position: relative;
-        top: 0;
-        height: 2.5em;
-        display: block;
-      }
-      
-      .background-container {
-        position: relative;
-        min-height: 120px;
-      }
-      
-      .background-text {
-        font-size: 1.1em;
-        line-height: 1.6;
-        color: #5b5b5b;
-        position: absolute;
-        width: 100%;
-        visibility: hidden;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects - Vincent Ng</title>
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic,600">
+  <style>
+    body {
+      background: #ffffff;
+    }
+
+    .topnav {
+      text-align: center;
+      padding: 2em 0;
+    }
+    .topnav a {
+      margin: 0 1em;
+      font-weight: 600;
+      color: #483949;
+      border: none;
+    }
+    .topnav a:hover {
+      color: #ef8376;
+    }
+
+    .project-heading {
+      text-align: center;
+      font-size: 2.75em;
+      color: #000000;
+    }
+
+    .timeline-wrapper {
+      padding: 4em 2em 6em;
+      overflow-x: auto;
+      background: transparent;
+      margin-top: 2em;
+    }
+
+    .horizontal-timeline {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-width: 800px;
+      margin: 0 auto;
+      max-width: 1200px;
+      height: 500px;
+    }
+
+    .horizontal-timeline::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #df7366, #ef8376);
+      z-index: 1;
+      transform: translateY(-50%);
+    }
+
+    .timeline-event {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      z-index: 2;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      background-color: #df7366;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      box-shadow: 0 0 0 2px #df7366, 0 0 10px rgba(223, 115, 102, 0.3);
+      z-index: 3;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .timeline-dot:hover {
+      transform: translate(-50%, -50%) scale(1.2);
+      box-shadow: 0 0 0 2px #df7366, 0 0 20px rgba(223, 115, 102, 0.5);
+    }
+
+    .timeline-event:nth-child(odd) .content {
+      position: absolute;
+      top: 40%;
+      transform: translateY(-100%);
+      opacity: 1;
+    }
+
+    .timeline-event:nth-child(even) .content {
+      position: absolute;
+      bottom: 40%;
+      transform: translateY(100%);
+      opacity: 1;
+    }
+
+    .timeline-event:nth-child(odd)::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 2px;
+      height: 15%;
+      background-color: #df7366;
+      z-index: 1;
+      opacity: 0.6;
+      transform: translate(-50%, -100%);
+    }
+
+    .timeline-event:nth-child(even)::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 2px;
+      height: 15%;
+      background-color: #df7366;
+      z-index: 1;
+      opacity: 0.6;
+      transform: translateX(-50%);
+    }
+
+    .content {
+      background: #f9f9f9;
+      padding: 1.5em;
+      border-radius: 0.8em;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: 200px;
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .content:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .timeline-event:nth-child(odd) .content::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 8px solid transparent;
+      border-top-color: #f9f9f9;
+    }
+
+    .timeline-event:nth-child(even) .content::after {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 8px solid transparent;
+      border-bottom-color: #f9f9f9;
+    }
+
+    .text {
+      text-align: left;
+    }
+
+    .content h3 {
+      margin: 0 0 0.5em;
+      font-size: 1.3em;
+      color: #483949;
+    }
+
+    .content p {
+      margin: 0 0 1em;
+      color: #666;
+      font-size: 0.95em;
+      line-height: 1.4;
+    }
+
+    .content a {
+      color: #007acc;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 0.9em;
+    }
+
+    .content a:hover {
+      text-decoration: underline;
+    }
+
+    /* Updated Modal Styles with Fixed Dimensions and Scrolling */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      position: absolute;
+      right: 50px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #fff;
+      width: 450px;
+      max-width: 90vw;
+      max-height: 80vh; /* Fixed maximum height */
+      border-radius: 15px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: slideInRight 0.4s ease-out;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @keyframes slideInRight {
+      from {
+        transform: translate(100%, -50%);
         opacity: 0;
-        transition: opacity 1s ease-in-out;
+      }
+      to {
+        transform: translate(0, -50%);
+        opacity: 1;
+      }
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, #df7366, #ef8376);
+      color: white;
+      padding: 1.5em;
+      position: relative;
+      flex-shrink: 0; /* Prevent header from shrinking */
+    }
+
+    .modal-title {
+      margin: 0;
+      font-size: 1.8em;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .modal-subtitle {
+      margin: 0.5em 0 0;
+      opacity: 0.9;
+      font-size: 1em;
+      line-height: 1.3;
+    }
+
+    .close {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background-color 0.3s;
+    }
+
+    .close:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .modal-body {
+      padding: 2em;
+      overflow-y: auto; /* Enable vertical scrolling */
+      flex-grow: 1; /* Allow body to grow and fill remaining space */
+    }
+
+    /* Custom scrollbar styling */
+    .modal-body::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .modal-body::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 3px;
+    }
+
+    .modal-body::-webkit-scrollbar-thumb {
+      background: #df7366;
+      border-radius: 3px;
+    }
+
+    .modal-body::-webkit-scrollbar-thumb:hover {
+      background: #c85d50;
+    }
+
+    .modal-description {
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 1.5em;
+      text-align:left;
+      font-size: 1.1em;
+    }
+
+    .tech-stack {
+      margin-bottom: 1.5em;
+    }
+
+    .tech-stack h4 {
+      color: #483949;
+      margin: 0 0 0.8em;
+      font-size: 1.1em;
+    }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5em;
+    }
+
+    .tech-tag {
+      background: #f0f0f0;
+      color: #555;
+      padding: 0.3em 0.8em;
+      border-radius: 20px;
+      font-size: 0.85em;
+      font-weight: 500;
+    }
+
+    .modal-links {
+      display: flex;
+      gap: 1em;
+      margin-top: 1.5em;
+    }
+
+    .modal-link {
+      flex: 1;
+      padding: 0.8em 1.2em;
+      background: #df7366;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+
+    .modal-link:hover {
+      background: #c85d50;
+      color: white;
+    }
+
+    .social-icons {
+      text-align: center;
+      margin: 4em 0 2em;
+      background: #ffffff;
+    }
+
+    .icon {
+      width: 40px;
+      height: 40px;
+      margin: 0 1em;
+      transition: transform 0.3s;
+    }
+
+    .icon:hover {
+      transform: scale(1.1);
+    }
+
+    /* Experience Section Styles */
+    .experience-section {
+      padding: 6em 2em 4em;
+      background: #ffffff;
+      transition: background-color 0.3s ease;
+    }
+
+    .experience-heading {
+      text-align: center;
+      font-size: 2.75em;
+      color: #ffffff;
+      margin-bottom: 2em;
+      transition: color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 0.5em;
+    }
+
+    .experience-heading::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 1000px; 
+      height: 3px;
+      background-color: #ef8376; 
+    }
+
+    .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2em;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .experience-card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 2em;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      border: 1px solid #f0f0f0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .experience-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #df7366, #ef8376);
+    }
+
+    .experience-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .experience-header {
+      margin-bottom: 1.2em;
+    }
+
+    .experience-header h3 {
+      margin: 0 0 0.5em;
+      font-size: 1.4em;
+      color: #483949;
+      font-weight: 600;
+    }
+
+    .company {
+      display: block;
+      color: #df7366;
+      font-weight: 600;
+      font-size: 1.1em;
+      margin-bottom: 0.3em;
+    }
+
+    .duration {
+      display: block;
+      color: #888;
+      font-size: 0.9em;
+      font-style: italic;
+    }
+
+    .experience-description {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 1.5em;
+      font-size: 1em;
+      text-align: left;
+    }
+
+    .experience-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5em;
+    }
+
+    .skill-tag {
+      background: linear-gradient(135deg, #df7366, #ef8376);
+      color: white;
+      padding: 0.4em 0.8em;
+      border-radius: 15px;
+      font-size: 0.8em;
+      font-weight: 500;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .modal-content {
+        right: 20px;
+        left: 20px;
+        width: auto;
+        max-width: none;
+        max-height: 85vh; /* Slightly taller on mobile */
+      }
+
+      .experience-section {
+        padding: 4em 1em 2em;
+      }
+
+      .experience-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5em;
+      }
+
+      .experience-card {
+        padding: 1.5em;
+      }
+
+      .experience-heading {
+        font-size: 2.2em;
+      }
+
+      .timeline-wrapper {
+        padding: 2em 1em;
       }
       
-      .background-text:first-of-type {
+      .horizontal-timeline {
+        flex-direction: column;
+        min-width: auto;
+        gap: 3em;
+      }
+
+      .horizontal-timeline::before {
         top: 0;
+        bottom: 0;
+        left: 50%;
+        right: auto;
+        width: 3px;
+        height: auto;
+        background: linear-gradient(180deg, #df7366, #ef8376);
       }
-      
-      .background-text:last-of-type {
-        top: 2.2em;
+
+      .timeline-event {
+        flex-direction: row;
+        width: 100%;
       }
-      
-      .photo {
-        width: 250px;
-        height: 250px;
-        object-fit: cover;
-        border-radius: 50%;
-        display: block;
-        margin: 0 auto;
-        box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+
+      .timeline-event:nth-child(odd) {
+        flex-direction: row-reverse;
       }
-      
-      .cursor {
-        display: inline-block;
-        width: 2px;
-        height: 1.2em;
-        background-color: #333;
-        animation: blink 1s step-start infinite;
-        margin-left: 2px;
-        vertical-align: baseline;
-        border-radius: 1px;
-        box-shadow: 0 0 1px rgba(0,0,0,0.3);
+
+      .timeline-event:nth-child(odd) .content,
+      .timeline-event:nth-child(even) .content {
+        margin: 0;
+        order: 1;
+        width: calc(50% - 2em);
       }
-      
-      @keyframes blink {
-        50% { opacity: 0; }
-      }
-      
-      .social-icons {
-        text-align: center;
-        margin: 3em 0;
-      }
-      
-      .icon {
-        width: 40px;
-        height: 40px;
+
+      .timeline-dot {
+        order: 2;
         margin: 0 1em;
-        transition: transform 0.3s;
       }
-      
-      .icon:hover {
-        transform: scale(1.1);
-      }
-      
-      /* Responsive design */
-      @media (max-width: 960px) {
-        .main-layout {
-          flex-direction: column;
-          text-align: center;
-        }
-        
-        .photo-container {
-          flex: none;
-        }
-        
-        .content-container {
-          flex: none;
-          max-width: 100%;
-        }
-        
-        .text-block {
-          text-align: center;
-        }
-      }
-    </style>
-  </head>
-  <body class="is-preload">
-    <!-- Navbar - identical structure to background.html -->
-    <div class="topnav">
-      <a href="index.html" class="active">// Home //</a>
-      <a href="WangNg.pdf" target="_blank">// Resume //</a>
-      <a href="projects.html">// Experience //</a>
-      <a href="background.html">// About //</a>
-    </div>
 
-    <!-- Main content with improved layout -->
-    <section class="main-section">
-      <div class="main-layout">
-        <!-- Photo container -->
-        <div class="photo-container">
-          <img src="vince.jpg" alt="A photo of Vincent Ng" class="photo"/>
+      .timeline-event::after {
+        display: none;
+      }
+
+      .timeline-event:nth-child(odd) .content::after,
+      .timeline-event:nth-child(even) .content::after {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body class="is-preload">
+  <!-- Navigation -->
+  <div class="topnav" style="background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%); margin: 0; padding: 2em 0;">
+    <a href="index.html">// Home //</a>
+    <a href="WangNg.pdf" target="_blank">// Resume //</a>
+    <a href="projects.html" class="active">// Experience //</a>
+    <a href="background.html">// About //</a>
+  </div>
+
+  <!-- Page Header -->
+  <h1 class="project-heading" style="background: transparent; margin: 0; padding: 1em 0;">Projects:</h1>
+
+  <!-- Timeline -->
+  <div class="timeline-wrapper">
+    <div class="horizontal-timeline">
+      
+      <div class="timeline-event">
+        <div class="content" onclick="openModal('aggie-housing')">
+          <h3>Aggie Housing</h3>
+          <p class="text">Find your ideal Davis apartment by hearing what other students think!</p>
+          <a href="https://github.com/v7ncentng/MasterMind-Game" target="_blank" onclick="event.stopPropagation()">GitHub ↗</a>
         </div>
-        
-        <!-- Content container -->
-        <div class="content-container">
-          <div class="text-block">
-            <h1 class="intro-heading">Vincent Ng: Software Developer</h1>
-            <div class="im-label">I'm</div>
-            <div class="text" style="--steps:21; --delay: 0s;"> an initiative-taker.</div>
-            <div class="text" style="--steps:30; --delay: 2s;">constantly inspired to create.</div>
-            <div class="text" style="--steps:24; --delay: 4s;">consistently developing.</div>
-            <div class="text" style="--steps:27; --delay: 6s;">an aspiring business owner.</div>
+        <div class="timeline-dot" onclick="openModal('aggie-housing')"></div>
+      </div>
+
+      <div class="timeline-event">
+        <div class="content" onclick="openModal('connect4-bot')">
+          <h3>Connect-4 Bot</h3>
+          <p class="text">Try to win against Connie, my AI-powered Connect-4 bot.</p>
+          <a href="https://github.com/v7ncentng/Typing-Test" target="_blank" onclick="event.stopPropagation()">GitHub ↗</a>
+        </div>
+        <div class="timeline-dot" onclick="openModal('connect4-bot')"></div>
+      </div>
+
+      <div class="timeline-event">
+        <div class="content" onclick="openModal('typing-test')">
+          <h3>ML Typing Speed Test</h3>
+          <p class="text">A speed typing app that learns your typing patterns with machine learning.</p>
+          <a href="https://github.com/v7ncentng/Typing-Test" target="_blank" onclick="event.stopPropagation()">GitHub ↗</a>
+        </div>
+        <div class="timeline-dot" onclick="openModal('typing-test')"></div>
+      </div>
+
+      <div class="timeline-event">
+        <div class="content" onclick="openModal('mastermind')">
+          <h3>Mastermind Game</h3>
+          <p class="text">A Python terminal-based color logic game with a scoring system.</p>
+          <a href="https://github.com/v7ncentng/MasterMind-Game" target="_blank" onclick="event.stopPropagation()">GitHub ↗</a>
+        </div>
+        <div class="timeline-dot" onclick="openModal('mastermind')"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modals -->
+  <div id="aggie-housing-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Aggie Housing</h2>
+        <p class="modal-subtitle">Student Housing Review Platform</p>
+        <span class="close" onclick="closeModal('aggie-housing-modal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">
+          A comprehensive web platform designed specifically for UC Davis students to find and review housing options. 
+          The application features user authentication, detailed property listings, and a robust review system that helps 
+          students make informed decisions about their living arrangements.
+        </p>
+        <div class="tech-stack">
+          <h4>Technologies Used:</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">React.js</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">Supabase</span>
+            <span class="tech-tag">NLTK</span>
+          </div>
+        </div>
+        <div class="modal-links">
+          <a href="https://github.com/v7ncentng/aggie-housing" target="_blank" class="modal-link">View Code</a>
+          <a href="#" class="modal-link">Live Demo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="connect4-bot-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Connect-4 Bot</h2>
+        <p class="modal-subtitle">AI-Powered Game Bot</p>
+        <span class="close" onclick="closeModal('connect4-bot-modal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">
+          I built FourSight, an intelligent Connect-4 bot powered by the minimax algorithm through alpha-beta pruning. 
+          Foursight analyzes game states up to 7 moves ahead and implements strategic heuristics to provide 
+          a challenging gaming experience for players of all skill levels. Users also have the option to play against random simulations, like MonteCarlo AI and Random AI, or play against each other!
+        </p>
+        <div class="tech-stack">
+          <h4>Technologies Used:</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Pygame</span>
+            <span class="tech-tag">NumPy</span>
+            <span class="tech-tag">React.js</span>
+            <span class="tech-tag">Alpha-Beta Pruning</span>
+          </div>
+        </div>
+        <div class="modal-links">
+          <a href="https://github.com/v7ncentng/connect4-bot" target="_blank" class="modal-link">View Code</a>
+          <a href="#" class="modal-link">Play Game</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="typing-test-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">ML Typing Speed Test</h2>
+        <p class="modal-subtitle">Machine Learning Enhanced Typing Practice</p>
+        <span class="close" onclick="closeModal('typing-test-modal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">
+          An intelligent typing speed test application that uses machine learning to analyze your typing patterns 
+          and provide personalized feedback. The system tracks accuracy, speed, and identifies common mistakes to 
+          help users improve their typing skills through adaptive practice sessions.
+        </p>
+        <div class="tech-stack">
+          <h4>Technologies Used:</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">TensorFlow</span>
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">Chart.js</span>
+          </div>
+        </div>
+        <div class="modal-links">
+          <a href="https://github.com/v7ncentng/Typing-Test" target="_blank" class="modal-link">View Code</a>
+          <a href="#" class="modal-link">Try It Out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="mastermind-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Mastermind Game</h2>
+        <p class="modal-subtitle">Terminal-Based Logic Puzzle</p>
+        <span class="close" onclick="closeModal('mastermind-modal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">
+          A Python implementation of the classic Mastermind board game featuring colorful terminal graphics, 
+          multiple difficulty levels, and an intelligent scoring system. Players must use logic and deduction 
+          to crack the secret color code within a limited number of attempts.
+        </p>
+        <div class="tech-stack">
+          <h4>Technologies Used:</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Colorama</span>
+            <span class="tech-tag">Terminal Graphics</span>
+            <span class="tech-tag">Object-Oriented Design</span>
+          </div>
+        </div>
+        <div class="modal-links">
+          <a href="https://github.com/v7ncentng/MasterMind-Game" target="_blank" class="modal-link">View Code</a>
+          <a href="#" class="modal-link">Download</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Experience Section -->
+  <section class="experience-section" id="experience-section">
+    <h1 class="experience-heading">Experience:</h1>
+    <div class="experience-grid">
+
+            <div class="experience-card" onclick="openModal('deep-learning')">
+        <div class="experience-header">
+          <h3>Fullstack Developer</h3>
+          <span class="company">Google Developer Student Club</span>
+          <span class="duration">January 2025 - June 2025</span>
+        </div>
+        <p class="experience-description">
+          Gathered reviews, layouts, locations, contact info, and prices of every apartment in Davis to <strong>help UC Davis students find their home away from home.</strong>
+        </p>
+      </div>
+      
+      <div class="experience-card" onclick="openModal('data-analytics')">
+        <div class="experience-header">
+          <h3>Data Analytics & Human Resources Intern</h3>
+          <span class="company">Insperity Inc.</span>
+          <span class="duration">Aug 2022 - Dec 2023</span>
+        </div>
+        <p class="experience-description">
+          Coordinated weekly client service reports and <strong>generated 25+ actionable data visuals for 10+ startup client companies.</strong>
+        </p>
+      </div>
+
+      <div class="experience-card" onclick="openModal('qualitative-research')">
+        <div class="experience-header">
+          <h3>Qualitative Research Intern</h3>
+          <span class="company">Stanford John W. Gardner Center</span>
+          <span class="duration">Jan 2022 - June 2022</span>
+        </div>
+        <p class="experience-description">
+          <strong>Conducted and facilitated 15+ student interviews</strong> regarding areas of improvement within the Oakland Unified School District.
+        </p>
+      </div>
+
+      <div class="experience-card" onclick="openModal('research-assistant')">
+        <div class="experience-header">
+          <h3>UC Davis Orientation Leader</h3>
+          <span class="company">UC Davis Student Affairs</span>
+          <span class="duration">September 2024 - October 2024</span>
+        </div>
+        <p class="experience-description">
+Shared the vibrant culture of UC Davis with 35+ incoming students</strong> and helped facilitate a smooth transition into college life.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Experience Modals -->
+  <div id="data-analytics-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Data Analytics & Human Resources Intern</h2>
+        <p class="modal-subtitle">Insperity Inc. • Aug 2022 - Dec 2023</p>
+        <span class="close" onclick="closeModal('data-analytics-modal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">
+          Developed comprehensive reporting systems that provided valuable insights for HR decision-making and 
+          strategic planning across multiple client organizations.
+        </p>
+        <div class="tech-stack">
+          <h4>Key Responsibilities:</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">Weekly Reporting</span>
+            <span class="tech-tag">Data Visualization</span>
+            <span class="tech-tag">Front-Facing Client Communication</span>
+          </div>
+        </div>
+        <div class="tech-stack">
+          <h4>Technologies Used:</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">Excel</span>
+            <span class="tech-tag">Salesforce</span>
+            <span class="tech-tag">Microsoft Office</span>
           </div>
         </div>
       </div>
-      
-      <!-- Background section - now using the same layout structure -->
-      <div class="main-layout">
-        <!-- Empty photo container for alignment -->
-        <div class="photo-container">
-          <!-- This div maintains the same width as the photo container above -->
-        </div>
-        
-        <!-- Background content aligned with the content above -->
-        <div class="content-container">
-          <h2 class="background-label">Background:</h2>
-          <div class="background-container">
-            <div class="background-text" style="--steps: 68; --delay: 6s;">
-              <strong>Education:</strong> B.S. in Computer Science, UC Davis (2023–2027), GPA: 3.7.
-            </div>
-            <div class="background-text" style="--steps:135; --delay:8s;">
-              <strong>Languages & Tools:</strong> Python, C++, Java, C, React.js, Javascript, CSS, Flask, Pandas, Supabase, NumPy, Tensorflow, MatPlotLib.
-            </div>
+    </div>
+  </div>
+
+  <div id="qualitative-research-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Qualitative Research Intern</h2>
+        <p class="modal-subtitle">Stanford John W. Gardner Center • Jan 2022 - June 2022</p>
+        <span class="close" onclick="closeModal('qualitative-research-modal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">
+          Developed interview engagement skills, analyzed qualitative data, and synthesized 
+          findings into comprehensive reports that informed educational policy recommendations. Collaborated 
+          with research teams to identify key themes and patterns in student feedback.
+        </p>
+        <div class="tech-stack">
+          <h4>Key Responsibilities:</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">Student Interviews</span>
+            <span class="tech-tag">Protocol Development</span>
+            <span class="tech-tag">Data Synthesis</span>
+            <span class="tech-tag">Policy Recommendations</span>
           </div>
         </div>
+        <div class="modal-links">
+          <a href="https://gardnercenter.stanford.edu" target="_blank" class="modal-link">Stanford Gardner Center</a>
+        </div>
       </div>
-    </section>
-
-    <!-- Social icons -->
-    <div class="social-icons">
-      <p style="font-size: 1.2em; color: #000000; margin-bottom: 1em; font-weight: 600; text-align: center;">Connect with me here!</p>
-      <a href="https://github.com/v7ncentng" target="_blank">
-        <img src="github.png" alt="GitHub" class="icon">
-      </a>
-      <a href="mailto:v7ncentng@gmail.com" target="_blank">
-        <img src="gmail.png" alt="Email" class="icon">
-      </a>
-      <a href="https://www.linkedin.com/in/wang-ng-8805b2213/" target="_blank">
-        <img src="linkedin.png" alt="LinkedIn" class="icon">
-      </a>
     </div>
+  </div>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const lines = document.querySelectorAll(".text, .background-text");
-        lines.forEach((line) => {
-          const styles = getComputedStyle(line);
-          const delay = parseFloat(styles.getPropertyValue('--delay')) || 0;
-          const steps = parseInt(styles.getPropertyValue('--steps')) || line.textContent.trim().length;
-          const text = line.textContent.trim();
-          const isBackgroundText = line.classList.contains('background-text');
+  <div id="deep-learning-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Fullstack Developer</h2>
+        <p class="modal-subtitle">Google Developer Student Club • July 2024</p>
+        <span class="close" onclick="closeModal('deep-learning-modal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">
+          Utilized Figma, and ReactJS to build a captivating frontend, streamlining the housing search process for 50+ Davis students. 
+          Developed a comprehensive database and user interface for apartment 
+          hunting, implementing data scraping techniques and creating intuitive search and filtering capabilities for 
+          student housing options. Presented this project in the Build with AI startup showcase.
+          See more about the technicalities of Aggie Housing <a href="#" onclick="closeModal('deep-learning-modal'); openModal('aggie-housing')" style="color: #df7366; font-weight: bold; text-decoration: underline; cursor: pointer;">here</a>.
+        </p>
+        <div class="tech-stack">
+          <h4>Key Responsibilities:</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">Data Collection</span>
+            <span class="tech-tag">Web Scraping</span>
+            <span class="tech-tag">Database Design</span>
+            <span class="tech-tag">User Interface</span>
+          </div>
+        </div>
+        <div class="modal-links">
+          <a href="https://gdsc.community.dev" target="_blank" class="modal-link">GDSC</a>
+          <a href="#" class="modal-link">View Project</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-          if (isBackgroundText) {
-            line.style.visibility = 'visible';
-            setTimeout(() => { line.style.opacity = '1'; }, delay * 1000);
-          } else {
-            const originalText = text;
-            line.textContent = '';
-            
-            const textSpan = document.createElement('span');
-            line.appendChild(textSpan);
-            
-            let currentStep = 0;
-            const typingSpeed = 2000 / Math.max(steps, 1);
-            
-            const typeCharacter = () => {
-              if (currentStep < steps && currentStep < originalText.length) {
-                textSpan.innerHTML = originalText.substring(0, currentStep + 1) + '<span class="cursor"></span>';
-                currentStep++;
-                setTimeout(typeCharacter, typingSpeed);
-              } else {
-                textSpan.textContent = originalText;
-                line.classList.add('text-complete');
-              }
-            };
-            
-            setTimeout(typeCharacter, delay * 1000);
-          }
-        });
+  <div id="research-assistant-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">UC Davis</h2>
+        <p class="modal-subtitle">UC Davis Research Lab • September 2023 - Present</p>
+        <span class="close" onclick="closeModal('research-assistant-modal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">
+          Led 13 incoming transfer students and 18 incoming freshmen students around UC Davis, providing them with a comprehensive tour of campus buildings, events, and resources.
+          Hosted icebreakers, major-related workshops, and team-building activities to foster a sense of community and belonging.
+        </p>
+        <div class="tech-stack">
+          <h4>Key Responsibilities:</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">Conflict Resolution</span>
+            <span class="tech-tag">Activitiy Planning & Leadership</span>
+            <span class="tech-tag">Active Communication</span>
+          </div>
+        </div>
+        <div class="modal-links">
+          <a href="https://ucdavis.edu" target="_blank" class="modal-link">UC Davis</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="social-icons">
+    <p style="font-size: 1.2em; color: #000000; margin-bottom: 1em; font-weight: 600; text-align: center;">Connect with me here!</p>
+    <a href="https://github.com/v7ncentng" target="_blank">
+      <img src="github.png" alt="GitHub" class="icon">
+    </a>
+    <a href="mailto:v7ncentng@gmail.com" target="_blank">
+      <img src="gmail.png" alt="Email" class="icon">
+    </a>
+    <a href="https://www.linkedin.com/in/wang-ng-8805b2213/" target="_blank">
+      <img src="linkedin.png" alt="LinkedIn" class="icon">
+    </a>
+  </div>
+
+  <script>
+    function openModal(projectId) {
+      const modal = document.getElementById(projectId + '-modal');
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+      if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        const openModal = document.querySelector('.modal[style*="block"]');
+        if (openModal) {
+          openModal.style.display = 'none';
+          document.body.style.overflow = 'auto';
+        }
+      }
+    });
+
+    // Updated scroll function to only change experience section background
+    function updateExperienceBackgroundOnScroll() {
+      const experienceSection = document.getElementById('experience-section');
+      const experienceHeading = document.querySelector('.experience-heading');
+      
+      // Get the position and dimensions of the experience section
+      const rect = experienceSection.getBoundingClientRect();
+      const sectionTop = rect.top;
+      const sectionBottom = rect.bottom;
+      const sectionHeight = rect.height;
+      const windowHeight = window.innerHeight;
+      
+      // Calculate how much of the section is visible
+      let visiblePercentage = 0;
+      
+      if (sectionTop <= 0 && sectionBottom >= windowHeight) {
+        // Section fills the entire viewport
+        visiblePercentage = 1;
+      } else if (sectionTop > 0 && sectionBottom < windowHeight) {
+        // Entire section is visible
+        visiblePercentage = 1;
+      } else if (sectionTop <= 0 && sectionBottom > 0) {
+        // Top is cut off, bottom is visible
+        visiblePercentage = sectionBottom / windowHeight;
+      } else if (sectionTop < windowHeight && sectionBottom >= windowHeight) {
+        // Top is visible, bottom is cut off
+        visiblePercentage = (windowHeight - sectionTop) / windowHeight;
+      }
+      
+      // Clamp the percentage between 0 and 1
+      visiblePercentage = Math.max(0, Math.min(1, visiblePercentage));
+      
+      // Interpolate between white and dark gray based on visibility
+      const startColor = [255, 255, 255]; // White
+      const endColor = [0, 0, 0]; 
+      
+      const currentColor = startColor.map((start, index) => {
+        const end = endColor[index];
+        return Math.round(start + (end - start) * visiblePercentage);
       });
-    </script>
-  </body>
+      
+      // Apply the background color to the experience section
+      experienceSection.style.backgroundColor = `rgb(${currentColor.join(',')})`;
+      
+      // Also update the heading color for better contrast
+      const textBrightness = (currentColor[0] + currentColor[1] + currentColor[2]) / 3;
+      const headingColor = textBrightness > 128 ? '#000000' : '#ffffff';
+      experienceHeading.style.color = headingColor;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Add scroll listener for experience section background
+      window.addEventListener('scroll', updateExperienceBackgroundOnScroll);
+      
+      // Initialize background color
+      updateExperienceBackgroundOnScroll();
+    });
+  </script>
+</body>
 </html>
