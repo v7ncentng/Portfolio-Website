@@ -14,7 +14,7 @@
     .topnav {
       text-align: center;
       padding: 2em 0;
-      background:#ffffff;
+      background: #ffffff;
     }
     .topnav a {
       margin: 0 1em;
@@ -32,143 +32,143 @@
       color: #000000;
     }
 
+    /* Vertical Timeline Styles */
     .timeline-wrapper {
-      padding: 4em 2em 6em;
-      overflow-x: auto;
+      padding: 4em 2em 2em; /* Reduced bottom padding from 8em to 2em */
       background: transparent;
-      margin-top: 2em;
-    }
-
-    .horizontal-timeline {
-      position: relative;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      min-width: 800px;
-      margin: 0 auto;
-      max-width: 1200px;
-      height: 500px;
+      justify-content: center;
     }
 
-    .horizontal-timeline::before {
+    .vertical-timeline {
+      position: relative;
+      max-width: 1000px;
+      width: 100%;
+      min-height: 600px; /* Reduced from 1200px to 600px */
+    }
+
+    /* Central vertical line */
+    .vertical-timeline::before {
       content: '';
       position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #df7366, #ef8376);
+      top: 0;
+      bottom: 0;
+      height: 100%; /* Changed from 60% to 100% to extend the full height */
+      left: 50%;
+      width: 4px;
+      background: linear-gradient(180deg, #df7366, #ef8376);
+      transform: translateX(-50%);
       z-index: 1;
-      transform: translateY(-50%);
     }
 
     .timeline-event {
       position: relative;
-      flex: 1;
+      margin: 3em 0;
+      width: 100%;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100%;
-      z-index: 2;
     }
 
     .timeline-dot {
       position: absolute;
-      top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
-      width: 20px;
-      height: 20px;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 24px;
       background-color: #df7366;
       border-radius: 50%;
-      border: 4px solid #fff;
-      box-shadow: 0 0 0 2px #df7366, 0 0 10px rgba(223, 115, 102, 0.3);
+      border: 5px solid #fff;
+      box-shadow: 0 0 0 3px #df7366, 0 0 15px rgba(223, 115, 102, 0.3);
       z-index: 3;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
     }
 
     .timeline-dot:hover {
-      transform: translate(-50%, -50%) scale(1.2);
-      box-shadow: 0 0 0 2px #df7366, 0 0 20px rgba(223, 115, 102, 0.5);
+      transform: translateX(-50%) scale(1.2);
+      box-shadow: 0 0 0 3px #df7366, 0 0 25px rgba(223, 115, 102, 0.5);
     }
 
-    .timeline-event:nth-child(odd) .content {
+    /* Left side content - always on the left */
+    .content-left {
       position: absolute;
-      top: 40%;
-      transform: translateY(-100%);
-      opacity: 1;
+      right: calc(50% - 18em);
+      width: 280px;
     }
 
-    .timeline-event:nth-child(even) .content {
-      position: absolute;
-      bottom: 40%;
-      transform: translateY(100%);
-      opacity: 1;
-    }
-
-    .timeline-event:nth-child(odd)::after {
+    .content-left::after {
       content: '';
       position: absolute;
       top: 50%;
-      left: 50%;
-      width: 2px;
-      height: 15%;
-      background-color: #df7366;
-      z-index: 1;
-      opacity: 0.6;
-      transform: translate(-50%, -100%);
+      right: 15px;
+      transform: translateY(-50%);
+      border: 15px solid transparent;
+      border-left-color: #f9f9f9;
+      z-index: 2;
     }
 
-    .timeline-event:nth-child(even)::after {
+    /* Right side content - always on the right */
+    .content-right {
+      position: absolute;
+      left: calc(50% - 18em);
+      width: 280px;
+    }
+
+    .content-right::after {
       content: '';
       position: absolute;
       top: 50%;
-      left: 50%;
-      width: 2px;
-      height: 15%;
+      left: 15px;
+      transform: translateY(-50%);
+      border: 15px solid transparent;
+      border-right-color: #f9f9f9;
+      z-index: 2;
+    }
+
+    /* Left line extending from dot */
+    .timeline-event::before {
+      content: '';
+      position: absolute;
+      left: calc(50% - 12px);
+      top: 50%;
+      width: 6em;
+      height: 2px;
       background-color: #df7366;
-      z-index: 1;
-      opacity: 0.6;
-      transform: translateX(-50%);
+      z-index: 2;
+      transform: translateY(-50%);
+      opacity: 0.7;
+    }
+
+    /* Right line extending from dot */
+    .timeline-event::after {
+      content: '';
+      position: absolute;
+      right: calc(50% - 12px);
+      top: 50%;
+      width: 6em;
+      height: 2px;
+      background-color: #df7366;
+      z-index: 2;
+      transform: translateY(-50%);
+      opacity: 0.7;
     }
 
     .content {
       background: #f9f9f9;
-      padding: 1.5em;
-      border-radius: 0.8em;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 2em;
+      border-radius: 1em;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      width: 200px;
       text-align: center;
       position: relative;
       cursor: pointer;
+      border: 1px solid rgba(223, 115, 102, 0.1);
     }
 
     .content:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    }
-
-    .timeline-event:nth-child(odd) .content::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 8px solid transparent;
-      border-top-color: #f9f9f9;
-    }
-
-    .timeline-event:nth-child(even) .content::after {
-      content: '';
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 8px solid transparent;
-      border-bottom-color: #f9f9f9;
+      transform: translateY(-8px);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.18);
     }
 
     .text {
@@ -176,30 +176,36 @@
     }
 
     .content h3 {
-      margin: 0 0 0.5em;
-      font-size: 1.3em;
+      margin: 0 0 0.8em;
+      font-size: 1.4em;
       color: #483949;
+      font-weight: 600;
     }
 
     .content p {
-      margin: 0 0 1em;
+      margin: 0 0 1.2em;
       color: #666;
-      font-size: 0.95em;
-      line-height: 1.4;
+      font-size: 1em;
+      line-height: 1.5;
     }
 
     .content a {
-      color: #007acc;
+      color: #df7366;
       font-weight: bold;
       text-decoration: none;
-      font-size: 0.9em;
+      font-size: 0.95em;
+      padding: 0.5em 1em;
+      background: rgba(223, 115, 102, 0.1);
+      border-radius: 20px;
+      transition: all 0.3s ease;
     }
 
     .content a:hover {
-      text-decoration: underline;
+      background: #df7366;
+      color: white;
     }
 
-    /* Updated Modal Styles with Fixed Dimensions and Scrolling */
+    /* Modal Styles */
     .modal {
       display: none;
       position: fixed;
@@ -220,7 +226,7 @@
       background: #fff;
       width: 450px;
       max-width: 90vw;
-      max-height: 80vh; /* Fixed maximum height */
+      max-height: 80vh;
       border-radius: 15px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       animation: slideInRight 0.4s ease-out;
@@ -245,7 +251,7 @@
       color: white;
       padding: 1.5em;
       position: relative;
-      flex-shrink: 0; /* Prevent header from shrinking */
+      flex-shrink: 0;
     }
 
     .modal-title {
@@ -285,11 +291,10 @@
 
     .modal-body {
       padding: 2em;
-      overflow-y: auto; /* Enable vertical scrolling */
-      flex-grow: 1; /* Allow body to grow and fill remaining space */
+      overflow-y: auto;
+      flex-grow: 1;
     }
 
-    /* Custom scrollbar styling */
     .modal-body::-webkit-scrollbar {
       width: 6px;
     }
@@ -312,7 +317,7 @@
       color: #555;
       line-height: 1.6;
       margin-bottom: 1.5em;
-      text-align:left;
+      text-align: left;
       font-size: 1.1em;
     }
 
@@ -383,9 +388,10 @@
 
     /* Experience Section Styles */
     .experience-section {
-      padding: 6em 2em 4em;
+      padding: 2em 2em 4em; /* Reduced top padding from 6em to 2em */
       background: #ffffff;
       transition: background-color 0.3s ease;
+      margin-top: 0; /* Ensure no extra margin */
     }
 
     .experience-heading {
@@ -497,16 +503,87 @@
 
     /* Mobile responsiveness */
     @media (max-width: 768px) {
+      .timeline-wrapper {
+        padding: 2em 1em 1em; /* Reduced bottom padding for mobile too */
+      }
+
+      .vertical-timeline {
+        max-width: 100%;
+        min-height: 800px; /* Reduced from 1000px */
+      }
+
+      .vertical-timeline::before {
+        left: 30px;
+        transform: none;
+        height: 100%;
+      }
+
+      .timeline-event {
+        margin: 4em 0; /* Reduced from 6em */
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .timeline-dot {
+        left: 30px;
+        transform: translateX(-50%);
+      }
+
+      .content-left,
+      .content-right {
+        position: static;
+        width: calc(100% - 80px);
+        margin-left: 60px;
+        margin-bottom: 2em;
+      }
+
+      .content-left::after,
+      .content-right::after {
+        display: none;
+      }
+
+      .timeline-event::before,
+      .timeline-event::after {
+        display: none;
+      }
+
+      /* Single connecting line for mobile */
+      .timeline-event .content-left::before {
+        content: '';
+        position: absolute;
+        left: -42px;
+        top: 50%;
+        width: 18px;
+        height: 2px;
+        background-color: #df7366;
+        z-index: 2;
+        transform: translateY(-50%);
+        opacity: 0.7;
+      }
+
+      .timeline-event .content-right::before {
+        content: '';
+        position: absolute;
+        left: -42px;
+        top: 50%;
+        width: 18px;
+        height: 2px;
+        background-color: #df7366;
+        z-index: 2;
+        transform: translateY(-50%);
+        opacity: 0.7;
+      }
+
       .modal-content {
         right: 20px;
         left: 20px;
         width: auto;
         max-width: none;
-        max-height: 85vh; /* Slightly taller on mobile */
+        max-height: 85vh;
       }
 
       .experience-section {
-        padding: 4em 1em 2em;
+        padding: 1em 1em 2em; /* Further reduced top padding for mobile */
       }
 
       .experience-grid {
@@ -521,55 +598,54 @@
       .experience-heading {
         font-size: 2.2em;
       }
+    }
 
-      .timeline-wrapper {
-        padding: 2em 1em;
-      }
-      
-      .horizontal-timeline {
-        flex-direction: column;
-        min-width: auto;
-        gap: 3em;
-      }
-
-      .horizontal-timeline::before {
-        top: 0;
-        bottom: 0;
-        left: 50%;
-        right: auto;
-        width: 3px;
-        height: auto;
-        background: linear-gradient(180deg, #df7366, #ef8376);
-      }
-
+    /* Responsive layout for project boxes - vertical stacking when screen is too narrow */
+    @media (max-width: 1200px) {
       .timeline-event {
-        flex-direction: row;
+        flex-direction: column;
+        align-items: center;
+        margin: 2em 0;
+      }
+
+      .content-left,
+      .content-right {
+        position: static;
         width: 100%;
+        max-width: 400px;
+        margin: 1em 0;
       }
 
-      .timeline-event:nth-child(odd) {
-        flex-direction: row-reverse;
+      .content-left::after,
+      .content-right::after {
+        display: none;
       }
 
-      .timeline-event:nth-child(odd) .content,
-      .timeline-event:nth-child(even) .content {
-        margin: 0;
-        order: 1;
-        width: calc(50% - 2em);
-      }
-
-      .timeline-dot {
-        order: 2;
-        margin: 0 1em;
-      }
-
+      .timeline-event::before,
       .timeline-event::after {
         display: none;
       }
 
-      .timeline-event:nth-child(odd) .content::after,
-      .timeline-event:nth-child(even) .content::after {
+      .timeline-dot {
         display: none;
+      }
+
+      .vertical-timeline::before {
+        display: none;
+      }
+
+      .vertical-timeline {
+        min-height: auto;
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 1200px) {
+      .timeline-wrapper {
+        padding: 3em 2em 1em;
+      }
+
+      .experience-section {
+        padding: 1em 2em 3em;
       }
     }
   </style>
@@ -587,50 +663,42 @@
   <!-- Page Header -->
   <h1 class="project-heading" style="background: transparent; margin: 0; padding: 1em 0;">Projects:</h1>
 
-  <!-- Timeline -->
+  <!-- Vertical Timeline -->
   <div class="timeline-wrapper">
-    <div class="horizontal-timeline">
+    <div class="vertical-timeline">
       
       <div class="timeline-event">
-        <div class="content" onclick="openModal('aggie-housing')">
+        <div class="content content-left" onclick="openModal('aggie-housing')">
           <h3>Aggie Housing</h3>
           <p class="text">Find your ideal Davis apartment by hearing what other students think!</p>
-          <a href="https://github.com/v7ncentng/MasterMind-Game" target="_blank" onclick="event.stopPropagation()">GitHub ↗</a>
+          <a href="https://github.com/v7ncentng/aggie-housing" target="_blank" onclick="event.stopPropagation()">GitHub ↗</a>
         </div>
-        <div class="timeline-dot" onclick="openModal('aggie-housing')"></div>
-      </div>
-
-      <div class="timeline-event">
-        <div class="content" onclick="openModal('connect4-bot')">
+        <div class="content content-right" onclick="openModal('connect4-bot')">
           <h3>Connect-4 Bot</h3>
-          <p class="text">Try to win against Connie, my AI-powered Connect-4 bot.</p>
-          <a href="https://github.com/v7ncentng/Typing-Test" target="_blank" onclick="event.stopPropagation()">GitHub ↗</a>
+          <p class="text">Try to win against FourSight, my AI-powered Connect-4 bot.</p>
+          <a href="https://github.com/v7ncentng/connect4-bot" target="_blank" onclick="event.stopPropagation()">GitHub ↗</a>
         </div>
-        <div class="timeline-dot" onclick="openModal('connect4-bot')"></div>
+        <div class="timeline-dot"></div>
       </div>
 
       <div class="timeline-event">
-        <div class="content" onclick="openModal('typing-test')">
+        <div class="content content-left" onclick="openModal('typing-test')">
           <h3>ML Typing Speed Test</h3>
           <p class="text">A speed typing app that learns your typing patterns with machine learning.</p>
           <a href="https://github.com/v7ncentng/Typing-Test" target="_blank" onclick="event.stopPropagation()">GitHub ↗</a>
         </div>
-        <div class="timeline-dot" onclick="openModal('typing-test')"></div>
-      </div>
-
-      <div class="timeline-event">
-        <div class="content" onclick="openModal('mastermind')">
+        <div class="content content-right" onclick="openModal('mastermind')">
           <h3>Mastermind Game</h3>
           <p class="text">A Python terminal-based color logic game with a scoring system.</p>
           <a href="https://github.com/v7ncentng/MasterMind-Game" target="_blank" onclick="event.stopPropagation()">GitHub ↗</a>
         </div>
-        <div class="timeline-dot" onclick="openModal('mastermind')"></div>
+        <div class="timeline-dot"></div>
       </div>
 
     </div>
   </div>
 
-  <!-- Modals -->
+  <!-- Project Modals -->
   <div id="aggie-housing-modal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -656,7 +724,6 @@
         </div>
         <div class="modal-links">
           <a href="https://github.com/v7ncentng/aggie-housing" target="_blank" class="modal-link">View Code</a>
-          <a href="#" class="modal-link">Live Demo</a>
         </div>
       </div>
     </div>
@@ -687,7 +754,6 @@
         </div>
         <div class="modal-links">
           <a href="https://github.com/v7ncentng/connect4-bot" target="_blank" class="modal-link">View Code</a>
-          <a href="#" class="modal-link">Play Game</a>
         </div>
       </div>
     </div>
@@ -709,12 +775,16 @@
         <div class="tech-stack">
           <h4>Technologies Used:</h4>
           <div class="tech-tags">
+            <span class="tech-tag">JavaScript</span>
             <span class="tech-tag">Python</span>
+            <span class="tech-tag">TensorFlow</span>
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">Chart.js</span>
           </div>
         </div>
         <div class="modal-links">
           <a href="https://github.com/v7ncentng/Typing-Test" target="_blank" class="modal-link">View Code</a>
-          <a href="#" class="modal-link">Try It Out</a>
         </div>
       </div>
     </div>
@@ -737,12 +807,13 @@
           <h4>Technologies Used:</h4>
           <div class="tech-tags">
             <span class="tech-tag">Python</span>
+            <span class="tech-tag">Colorama</span>
+            <span class="tech-tag">Terminal Graphics</span>
             <span class="tech-tag">Object-Oriented Design</span>
           </div>
         </div>
         <div class="modal-links">
           <a href="https://github.com/v7ncentng/MasterMind-Game" target="_blank" class="modal-link">View Code</a>
-          <a href="#" class="modal-link">Download</a>
         </div>
       </div>
     </div>
@@ -753,7 +824,7 @@
     <h1 class="experience-heading">Experience:</h1>
     <div class="experience-grid">
 
-            <div class="experience-card" onclick="openModal('deep-learning')">
+      <div class="experience-card" onclick="openModal('deep-learning')">
         <div class="experience-header">
           <h3>Fullstack Developer</h3>
           <span class="company">Google Developer Student Club</span>
@@ -762,6 +833,11 @@
         <p class="experience-description">
           Gathered reviews, layouts, locations, contact info, and prices of every apartment in Davis to <strong>help UC Davis students find their home away from home.</strong>
         </p>
+        <div class="experience-skills">
+          <span class="skill-tag">React.js</span>
+          <span class="skill-tag">Web Scraping</span>
+          <span class="skill-tag">Database Design</span>
+        </div>
       </div>
       
       <div class="experience-card" onclick="openModal('data-analytics')">
@@ -773,6 +849,11 @@
         <p class="experience-description">
           Coordinated weekly client service reports and <strong>generated 25+ actionable data visuals for 10+ startup client companies.</strong>
         </p>
+        <div class="experience-skills">
+          <span class="skill-tag">Data Analytics</span>
+          <span class="skill-tag">Excel</span>
+          <span class="skill-tag">Reporting</span>
+        </div>
       </div>
 
       <div class="experience-card" onclick="openModal('qualitative-research')">
@@ -784,6 +865,11 @@
         <p class="experience-description">
           <strong>Conducted and facilitated 15+ student interviews</strong> regarding areas of improvement within the Oakland Unified School District.
         </p>
+        <div class="experience-skills">
+          <span class="skill-tag">Research</span>
+          <span class="skill-tag">Interviews</span>
+          <span class="skill-tag">Analysis</span>
+        </div>
       </div>
 
       <div class="experience-card" onclick="openModal('research-assistant')">
@@ -793,46 +879,19 @@
           <span class="duration">September 2024 - October 2024</span>
         </div>
         <p class="experience-description">
-Shared the vibrant culture of UC Davis with 35+ incoming students</strong> and helped facilitate a smooth transition into college life.
+          <strong>Shared the vibrant culture of UC Davis with 35+ incoming students</strong> and helped facilitate a smooth transition into college life.
         </p>
+        <div class="experience-skills">
+          <span class="skill-tag">Leadership</span>
+          <span class="skill-tag">Communication</span>
+          <span class="skill-tag">Event Planning</span>
+        </div>
       </div>
 
     </div>
   </section>
 
   <!-- Experience Modals -->
-  <div id="data-analytics-modal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title">Data Analytics & Human Resources Intern</h2>
-        <p class="modal-subtitle">Insperity Inc. • Aug 2022 - Dec 2023</p>
-        <span class="close" onclick="closeModal('data-analytics-modal')">&times;</span>
-      </div>
-      <div class="modal-body">
-        <p class="modal-description">
-          Developed comprehensive reporting systems that provided valuable insights for HR decision-making and 
-          strategic planning across multiple client organizations.
-        </p>
-        <div class="tech-stack">
-          <h4>Key Responsibilities:</h4>
-          <div class="tech-tags">
-            <span class="tech-tag">Weekly Reporting</span>
-            <span class="tech-tag">Data Visualization</span>
-            <span class="tech-tag">Front-Facing Client Communication</span>
-          </div>
-        </div>
-        <div class="tech-stack">
-          <h4>Technologies Used:</h4>
-          <div class="tech-tags">
-            <span class="tech-tag">Excel</span>
-            <span class="tech-tag">Salesforce</span>
-            <span class="tech-tag">Microsoft Office</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div id="qualitative-research-modal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -897,8 +956,8 @@ Shared the vibrant culture of UC Davis with 35+ incoming students</strong> and h
   <div id="research-assistant-modal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title">UC Davis</h2>
-        <p class="modal-subtitle">UC Davis Research Lab • September 2023 - Present</p>
+        <h2 class="modal-title">UC Davis Orientation Leader</h2>
+        <p class="modal-subtitle">UC Davis Student Affairs • September 2024 - October 2024</p>
         <span class="close" onclick="closeModal('research-assistant-modal')">&times;</span>
       </div>
       <div class="modal-body">
@@ -910,12 +969,47 @@ Shared the vibrant culture of UC Davis with 35+ incoming students</strong> and h
           <h4>Key Responsibilities:</h4>
           <div class="tech-tags">
             <span class="tech-tag">Conflict Resolution</span>
-            <span class="tech-tag">Activitiy Planning & Leadership</span>
+            <span class="tech-tag">Activity Planning & Leadership</span>
             <span class="tech-tag">Active Communication</span>
           </div>
         </div>
         <div class="modal-links">
           <a href="https://ucdavis.edu" target="_blank" class="modal-link">UC Davis</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="data-analytics-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Data Analytics & Human Resources Intern</h2>
+        <p class="modal-subtitle">Insperity Inc. • Aug 2022 - Dec 2023</p>
+        <span class="close" onclick="closeModal('data-analytics-modal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">
+          Developed comprehensive reporting systems that provided valuable insights for HR decision-making and 
+          strategic planning across multiple client organizations.
+        </p>
+        <div class="tech-stack">
+          <h4>Key Responsibilities:</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">Weekly Reporting</span>
+            <span class="tech-tag">Data Visualization</span>
+            <span class="tech-tag">Front-Facing Client Communication</span>
+          </div>
+        </div>
+        <div class="tech-stack">
+          <h4>Technologies Used:</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">Excel</span>
+            <span class="tech-tag">Salesforce</span>
+            <span class="tech-tag">Microsoft Office</span>
+          </div>
+        </div>
+        <div class="modal-links">
+          <a href="https://www.insperity.com" target="_blank" class="modal-link">Insperity Inc.</a>
         </div>
       </div>
     </div>
