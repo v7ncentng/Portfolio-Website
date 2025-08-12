@@ -105,38 +105,30 @@ function openLink(url) {
   }
   
   .background-label {
-    /* Reduced margin-top for less space above the heading */
     margin-top: 1em;
     color: #df7366;
     font-size: 1.75em;
-    /* Reduced margin-bottom for less space between the heading and the text */
     margin-bottom: 0.5em; 
-    position: relative;
-    top: 0;
-    height: auto;
-    display: block;
+    font-weight: 700;
   }
   
   .background-container {
     position: relative;
-    /* Reduced min-height to allow the container to shrink */
     min-height: 80px; 
-    /* Added a bottom margin to create some space between this section and the next */
-
+    margin-bottom: 1em;
   }
   
   .background-text {
     font-size: 1.1em;
     line-height: 1.6;
     color: #5b5b5b;
-    position: absolute;
-    width: 100%;
     visibility: hidden;
     opacity: 0;
     transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    white-space: normal;
+    display: block;
+    width: 100%;
   }
-  
-  
   
   .photo {
     width: 250px;
@@ -275,17 +267,6 @@ function openLink(url) {
   margin: 0 auto;
 }
 
-@media (max-width: 960px) {
-  .skills-grid {
-    grid-template-columns: 1fr;
-    gap: 2em;
-  }
-  
-  .languages-section {
-    max-width: 100%;
-  }
-}
-
 .icon {
   width: 40px;
   height: 40px;
@@ -320,6 +301,22 @@ function openLink(url) {
   .intro-heading {
     font-size: 2.5em;
   }
+  
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 2em;
+  }
+  
+  .languages-section {
+    max-width: 100%;
+  }
+}
+
+/* Additional responsive adjustments */
+@media (max-width: 768px) {
+  .background-text {
+    font-size: 1em;
+  }
 }
 </style>
 </head>
@@ -353,7 +350,7 @@ function openLink(url) {
 
 <div class="main-layout">
   <div class="photo-container">
-    </div>
+  </div>
   
   <div class="content-container">
     <h2 class="background-label">Education:</h2>
