@@ -37,6 +37,7 @@
       padding: 4em 2em 2em; /* Reduced bottom padding from 8em to 2em */
       background: transparent;
       display: flex;
+      margin-top: 0.5em;
       justify-content: center;
     }
 
@@ -687,10 +688,10 @@
           <p class="text">A speed typing app that learns your typing patterns with machine learning.</p>
           <a href="https://github.com/v7ncentng/Typing-Test" target="_blank" onclick="event.stopPropagation()">GitHub ↗</a>
         </div>
-        <div class="content content-right" onclick="openModal('mastermind')">
-          <h3>Mastermind Game</h3>
-          <p class="text">A Python terminal-based color logic game with a scoring system.</p>
-          <a href="https://github.com/v7ncentng/MasterMind-Game" target="_blank" onclick="event.stopPropagation()">GitHub ↗</a>
+        <div class="content content-right" onclick="openModal('misinformation-detector')">
+          <h3>AI Misinformation Spotter</h3>
+          <p class="text">A FastAPI-powered web app that detects false claims using NLP and real-time web verification.</p>
+          <a href="https://github.com/v7ncentng/Misinformation-Detector" target="_blank" onclick="event.stopPropagation()">GitHub ↗</a>
         </div>
         <div class="timeline-dot"></div>
       </div>
@@ -790,33 +791,36 @@
     </div>
   </div>
 
-  <div id="mastermind-modal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title">Mastermind Game</h2>
-        <p class="modal-subtitle">Terminal-Based Logic Puzzle</p>
-        <span class="close" onclick="closeModal('mastermind-modal')">&times;</span>
-      </div>
-      <div class="modal-body">
-        <p class="modal-description">
-          A Python implementation of the classic Mastermind board game featuring colorful terminal graphics, 
-          multiple difficulty levels, and an intelligent scoring system. Players must use logic and deduction 
-          to crack the secret color code within a limited number of attempts.
-        </p>
-        <div class="tech-stack">
-          <h4>Technologies Used:</h4>
-          <div class="tech-tags">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Colorama</span>
-            <span class="tech-tag">Terminal Graphics</span>
-            <span class="tech-tag">Object-Oriented Design</span>
-          </div>
-        </div>
-        <div class="modal-links">
-          <a href="https://github.com/v7ncentng/MasterMind-Game" target="_blank" class="modal-link">View Code</a>
-        </div>
-      </div>
-    </div>
+<div id="misinformation-detector-modal" class="modal">
+   <div class="modal-content">
+     <div class="modal-header">
+       <h2 class="modal-title">AI Misinformation Spotter</h2>
+       <p class="modal-subtitle">Intelligent Fact-Checking System</p>
+       <span class="close" onclick="closeModal('misinformation-detector-modal')">&times;</span>
+     </div>
+     <div class="modal-body">
+       <p class="modal-description">
+         A full-stack web application that analyzes text for potential misinformation using advanced NLP techniques, 
+         machine learning models, and real-time web verification. The system detects factual claims, assesses credibility, 
+         and cross-references information against current web sources to help users identify false or misleading content 
+         before sharing.
+       </p>
+       <div class="tech-stack">
+         <h4>Technologies Used:</h4>
+         <div class="tech-tags">
+           <span class="tech-tag">FastAPI</span>
+           <span class="tech-tag">React</span>
+           <span class="tech-tag">Transformers</span>
+           <span class="tech-tag">NLTK</span>
+           <span class="tech-tag">aiohttp</span>
+           <span class="tech-tag">Machine Learning</span>
+         </div>
+       </div>
+       <div class="modal-links">
+         <a href="https://github.com/v7ncentng/Misinformation-Detector" target="_blank" class="modal-link">View Code</a>
+       </div>
+     </div>
+   </div>
   </div>
 
   <!-- Experience Section -->
