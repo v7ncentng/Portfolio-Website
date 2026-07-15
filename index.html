@@ -1,619 +1,1038 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title class="name">Vincent Ng | Software Engineer</title>
-<link rel="stylesheet" href="main.css" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic,600,700,800,900">
-<script>
-function openLink(url) {
-  window.open(url, '_blank');
-}
-</script>
-<style>
-  .name {
-    color: black;
-  }
-  .topnav {
-    text-align: center;
-    padding: 2em 0;
-    background:#ffffff;
-  }
-  .topnav a {
-    margin: 0 1em;
-    font-weight: 600;
-    color: #483949;
-    border: none;
-    text-decoration: none;
-  }
-  .topnav a:hover {
-    color: #ef8376;
-  }
-  
-  /* Main content section - using similar structure to background.html */
-  .main-section {
-    padding: 3em 1em;
-    background: #fff;
-  }
-  
-  .main-layout {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4em;
-    align-items: flex-start;
-    justify-content: center;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .photo-container {
-    flex: 0 0 300px;
-    text-align: center;
-    align-self: flex-start;
-  }
-  
-  .content-container {
-    flex: 1 1 500px;
-    max-width: 600px;
-    align-self: flex-start;
-  }
-  
-  .text-block {
-    text-align: left;
-  }
-  
-  .intro-heading {
-    font-size: 3.2em;
-    color: #000000;
-    margin-bottom: 0.5em;
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-  }
-  
-  .intro-heading .name-highlight {
-    font-weight: 900;
-    color: #000000;
-    text-shadow: 3px 3px 6px rgba(0,0,0,0.15);
-  }
-  
-  .intro-heading .title-part {
-    font-weight: 700;
-    color: #df7366;
-  }
-  
-  .im-label {
-    font-size: 1.5em;
-    font-weight: 700;
-    color: #df7366;
-    margin-bottom: 0.5em;
-  }
-  
-  .text {
-    font-size: 1.25em;
-    font-weight: 400;
-    font-family: monospace;
-    white-space: nowrap;
-    overflow: hidden;
-    display: flex;
-    margin-bottom: 0.3em;
-  }
-  
-  .text-complete {
-    border-right: none !important;
-  }
-  
-  .background-label {
-    margin-top: 0.75em;
-    color: #df7366;
-    font-size: 1.5em;
-    font-weight: 700;
-  }
-  
-  .background-container {
-    position: relative;
-    margin-bottom: 1em;
-  }
-  
-  .background-text {
-    font-size: 1.1em;
-    line-height: 1.6;
-    color: #5b5b5b;
-    opacity: 1;
-    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
-    white-space: normal;
-    display: block;
-    width: 100%;
-    min-height: 1.6em;
-  }
-  
-  .photo {
-    width: 250px;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 50%;
-    display: block;
-    margin: 0 auto;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-  }
-  
-  .cursor {
-    display: inline-block;
-    width: 2px;
-    height: 1.2em;
-    background-color: #333;
-    animation: blink 1s step-start infinite;
-    margin-left: 2px;
-    vertical-align: baseline;
-    border-radius: 1px;
-    box-shadow: 0 0 1px rgba(0,0,0,0.3);
-  }
-  
-  @keyframes blink {
-    50% { opacity: 0; }
-  }
-  
-  .social-icons {
-    text-align: center;
-    margin: 3em 0;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('theme-preference');
+        var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
+  <title>Vincent Ng — Software Developer</title>
+  <link rel="stylesheet" href="main.css?v=3" />
+  <style>
+    /* ── Hero ── */
+    .hero { padding: var(--spacing-96) 0 var(--spacing-64); }
 
-/* Skills Section Styles */
-.skills-section {
-  max-width: 1200px;
-  margin: 4em auto 2em auto;
-  padding: 3em 1em;
-  background: transparent;
-  border-radius: 12px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 1.2s ease;
-  
-}
+    .hero-name {
+      font-size: clamp(2.6rem, 8vw, var(--text-display-xl));
+      line-height: var(--leading-display-xl);
+      letter-spacing: var(--tracking-display-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-studio-ink);
+      margin-bottom: var(--spacing-64);
+    }
 
-.skills-section.animate {
-  opacity: 1;
-  transform: translateY(0);
-}
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-64);
+      align-items: center;
+    }
 
-.skills-title {
-  font-size: 1.5em;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 2em;
-  text-align: left;
-  position: relative;
-  overflow: hidden;
-  height: 2em;
-}
+    .hero-photo-col { display: flex; justify-content: center; }
 
-.skills-title-text {
-  transform: translateY(100%);
-  transition: transform 1s ease 0.5s;
-  display: block;
-}
+    .hero-photo {
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: var(--radius-images);
+    }
 
-.skills-title.animate .skills-title-text {
-  transform: translateY(0);
-}
+    /* ── Typewriter block ── */
+    .typewriter-block { margin-top: 0; }
 
-.skills-title::after {
-  content: '';
-  position: absolute;
-  bottom: 0.5em;
-  left: 0;
-  width: 0;
-  height: 3px;
-  background-color: #ef8376;
-  transition: width 1s ease;
-}
+    .tw-prefix {
+      font-size: var(--text-caption);
+      color: var(--text-muted);
+      margin-bottom: 0.6em;
+    }
 
-.skills-title.animate::after {
-  width: 100%;
-}
+    .tw-line {
+      font-size: var(--text-subheading);
+      color: var(--color-studio-ink);
+      white-space: pre;
+      min-height: 1.4em;
+      margin-bottom: 0.2em;
+    }
 
-.skills-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3em 4em;
-  margin-bottom: 3em;
-}
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-24);
+      flex-wrap: wrap;
+      margin-top: var(--spacing-48);
+    }
 
-.skills-category {
-  margin-bottom: 2em;
-}
+    /* ── Education ── */
+    .edu-section { padding: var(--spacing-64) 0; }
 
-.category-title {
-  font-size: 1.2em;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 1.5em;
-  text-align: center;
-}
+    .edu-card {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-32);
+    }
 
-.skill-item {
-  margin-bottom: 1em;
-}
+    .edu-info h3 {
+      font-size: var(--text-subheading);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: var(--tracking-subheading);
+      margin-bottom: 0.3em;
+    }
 
-.skill-name {
-  font-size: 0.9em;
-  color: #e0e0e0;
-  margin-bottom: 0.3em;
-  font-weight: 500;
-}
+    .edu-info p {
+      color: var(--text-muted);
+      font-size: var(--text-caption);
+    }
 
-.skill-bar {
-  width: 100%;
-  height: 8px;
-  background-color: #404040;
-  border-radius: 4px;
-  overflow: hidden;
-}
+    .edu-gpa {
+      margin-left: auto;
+      font-size: var(--text-heading-lg);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-studio-ink);
+      flex-shrink: 0;
+      text-align: right;
+    }
 
-.skill-progress {
-  height: 100%;
-  background-color: #ef8376;
-  border-radius: 4px;
-  transition: width 0.3s ease;
-}
+    .edu-gpa span {
+      display: block;
+      font-size: var(--text-caption);
+      font-weight: var(--font-weight-regular);
+      color: var(--text-muted);
+    }
 
-/* Spoken Languages Section */
-.languages-section {
-  grid-column: 1 / -1;
-  max-width: 400px;
-  margin: 0 auto;
-}
+    /* ── Skills ── */
+    .skills-section { padding: var(--spacing-64) 0; }
 
-.icon {
-  width: 40px;
-  height: 40px;
-  margin: 0 1em;
-  transition: transform 0.3s;
-}
+    /* ── About ── */
+    .about-section { padding: var(--spacing-64) 0; }
 
-.icon:hover {
-  transform: scale(1.1);
-}
+    .about-section .section-heading {
+      font-size: clamp(1.75rem, 1.2rem + 2.2vw, 3rem);
+    }
 
-/* Responsive design */
-@media (max-width: 960px) {
-  .main-layout {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .photo-container {
-    flex: none;
-  }
-  
-  .content-container {
-    flex: none;
-    max-width: 100%;
-  }
-  
-  .text-block {
-    text-align: center;
-  }
-  
-  .intro-heading {
-    font-size: 2.5em;
-  }
-  
-  .skills-grid {
-    grid-template-columns: 1fr;
-    gap: 2em;
-  }
-  
-  .languages-section {
-    max-width: 100%;
-  }
-}
+    .about-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-48);
+    }
 
-/* Additional responsive adjustments */
-@media (max-width: 768px) {
-  .background-text {
-    font-size: 1em;
-  }
-}
-</style>
+    .bio-para {
+      color: var(--color-studio-ink);
+      font-size: clamp(0.95rem, 0.85rem + 0.4vw, 1.125rem);
+      line-height: 1.8;
+      margin-bottom: var(--spacing-24);
+    }
+
+    .interests-block { margin-top: var(--spacing-40); }
+
+    .interests-label {
+      font-size: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: var(--spacing-16);
+    }
+
+    .interests-marquee-row {
+      padding: var(--spacing-16) 0;
+      border-top: 1px solid rgba(26, 26, 26, 0.15);
+      border-bottom: 1px solid rgba(26, 26, 26, 0.15);
+    }
+
+    .interests-marquee-row .skills-marquee-item {
+      font-size: clamp(0.8rem, 0.7rem + 0.3vw, 1rem);
+    }
+
+    .photo-col {
+      display: flex;
+      gap: var(--spacing-24);
+    }
+
+    .photo-col .image-card {
+      flex: 1 1 0;
+      min-width: 260px;
+    }
+
+    .site-footer .connect-inner {
+      padding-bottom: var(--spacing-48);
+      margin-bottom: var(--spacing-48);
+      border-bottom: 1px solid var(--color-studio-ink);
+    }
+
+    .connect-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spacing-32);
+      flex-wrap: wrap;
+    }
+
+    .connect-text h3 {
+      font-size: var(--text-heading);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: var(--tracking-heading);
+      margin-bottom: 0.3em;
+    }
+
+    .connect-text p { color: var(--text-muted); }
+
+    .connect-links {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-24);
+    }
+
+    /* ── Experience ── */
+    .experience-section { padding: var(--spacing-64) 0 var(--spacing-96); }
+
+    .subsection-heading {
+      font-size: clamp(1.75rem, 1.2rem + 2.2vw, 3rem);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: var(--tracking-heading-lg);
+      margin: var(--spacing-64) 0 var(--spacing-32);
+    }
+
+    .subsection-heading:first-of-type { margin-top: 0; }
+
+    @media (max-width: 860px) {
+      .hero-ctas { justify-content: flex-start; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-photo { max-width: 280px; }
+      .edu-card { flex-direction: column; align-items: flex-start; gap: var(--spacing-16); }
+      .edu-gpa { margin-left: 0; text-align: left; }
+      .photo-col { overflow-x: auto; }
+      .photo-col .image-card { flex-shrink: 0; }
+      .connect-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
-<body class="is-preload">
-<div class="topnav">
-<a href="index.html" class="active">// Home //</a>
-<a href="WangNg-SWE.pdf" target="_blank">// Resume //</a>
-<a href="projects.html">// Experience //</a>
-<a href="background.html">// About //</a>
-</div>
+<body>
 
-<section class="main-section">
-<div class="main-layout">
-  <div class="photo-container">
-    <img src="vince.jpg" alt="A photo of Vincent Ng" class="photo"/>
-  </div>
-  
-  <div class="content-container">
-    <div class="text-block">
-      <h1 class="intro-heading">
-        <span class="name-highlight">Vincent Ng</span>: <span class="title-part">Software Developer</span>
-      </h1>
-      <div class="im-label">I'm</div>
-      <div class="text" style="--steps:21; --delay: 0s;"> an initiative-taker.</div>
-      <div class="text" style="--steps:30; --delay: 2s;">constantly inspired to create.</div>
-      <div class="text" style="--steps:24; --delay: 4s;">consistently developing.</div>
-      <div class="text" style="--steps:27; --delay: 6s;">an aspiring business owner.</div>
-    </div>
-  </div>
-</div>
+  <!-- Nav -->
+  <nav class="topnav">
+    <div class="topnav-inner">
+      <div class="topnav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#experience">Projects</a>
+        <a href="WangNg-SWE.pdf" target="_blank">Resume</a>
+      </div>
 
-<div class="main-layout">
-  <div class="photo-container">
-  </div>
-  
-  <div class="content-container">
-    <h2 class="background-label">Education:</h2>
-    <div class="background-container">
-      <div class="background-text" style="--steps: 68; --delay: 8s;">
-        <strong>Education:</strong> B.S. in Computer Science, Minor in Statistics, Minor in Technology Management UC Davis (2023–2027), GPA: 3.7.
-      </div>
-    </div>
-  </div>
-</div>
-</section>
+      <div class="topnav-right">
+        <div class="nav-widget">
+          <span class="nav-clock" id="navClock">--:--:--</span>
+          <span class="nav-weather" id="navWeather"></span>
+        </div>
 
-<section class="skills-section">
-<h2 class="skills-title">
-  <span class="skills-title-text">SKILLS</span>
-</h2>
-<div class="skills-grid">
-  <div class="skills-category">
-    <h3 class="category-title">Programming Languages</h3>
-    <div class="skill-item">
-      <div class="skill-name">Python</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 90%;"></div>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+          <span class="theme-toggle-icon theme-toggle-icon-light">☀️</span>
+          <span class="theme-toggle-icon theme-toggle-icon-dark">🌙</span>
+        </button>
+
+        <a href="#home" class="nav-avatar" aria-label="Vincent Ng">
+          <img src="vince.jpg" alt="Vincent Ng headshot" />
+        </a>
       </div>
     </div>
-    <div class="skill-item">
-      <div class="skill-name">Java</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 85%;"></div>
+  </nav>
+
+  <main>
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="container">
+      <h1 class="hero-name">Vincent Ng - Software Engineer</h1>
+
+      <div class="hero-grid">
+        <div class="hero-text-col">
+          <div class="typewriter-block">
+            <p class="tw-prefix">I am —</p>
+            <p class="tw-line" data-text=" an initiative-taker."></p>
+            <p class="tw-line" data-text=" constantly inspired to create."></p>
+            <p class="tw-line" data-text=" consistently developing."></p>
+            <p class="tw-line" data-text=" building software for the future."></p>
+          </div>
+
+          <div class="hero-ctas">
+            <a href="#experience" class="btn-filled">View My Work →</a>
+            <a href="WangNg-SWE.pdf" target="_blank" class="text-link">Resume ↗</a>
+          </div>
+        </div>
+
+        <div class="hero-photo-col">
+          <img src="vince.jpg" alt="Vincent Ng" class="hero-photo" />
+        </div>
       </div>
     </div>
-    <div class="skill-item">
-      <div class="skill-name">JavaScript</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 80%;"></div>
+  </section>
+
+  <!-- Education -->
+  <section class="edu-section">
+    <div class="container">
+      <p class="section-heading">Education</p>
+      <div class="card-neutral edu-card">
+        <div class="edu-info">
+          <h3>B.S. Computer Science · Minor Statistics · Minor Tech Management</h3>
+          <p>University of California, Davis &nbsp;·&nbsp; 2023 – 2027</p>
+        </div>
+        <div class="edu-gpa">3.7<span>GPA</span></div>
       </div>
     </div>
-    <div class="skill-item">
-      <div class="skill-name">C++</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 90%;"></div>
+  </section>
+
+  <!-- Skills -->
+  <section class="skills-section">
+    <div class="container">
+      <p class="section-heading">Skills &amp; Stack</p>
+
+      <div class="skills-marquee-rows">
+        <div class="skills-marquee-row">
+          <p class="skills-marquee-label">Programming Languages</p>
+          <div class="skills-marquee-viewport">
+            <div class="skills-marquee-track" data-speed="34">
+              <span class="skills-marquee-item">Python</span><span class="skills-marquee-item">C++</span><span class="skills-marquee-item">Java</span><span class="skills-marquee-item">JavaScript</span><span class="skills-marquee-item">HTML / CSS</span><span class="skills-marquee-item">Assembly</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="skills-marquee-row">
+          <p class="skills-marquee-label">Frameworks &amp; Tools</p>
+          <div class="skills-marquee-viewport">
+            <div class="skills-marquee-track" data-speed="30">
+              <span class="skills-marquee-item">Git</span><span class="skills-marquee-item">Flask</span><span class="skills-marquee-item">React.js</span><span class="skills-marquee-item">Node.js</span><span class="skills-marquee-item">PyTorch</span><span class="skills-marquee-item">TensorFlow</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="skills-marquee-row">
+          <p class="skills-marquee-label">AI / Specializations</p>
+          <div class="skills-marquee-viewport">
+            <div class="skills-marquee-track" data-speed="26">
+              <span class="skills-marquee-item">Artificial Intelligence</span><span class="skills-marquee-item">Machine Learning</span><span class="skills-marquee-item">NLP</span><span class="skills-marquee-item">Computer Vision</span><span class="skills-marquee-item">NumPy / Pandas</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="skills-marquee-row">
+          <p class="skills-marquee-label">Spoken Languages</p>
+          <div class="skills-marquee-viewport">
+            <div class="skills-marquee-track" data-speed="38">
+              <span class="skills-marquee-item">English (Native)</span><span class="skills-marquee-item">Cantonese (Fluent)</span><span class="skills-marquee-item">Spanish (Conversational)</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="skill-item">
-      <div class="skill-name">HTML/CSS</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 85%;"></div>
+  </section>
+
+  <!-- About -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <h2 class="section-heading bold-hover-heading" data-bold-radius="56">
+        <span class="bh-base">About Me</span>
+        <span class="bh-bold" aria-hidden="true">About Me</span>
+      </h2>
+
+      <div class="about-grid">
+
+        <div class="bio-block">
+          <p class="bio-para">I am passionate about creating products and innovative solutions.</p>
+          <p class="bio-para">From age 10, I've continued to build a skillset in project management, frontend and backend software development, and more recently machine learning.</p>
+          <p class="bio-para">Previously, I've worked at the Los Angeles Dodgers, the Benevolent Bandwidth Foundation, and led the development of the primary website for Davis Undergraduate Engineering Network. I am currently a software engineer co-op at Emerson, specializing in data analytics.</p>
+          <p class="bio-para">When I'm not coding, you'll find me boxing, hiking, lifting weights, and exploring new cuisines.</p>
+
+          <div class="interests-block">
+            <p class="interests-label">Outside the terminal</p>
+            <div class="skills-marquee-row interests-marquee-row">
+              <div class="skills-marquee-viewport">
+                <div class="skills-marquee-track" data-speed="22">
+                  <span class="skills-marquee-item">Boxing</span><span class="skills-marquee-item">Hiking</span><span class="skills-marquee-item">Weightlifting</span><span class="skills-marquee-item">Exploring cuisines</span><span class="skills-marquee-item">Piano</span><span class="skills-marquee-item">Experimental cooking</span><span class="skills-marquee-item">8-ball</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-col">
+          <a class="image-card" href="#" onclick="event.preventDefault(); openLightbox('GGBridge.png')">
+            <img src="GGBridge.png" alt="Golden Gate Bridge Overlook" />
+          </a>
+          <a class="image-card" href="#" onclick="event.preventDefault(); openLightbox('Hike2.png')">
+            <img src="Hike2.png" alt="Mission Peak Summit" />
+          </a>
+        </div>
+
       </div>
     </div>
-    <div class="skill-item">
-      <div class="skill-name">Assembly</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 60%;"></div>
+  </section>
+
+  <!-- Experience -->
+  <section class="experience-section" id="experience">
+    <div class="container">
+      <h3 class="subsection-heading bold-hover-heading" data-bold-radius="44">
+        <span class="bh-base">Projects</span>
+        <span class="bh-bold" aria-hidden="true">Projects</span>
+      </h3>
+
+      <div class="scroll-row-wrap">
+        <div class="scroll-row-controls">
+          <button class="scroll-arrow" data-scroll-target="projectsRow" data-dir="-1" aria-label="Scroll projects left">←</button>
+          <button class="scroll-arrow" data-scroll-target="projectsRow" data-dir="1" aria-label="Scroll projects right">→</button>
+        </div>
+        <div class="scroll-row" id="projectsRow">
+
+          <div class="scroll-card" onclick="location.hash='detail/aggie-housing'">
+            <div class="project-card">
+              <div class="image-card">
+                <video class="demo-video" data-src="aggie-housing.mp4" muted loop playsinline preload="none"></video>
+              </div>
+              <div class="project-card-text">
+                <h4 class="project-card-title">Aggie Housing</h4>
+                <div class="project-card-footer">
+                  <p class="project-card-desc">A student housing review platform that helps UC Davis students search and evaluate off-campus apartments.</p>
+                  <div class="project-card-actions">
+                    <a href="https://github.com/GDSC-UCD-Cohort-24-25/Apartment-Review-Website" target="_blank" class="project-card-btn" onclick="event.stopPropagation()">View Code ↗</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="scroll-card" onclick="location.hash='detail/connect4'">
+            <div class="project-card">
+              <div class="image-card">
+                <video class="demo-video" data-src="connect4.mp4" muted loop playsinline preload="none"></video>
+              </div>
+              <div class="project-card-text">
+                <h4 class="project-card-title">FourSight — Connect-4 AI</h4>
+                <div class="project-card-footer">
+                  <p class="project-card-desc">A Connect-4 bot powered by minimax with alpha-beta pruning, playing up to 7 moves ahead against Monte Carlo, random, or human opponents.</p>
+                  <div class="project-card-actions">
+                    <a href="https://github.com/v7ncentng/Connect-4-AI-Bot" target="_blank" class="project-card-btn" onclick="event.stopPropagation()">View Code ↗</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="scroll-card" onclick="location.hash='detail/leancode'">
+            <div class="project-card">
+              <div class="image-card pdf-preview-card">
+                <iframe class="pdf-embed" src="LeanCode.pdf#toolbar=0&navpanes=0&statusbar=0&view=FitH" title="LEANCODE paper preview"></iframe>
+              </div>
+              <div class="project-card-text">
+                <h4 class="project-card-title">LEANCODE</h4>
+                <div class="project-card-footer">
+                  <p class="project-card-desc">A reproduction of the LEANCODE framework that trims low-attention code tokens to fight context rot in LLM code understanding.</p>
+                  <div class="project-card-actions">
+                    <a href="https://github.com/hanyiliu/fitcode" target="_blank" class="project-card-btn" onclick="event.stopPropagation()">View Code ↗</a>
+                    <a href="LeanCode.pdf" target="_blank" class="project-card-btn" onclick="event.stopPropagation()">Open Paper ↗</a>
+                    <a href="LeanCode.pdf" download class="project-card-btn" onclick="event.stopPropagation()">Download ↓</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="scroll-card" onclick="location.hash='detail/delivery-optimizer'">
+            <div class="project-card">
+              <div class="image-card">
+                <img src="screenshots/delivery-optimizer.png" alt="Delivery Optimizer demo" onload="this.style.opacity=1" onerror="this.style.display='none'">
+                <div class="image-card-placeholder">
+                  <span class="glyph">🚚</span>
+                  <span class="filename">screenshots/delivery-optimizer.png</span>
+                </div>
+              </div>
+              <div class="project-card-text">
+                <h4 class="project-card-title">Delivery Optimizer</h4>
+                <div class="project-card-footer">
+                  <p class="project-card-desc">A route optimization tool that sequences up to 30 delivery stops for local businesses in a single click.</p>
+                  <div class="project-card-actions">
+                    <a href="https://github.com/benevolentbandwidth/delivery-optimizer" target="_blank" class="project-card-btn" onclick="event.stopPropagation()">View Code ↗</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="scroll-card" onclick="location.hash='detail/algo-trading'">
+            <div class="project-card">
+              <div class="image-card">
+                <video class="demo-video" data-src="algo-trading.mp4" muted loop playsinline preload="none"></video>
+              </div>
+              <div class="project-card-text">
+                <h4 class="project-card-title">Algorithmic Trading Backtester</h4>
+                <div class="project-card-footer">
+                  <p class="project-card-desc">A fullstack platform for backtesting stock trading strategies with Monte Carlo simulation and risk analytics.</p>
+                  <div class="project-card-actions">
+                    <a href="https://github.com/ethanloinguyen/Algorithmic-Trading-Backtesting" target="_blank" class="project-card-btn" onclick="event.stopPropagation()">View Code ↗</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <h3 class="subsection-heading">Work Experience</h3>
+
+      <div class="scroll-row-wrap">
+        <div class="scroll-row-controls">
+          <button class="scroll-arrow" data-scroll-target="workRow" data-dir="-1" aria-label="Scroll experience left">←</button>
+          <button class="scroll-arrow" data-scroll-target="workRow" data-dir="1" aria-label="Scroll experience right">→</button>
+        </div>
+        <div class="scroll-row" id="workRow">
+
+          <div class="card-neutral exp-scroll-card" onclick="location.hash='detail/dodgers'">
+            <div class="company-logo"><img src="dodgers-logo.png" alt="Los Angeles Dodgers logo"></div>
+            <span class="view-link">View Details →</span>
+          </div>
+
+          <div class="card-neutral exp-scroll-card" onclick="location.hash='detail/bbf-contract'">
+            <div class="company-logo"><img src="b2-logo.jpeg" alt="Benevolent Bandwidth Foundation logo"></div>
+            <span class="view-link">View Details →</span>
+          </div>
+
+          <div class="card-neutral exp-scroll-card" onclick="location.hash='detail/gdsc'">
+            <div class="company-logo"><img src="gdsc-logo.png" alt="Google Developer Student Club logo"></div>
+            <span class="view-link">View Details →</span>
+          </div>
+
+          <div class="card-neutral exp-scroll-card" onclick="location.hash='detail/insperity'">
+            <div class="company-logo"><img src="insperity-logo.png" alt="Insperity Inc. logo"></div>
+            <span class="view-link">View Details →</span>
+          </div>
+
+          <div class="card-neutral exp-scroll-card" onclick="location.hash='detail/stanford'">
+            <div class="company-logo"><img src="stanford-logo.png" alt="Stanford John W. Gardner Center logo"></div>
+            <span class="view-link">View Details →</span>
+          </div>
+
+          <div class="card-neutral exp-scroll-card" onclick="location.hash='detail/orientation'">
+            <div class="company-logo"><img src="davis-logo.png" alt="UC Davis Student Affairs logo"></div>
+            <span class="view-link">View Details →</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container connect-inner">
+      <div class="connect-text">
+        <h3>Let's connect.</h3>
+        <p>I'm looking forward to new opportunities and collaborations.</p>
+      </div>
+      <div class="connect-links">
+        <a href="mailto:v7ncentng@gmail.com" class="btn-filled">Get in touch</a>
+        <a href="https://github.com/v7ncentng" target="_blank" class="text-link">GitHub</a>
+        <a href="https://www.linkedin.com/in/wang-ng-8805b2213/" target="_blank" class="text-link">LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="container footer-inner">
+      <p class="footer-copyright">© 2026 Vincent Ng</p>
+    </div>
+  </footer>
+
+  <!-- Detail overlay (bottom-up sheet) -->
+  <div class="detail-overlay" id="detailOverlay">
+    <div class="detail-panel" id="detailPanel">
+      <div class="detail-header">
+        <button class="detail-close" onclick="closeDetail()">✕</button>
+        <div class="detail-header-inner">
+          <div class="detail-header-text">
+            <p class="detail-type" id="dType"></p>
+            <h2 class="detail-title" id="dTitle"></h2>
+            <p class="detail-subtitle" id="dSubtitle"></p>
+          </div>
+          <div class="detail-logo" id="dLogo"></div>
+        </div>
+      </div>
+      <div class="detail-body">
+        <p class="detail-desc" id="dDesc"></p>
+        <p class="detail-section-label" id="dStackLabel"></p>
+        <div class="detail-tags" id="dTags"></div>
+        <p class="detail-section-label" id="dRespsLabel"></p>
+        <div class="detail-tags" id="dResps"></div>
+        <div class="detail-links" id="dLinks"></div>
       </div>
     </div>
   </div>
 
-  <div class="skills-category">
-    <h3 class="category-title">Developer Tools</h3>
-    <div class="skill-item">
-      <div class="skill-name">PyTorch</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 80%;"></div>
-      </div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-name">TensorFlow</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 75%;"></div>
-      </div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-name">React.JS</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 80%;"></div>
-      </div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-name">Node.JS</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 75%;"></div>
-      </div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-name">Flask</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 85%;"></div>
-      </div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-name">Git</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 90%;"></div>
-      </div>
-    </div>
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightboxImg" src="" alt="" />
   </div>
 
-  <div class="skills-category">
-    <h3 class="category-title">Libraries & Frameworks</h3>
-    <div class="skill-item">
-      <div class="skill-name">NumPy</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 85%;"></div>
-      </div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-name">MatPlotLib</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 80%;"></div>
-      </div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-name">PyTorch</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 85%;"></div>
-      </div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-name">Pandas</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 85%;"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="skills-category">
-    <h3 class="category-title">Specializations</h3>
-    <div class="skill-item">
-      <div class="skill-name">Machine Learning</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 90%;"></div>
-      </div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-name">Computer Vision</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 75%;"></div>
-      </div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-name">Natural Language Processing</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 80%;"></div>
-      </div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-name">Artificial Intelligence</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 95%;"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="skills-category languages-section">
-    <h3 class="category-title">Spoken languages</h3>
-    <div class="skill-item">
-      <div class="skill-name">English</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 95%;"></div>
-      </div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-name">Cantonese</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 80%;"></div>
-      </div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-name">Spanish</div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="width: 60%;"></div>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
-
-<div class="social-icons">
-  <p style="font-size: 1.2em; color: #000000; margin-bottom: 1em; font-weight: 600; text-align: center;">Connect with me here!</p>
-  <a href="https://github.com/v7ncentng" target="_blank">
-    <img src="github.png" alt="GitHub" class="icon">
-  </a>
-  <a href="mailto:v7ncentng@gmail.com" target="_blank">
-    <img src="gmail.png" alt="Email" class="icon">
-  </a>
-  <a href="https://www.linkedin.com/in/wang-ng-8805b2213/" target="_blank">
-    <img src="linkedin.png" alt="LinkedIn" class="icon">
-  </a>
-</div>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const lines = document.querySelectorAll(".text, .background-text");
-  
-  lines.forEach((line) => {
-    const styles = getComputedStyle(line);
-    const delay = parseFloat(styles.getPropertyValue('--delay')) || 0;
-    const steps = parseInt(styles.getPropertyValue('--steps')) || line.textContent.trim().length;
-    const originalText = line.textContent.trim();
-    
-    // prepare for typing animation
-    const originalOpacity = line.style.opacity;
-    line.style.opacity = '0';
-    line.textContent = '';
-    
-    const textSpan = document.createElement('span');
-    line.appendChild(textSpan);
-    
-    let currentStep = 0;
-    const typingSpeed = 2000 / Math.max(steps, 1);
-    
-    const typeCharacter = () => {
-      if (currentStep < steps && currentStep < originalText.length) {
-        if (currentStep === 0) {
-          line.style.opacity = '1';
-        }
-        textSpan.innerHTML = originalText.substring(0, currentStep + 1) + '<span class="cursor"></span>';
-        currentStep++;
-        setTimeout(typeCharacter, typingSpeed);
-      } else {
-        textSpan.textContent = originalText;
-        line.classList.add('text-complete');
+  <script>
+    const DATA = {
+      'aggie-housing': {
+        type: 'Project',
+        title: 'Aggie Housing',
+        subtitle: 'Student Housing Review Platform',
+        desc: 'A comprehensive web platform designed specifically for UC Davis students to find and review housing options. Features user authentication, detailed property listings, and a robust review system that helps students make informed decisions about their living arrangements. Presented at the Build with AI startup showcase.',
+        stackLabel: 'Technologies Used',
+        stack: ['React.js','JavaScript','CSS','Supabase','NLTK'],
+        links: [
+          { label:'View Code ↗', href:'https://github.com/GDSC-UCD-Cohort-24-25/Apartment-Review-Website', cls:'primary' }
+        ]
+      },
+      'connect4': {
+        type: 'Project',
+        title: 'FourSight — Connect-4 AI',
+        subtitle: 'AI-Powered Game Bot',
+        desc: 'An intelligent Connect-4 bot powered by the minimax algorithm with alpha-beta pruning. FourSight analyzes game states up to 7 moves ahead and implements strategic heuristics to provide a challenging experience at all skill levels. Players can also compete against Monte Carlo AI, Random AI, or each other.',
+        stackLabel: 'Technologies Used',
+        stack: ['Python','Pygame','NumPy','React.js','Alpha-Beta Pruning'],
+        links: [
+          { label:'View Code ↗', href:'https://github.com/v7ncentng/Connect-4-AI-Bot', cls:'primary' }
+        ]
+      },
+      'algo-trading': {
+        type: 'Project · Fullstack',
+        title: 'Algorithmic Trading Backtester',
+        subtitle: 'Automated Stock Strategy Backtesting Platform',
+        desc: 'A fullstack web platform for backtesting automatic stock trading strategies. The system lets users define and run trading algorithms against historical market data, with a Monte Carlo simulation module for probabilistic outcome modeling and a dedicated risk pipeline for evaluating strategy risk metrics. Built with a Python backend, TypeScript/React frontend, and containerized with Docker for easy deployment. Live on Vercel.',
+        stackLabel: 'Technologies Used',
+        stack: ['Python', 'TypeScript', 'React', 'Docker', 'Monte Carlo Simulation', 'REST API'],
+        respsLabel: 'Key Features',
+        resps: ['Custom algorithm backtesting engine', 'Monte Carlo simulation module', 'Risk pipeline with metrics', 'Dockerized fullstack deployment', 'Live Vercel deployment'],
+        links: [
+          { label: 'Live Demo ↗', href: 'https://algorithmic-trading-backtesting.vercel.app', cls: 'primary' },
+          { label: 'View Code ↗', href: 'https://github.com/ethanloinguyen/Algorithmic-Trading-Backtesting', cls: 'ghost' }
+        ]
+      },
+      'delivery-optimizer': {
+        type: 'Project · Open Source · Benevolent Bandwidth Foundation',
+        title: 'Delivery Optimizer',
+        subtitle: 'Route Optimization for Local Businesses',
+        desc: 'A web tool built for local business owners who waste time manually sequencing delivery stops. Users upload a list of addresses and the app runs open-source routing algorithms (TSP/VRP-style) to return the most efficient delivery order — no logistics expertise required. Built as part of the Benevolent Bandwidth Foundation, a nonprofit focused on AI for public good. Reduces fuel consumption and carbon footprint for last-mile local logistics, with zero data collection or tracking.',
+        stackLabel: 'Technologies Used',
+        stack: ['Route Optimization', 'TSP/VRP', 'Open Source', 'Web Tool', 'Logistics'],
+        links: [
+          { label: 'View Code ↗', href: 'https://github.com/benevolentbandwidth/delivery-optimizer', cls: 'primary' },
+          { label: 'Benevolent Bandwidth ↗', href: 'https://benevolentbandwidth.org', cls: 'ghost' }
+        ]
+      },
+      'leancode': {
+        type: 'Research Paper · UC Davis',
+        title: 'LEANCODE',
+        subtitle: 'Context-Aware Codebase Simplification for LLMs',
+        desc: 'As LLMs increasingly assist in software development, passing large codebases as context degrades model performance through "context rot" — since self-attention scales at O(n²). LEANCODE addresses this with task-specific, attention-guided token removal. We reproduced the LEANCODE framework (Wang et al., 2025), fine-tuning CodeBERT and CodeT5 on code search (MRR) and code summarization (BLEU-4) tasks. Tokens are ranked by importance using final-layer attention scores aggregated into a category-local dictionary derived from AST node types (via tree-sitter). At inference, the bottom r% of tokens are removed. Results on CodeSearchNet Java confirm the original findings: up to 50% token removal with graceful performance degradation, and a slight MRR improvement at 10% removal as noise is filtered out.',
+        stackLabel: 'Technologies & Models',
+        stack: ['Python','CodeBERT','CodeT5','PyTorch','HuggingFace','tree-sitter','CodeSearchNet'],
+        respsLabel: 'Key Results',
+        resps: ['MRR: 0.613 → 0.552 at 50% removal (CodeBERT)', 'BLEU-4: 18.94 → 17.21 at 50% removal (CodeT5)', '10% removal slightly improves MRR (+1.14%)', 'Reproduces LEANCODE SOTA trends on Java split'],
+        links: [
+          { label:'Open Paper ↗', href:'LeanCode.pdf', cls:'primary' },
+          { label:'Download Paper ↓', href:'LeanCode.pdf', cls:'ghost', download: true }
+        ]
+      },
+      'dodgers': {
+        type: 'Experience',
+        logo: 'dodgers-logo.png',
+        title: 'Software Engineer — Part Time',
+        subtitle: 'Los Angeles Dodgers · Davis, CA · Nov 2025 – Jun 2026',
+        desc: 'Developed an automated pitching biomechanics analysis model to extract arm angle and release point data from 200+ minor league videos with 90.67% accuracy to directly support the Dodgers\' annual talent draft. Applied skeletal tracking and physics simulation to quantify pitcher performance metrics, enabling data-driven talent assessment and streamlining scout workflows for prospect evaluation.',
+        stackLabel: 'Technologies Used',
+        stack: ['Computer Vision', 'Skeletal Tracking', 'Physics Simulation', 'Python'],
+        respsLabel: 'Key Responsibilities',
+        resps: ['Biomechanics Analysis Model', 'Video Data Pipeline (200+ videos)', 'Scout Workflow Tooling', 'Talent Draft Support'],
+        links: []
+      },
+      'bbf-contract': {
+        type: 'Experience',
+        logo: 'b2-logo.jpeg',
+        title: 'Software Engineer — Contract',
+        subtitle: 'Benevolent Bandwidth Foundation · Davis, CA · Jan 2026 – Jun 2026',
+        desc: 'Built a full-stack delivery route optimization tool in Next.js for small businesses (e.g. flower shops), enabling owners to plan up to 30-stop routes with a single click rather than manually sequencing deliveries. Designed a session persistence layer using sessionStorage to save and restore full optimizer state (vehicles, addresses, time windows) across page navigations with retry-on-refresh error recovery, ensuring no user data is collected.',
+        stackLabel: 'Technologies Used',
+        stack: ['Next.js', 'TypeScript', 'sessionStorage', 'Route Optimization'],
+        respsLabel: 'Key Responsibilities',
+        resps: ['Full-Stack Route Optimizer UI', 'Session Persistence Layer', 'Retry-on-Refresh Error Recovery', 'Privacy-First (No Data Collection)'],
+        links: [
+          { label:'Benevolent Bandwidth ↗', href:'https://benevolentbandwidth.org', cls:'ghost' }
+        ]
+      },
+      'gdsc': {
+        type: 'Experience',
+        logo: 'gdsc-logo.png',
+        title: 'Fullstack Developer',
+        subtitle: 'Google Developer Student Club · Jan 2025 – Jun 2025',
+        desc: 'Utilized Figma and ReactJS to build a captivating frontend, streamlining the housing search process for 50+ Davis students. Developed a comprehensive database and user interface for apartment hunting, implementing data scraping techniques and creating intuitive search and filtering capabilities. Presented at the Build with AI startup showcase.',
+        stackLabel: 'Technologies Used',
+        stack: ['React.js','Figma','Web Scraping','Database Design'],
+        respsLabel: 'Key Responsibilities',
+        resps: ['Data Collection','Web Scraping','Database Design','User Interface'],
+        links: [
+          { label:'GDSC ↗', href:'https://gdsc.community.dev', cls:'ghost' }
+        ]
+      },
+      'insperity': {
+        type: 'Experience',
+        logo: 'insperity-logo.png',
+        title: 'Data Analytics & HR Intern',
+        subtitle: 'Insperity Inc. · Aug 2022 – Dec 2023',
+        desc: 'Modified comprehensive reporting systems to provide valuable insights for HR decision-making and strategic planning across multiple client organizations. Coordinated weekly client service reports and generated 25+ actionable data visuals for 10+ startup client companies.',
+        stackLabel: 'Technologies Used',
+        stack: ['Excel','Salesforce','Microsoft Office'],
+        respsLabel: 'Key Responsibilities',
+        resps: ['Weekly Reporting','Data Visualization','Front-Facing Client Communication'],
+        links: [
+          { label:'Insperity ↗', href:'https://www.insperity.com', cls:'ghost' }
+        ]
+      },
+      'stanford': {
+        type: 'Experience',
+        logo: 'stanford-logo.png',
+        title: 'Qualitative Research Intern',
+        subtitle: 'Stanford John W. Gardner Center · Jan 2022 – Jun 2022',
+        desc: 'Developed interview engagement skills, analyzed qualitative data, and synthesized findings into comprehensive reports that informed educational policy recommendations. Collaborated with research teams to identify key themes and patterns in student feedback across the Oakland Unified School District.',
+        stackLabel: 'Key Responsibilities',
+        stack: ['Student Interviews','Protocol Development','Data Synthesis','Policy Recommendations'],
+        links: [
+          { label:'Gardner Center ↗', href:'https://gardnercenter.stanford.edu', cls:'ghost' }
+        ]
+      },
+      'orientation': {
+        type: 'Experience',
+        logo: 'davis-logo.png',
+        title: 'UC Davis Orientation Leader',
+        subtitle: 'UC Davis Student Affairs · Sep 2024 – Oct 2024',
+        desc: 'Led 13 incoming transfer students and 18 incoming freshmen around UC Davis, providing a comprehensive tour of campus buildings, events, and resources. Hosted icebreakers, major-related workshops, and team-building activities to foster a sense of community and belonging. Shared the vibrant culture with 35+ students.',
+        stackLabel: 'Key Responsibilities',
+        stack: ['Conflict Resolution','Activity Planning & Leadership','Active Communication','Event Planning'],
+        links: [
+          { label:'UC Davis ↗', href:'https://ucdavis.edu', cls:'ghost' }
+        ]
       }
     };
-    
-    setTimeout(typeCharacter, delay * 1000);
-  });
-});
 
-// Scroll-based background color change
-function updateBackgroundOnScroll() {
-  const skillsSection = document.querySelector('.skills-section');
-  if (!skillsSection) return;
-  const rect = skillsSection.getBoundingClientRect();
-  const windowHeight = window.innerHeight;
-  let visibilityPercentage = 0;
-  if (rect.top < windowHeight && rect.bottom > 0) {
-    const visibleHeight = Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0);
-    visibilityPercentage = visibleHeight / windowHeight;
-  }
-  visibilityPercentage = Math.min(visibilityPercentage, 1);
-  const colorValue = 255 - Math.round(255 * visibilityPercentage);
-  document.body.style.background = `rgb(${colorValue}, ${colorValue}, ${colorValue})`;
-}
-window.addEventListener('scroll', updateBackgroundOnScroll);
-document.addEventListener('DOMContentLoaded', updateBackgroundOnScroll);
+    function renderDetail(d) {
+      document.getElementById('dType').textContent = d.type;
+      document.getElementById('dTitle').textContent = d.title;
+      document.getElementById('dSubtitle').textContent = d.subtitle;
+      document.getElementById('dDesc').textContent = d.desc;
 
-// Skills section animation
-const observerOptions = { threshold: 0.3, rootMargin: '0px 0px -50px 0px' };
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('animate');
+      const logo = document.getElementById('dLogo');
+      logo.innerHTML = d.logo ? `<img src="${d.logo}" alt="${d.title} logo">` : '';
+
+      const stackLabel = document.getElementById('dStackLabel');
+      stackLabel.textContent = d.stackLabel || '';
+      const tags = document.getElementById('dTags');
+      tags.innerHTML = (d.stack || []).map(t => `<span class="tag">${t}</span>`).join('');
+
+      const respsLabel = document.getElementById('dRespsLabel');
+      const resps = document.getElementById('dResps');
+      if (d.resps) {
+        respsLabel.textContent = d.respsLabel || '';
+        resps.innerHTML = d.resps.map(t => `<span class="tag">${t}</span>`).join('');
+      } else {
+        respsLabel.textContent = '';
+        resps.innerHTML = '';
+      }
+
+      const links = document.getElementById('dLinks');
+      links.innerHTML = (d.links || []).map(l =>
+        `<a href="${l.href}" ${l.download ? 'download' : 'target="_blank"'} class="detail-link ${l.cls}">${l.label}</a>`
+      ).join('');
     }
-  });
-}, observerOptions);
 
-document.addEventListener('DOMContentLoaded', () => {
-  const skillsTitle = document.querySelector('.skills-title');
-  const skillsSection = document.querySelector('.skills-section');
-  if (skillsTitle) observer.observe(skillsTitle);
-  if (skillsSection) observer.observe(skillsSection);
-  window.addEventListener('scroll', updateBackgroundOnScroll);
-  updateBackgroundOnScroll();
-});
-</script>
+    // ── Slug router: location.hash drives the detail sheet ──
+    function getSlugFromHash() {
+      const h = decodeURIComponent(location.hash || '').replace(/^#/, '');
+      const m = h.match(/^detail\/(.+)$/);
+      return m ? m[1] : null;
+    }
+
+    function route() {
+      const slug = getSlugFromHash();
+      const overlay = document.getElementById('detailOverlay');
+      if (slug && DATA[slug]) {
+        renderDetail(DATA[slug]);
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        document.getElementById('detailPanel').scrollTop = 0;
+        document.querySelector('.detail-body').scrollTop = 0;
+      } else {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function closeDetail() {
+      if (!getSlugFromHash()) return;
+      // Strip the hash via replaceState instead of `location.hash = ''` —
+      // assigning an empty fragment is a real navigation and browsers treat
+      // an empty/unmatched fragment as "scroll to top", which yanked the
+      // page back to (0,0) on every close. replaceState only rewrites the
+      // URL bar, so the current scroll position is left untouched.
+      history.replaceState(null, '', location.pathname + location.search);
+      route();
+    }
+
+    window.addEventListener('hashchange', route);
+    window.addEventListener('DOMContentLoaded', route);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
+
+    // ── Lightbox ──
+    function openLightbox(src) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightbox').classList.add('open');
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+
+    // ── Demo videos: lazy-load on first approach, then play on loop while
+    // scrolled into view and pause otherwise. A single observer handles both
+    // concerns — splitting load/play across two observers left a race where
+    // the "play" callback could fire on a still-src-less video (since
+    // IntersectionObserver only calls back on state *changes*, a play()
+    // that missed its window never got retried once the src loaded).
+    //
+    // Browsers also silently pause playing video when a tab is backgrounded
+    // and do NOT resume it on their own — and since IntersectionObserver
+    // only fires on geometric visibility changes, a video that was already
+    // in view keeps its "intersecting" state across a tab switch, so no new
+    // callback fires to restart it. We track which videos are currently in
+    // view ourselves and explicitly re-play them on visibilitychange. ──
+    (function () {
+      const videos = document.querySelectorAll('.demo-video');
+      if (!videos.length || !('IntersectionObserver' in window)) return;
+
+      const inView = new Set();
+
+      function startVideo(video) {
+        video.muted = true;
+        if (video.dataset.src) {
+          video.src = video.dataset.src;
+          delete video.dataset.src;
+          video.load();
+        }
+        video.play().catch(() => {});
+      }
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          const video = entry.target;
+          if (entry.isIntersecting) {
+            inView.add(video);
+            startVideo(video);
+          } else {
+            inView.delete(video);
+            video.pause();
+          }
+        });
+      }, { threshold: 0.4 });
+
+      videos.forEach(v => observer.observe(v));
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          inView.forEach(startVideo);
+        }
+      });
+    })();
+
+    // ── Typewriter ──
+    (function typewriter() {
+      const lines = Array.from(document.querySelectorAll('.tw-line'));
+      const CHAR_DELAY = 38;
+      const LINE_GAP = 150;
+
+      function typeLine(i) {
+        if (i >= lines.length) return;
+        const el = lines[i];
+        const text = el.dataset.text || '';
+        let pos = 0;
+        (function step() {
+          if (pos < text.length) {
+            el.textContent += text[pos];
+            const justTypedPeriod = text[pos] === '.';
+            pos++;
+            if (justTypedPeriod && pos === text.length) {
+              setTimeout(() => typeLine(i + 1), LINE_GAP);
+            } else {
+              setTimeout(step, CHAR_DELAY);
+            }
+          }
+        })();
+      }
+
+      setTimeout(() => typeLine(0), 500);
+    })();
+
+    // ── Skills marquee: clone items until a "half" is wider than the
+    // viewport, then duplicate that whole half once more, so the two
+    // halves tile back-to-back with zero gap and the loop is invisible.
+    // The canonical item set is captured once up front — rebuilding (e.g.
+    // on resize) always clones from that fixed set, never from whatever's
+    // currently in the track, so repeated rebuilds can't multiply forever. ──
+    const marqueeRows = Array.from(document.querySelectorAll('.skills-marquee-row')).map(row => {
+      const track = row.querySelector('.skills-marquee-track');
+      const viewport = row.querySelector('.skills-marquee-viewport');
+      return { track, viewport, baseItems: Array.from(track.children) };
+    });
+
+    function buildMarquee({ track, viewport, baseItems }) {
+      const speed = parseFloat(track.dataset.speed) || 32; // px per second
+
+      track.style.animation = 'none';
+      track.innerHTML = '';
+      baseItems.forEach(el => track.appendChild(el.cloneNode(true)));
+
+      const viewportWidth = viewport.clientWidth || 1;
+      // Guarantee one "half" covers at least the full viewport (plus a
+      // margin) so the scrolling window is never wider than the content.
+      while (track.scrollWidth < viewportWidth * 1.5) {
+        baseItems.forEach(el => track.appendChild(el.cloneNode(true)));
+      }
+
+      const halfWidth = track.scrollWidth;
+      Array.from(track.children).forEach(el => {
+        const clone = el.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        track.appendChild(clone);
+      });
+
+      track.style.setProperty('--marquee-end', `-${halfWidth}px`);
+      track.style.animation = `skills-marquee-scroll ${halfWidth / speed}s linear infinite`;
+    }
+
+    function buildAllMarquees() {
+      marqueeRows.forEach(buildMarquee);
+    }
+
+    buildAllMarquees();
+    let marqueeResizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(marqueeResizeTimer);
+      marqueeResizeTimer = setTimeout(buildAllMarquees, 200);
+    });
+
+    // ── Horizontal scroll rows: arrow buttons + drag-to-scroll ──
+    document.querySelectorAll('.scroll-arrow').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const row = document.getElementById(btn.dataset.scrollTarget);
+        const dir = parseInt(btn.dataset.dir, 10);
+        row.scrollBy({ left: dir * 360, behavior: 'smooth' });
+      });
+    });
+
+    document.querySelectorAll('.scroll-row').forEach(row => {
+      let isDown = false, startX = 0, startScroll = 0, moved = false;
+      row.addEventListener('pointerdown', e => {
+        isDown = true; moved = false;
+        startX = e.clientX;
+        startScroll = row.scrollLeft;
+        row.classList.add('dragging');
+      });
+      // Listen on window (not the row) so dragging keeps working past the row's
+      // edge without needing setPointerCapture, which would retarget the click
+      // event to the row and stop it from ever reaching a card's onclick.
+      window.addEventListener('pointermove', e => {
+        if (!isDown) return;
+        const dx = e.clientX - startX;
+        if (Math.abs(dx) > 4) moved = true;
+        row.scrollLeft = startScroll - dx;
+      });
+      function endDrag() { isDown = false; row.classList.remove('dragging'); }
+      window.addEventListener('pointerup', endDrag);
+      window.addEventListener('pointercancel', endDrag);
+      // Suppress the click that follows a drag so cards don't accidentally open.
+      row.addEventListener('click', e => { if (moved) { e.stopPropagation(); e.preventDefault(); } }, true);
+    });
+
+    // ── Cursor-proximity partial-bold headings ──
+    document.querySelectorAll('.bold-hover-heading').forEach(el => {
+      const overlay = el.querySelector('.bh-bold');
+      const radius = parseFloat(el.dataset.boldRadius) || 48;
+      el.addEventListener('mousemove', e => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        overlay.style.clipPath = `circle(${radius}px at ${x}px ${y}px)`;
+      });
+      el.addEventListener('mouseleave', () => {
+        overlay.style.clipPath = 'circle(0px at -9999px -9999px)';
+      });
+    });
+
+    // ── Header clock ──
+    (function () {
+      const clockEl = document.getElementById('navClock');
+      if (!clockEl) return;
+      function update() {
+        const now = new Date();
+        let h = now.getHours();
+        const m = String(now.getMinutes()).padStart(2, '0');
+        const s = String(now.getSeconds()).padStart(2, '0');
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12 || 12;
+        clockEl.textContent = `${h}:${m}:${s} ${ampm}`;
+      }
+      update();
+      setInterval(update, 1000);
+    })();
+
+    // ── Header weather (via geolocation + Open-Meteo, no API key needed) ──
+    (function () {
+      const weatherEl = document.getElementById('navWeather');
+      if (!weatherEl || !navigator.geolocation) return;
+
+      navigator.geolocation.getCurrentPosition(async (pos) => {
+        try {
+          const { latitude, longitude } = pos.coords;
+          const [weatherRes, geoRes] = await Promise.all([
+            fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&temperature_unit=fahrenheit`),
+            fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`)
+          ]);
+          const data = await weatherRes.json();
+          const geo = await geoRes.json().catch(() => null);
+          const cw = data && data.current_weather;
+          if (!cw) return;
+          const city = geo && (geo.city || geo.locality);
+          weatherEl.textContent = city
+            ? `${city} ${Math.round(cw.temperature)}°F`
+            : `${Math.round(cw.temperature)}°F`;
+        } catch (e) {
+          weatherEl.textContent = '';
+        }
+      }, () => { weatherEl.textContent = ''; }, { timeout: 8000 });
+    })();
+
+    // ── Theme toggle (light/dark, persisted) ──
+    (function () {
+      const btn = document.getElementById('themeToggle');
+      if (!btn) return;
+      const THEME_KEY = 'theme-preference';
+
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+      }
+
+      applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+
+      btn.addEventListener('click', () => {
+        const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+      });
+    })();
+  </script>
 </body>
 </html>
