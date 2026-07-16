@@ -149,16 +149,6 @@
       font-size: clamp(0.8rem, 0.7rem + 0.3vw, 1rem);
     }
 
-    .photo-col {
-      display: flex;
-      gap: var(--spacing-24);
-    }
-
-    .photo-col .image-card {
-      flex: 1 1 0;
-      min-width: 260px;
-    }
-
     .site-footer .connect-inner {
       padding-bottom: var(--spacing-48);
       margin-bottom: var(--spacing-48);
@@ -206,8 +196,6 @@
       .hero-photo { max-width: 280px; }
       .edu-card { flex-direction: column; align-items: flex-start; gap: var(--spacing-16); }
       .edu-gpa { margin-left: 0; text-align: left; }
-      .photo-col { overflow-x: auto; }
-      .photo-col .image-card { flex-shrink: 0; }
       .connect-inner { flex-direction: column; align-items: flex-start; }
     }
   </style>
@@ -231,8 +219,10 @@
         </div>
 
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
-          <span class="theme-toggle-icon theme-toggle-icon-light">☀️</span>
-          <span class="theme-toggle-icon theme-toggle-icon-dark">🌙</span>
+          <svg class="theme-toggle-track" viewBox="1 6 22 12" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M17,6H7A6,6,0,0,0,7,18H17A6,6,0,0,0,17,6Zm0,10H7A4,4,0,0,1,7,8H17a4,4,0,0,1,0,8Z"/>
+          </svg>
+          <span class="theme-toggle-knob"></span>
         </button>
 
         <a href="#home" class="nav-avatar" aria-label="Vincent Ng">
@@ -358,15 +348,6 @@
           </div>
         </div>
 
-        <div class="photo-col">
-          <a class="image-card" href="#" onclick="event.preventDefault(); openLightbox('GGBridge.png')">
-            <img src="GGBridge.png" alt="Golden Gate Bridge Overlook" />
-          </a>
-          <a class="image-card" href="#" onclick="event.preventDefault(); openLightbox('Hike2.png')">
-            <img src="Hike2.png" alt="Mission Peak Summit" />
-          </a>
-        </div>
-
       </div>
     </div>
   </section>
@@ -442,11 +423,7 @@
           <div class="scroll-card" onclick="location.hash='detail/delivery-optimizer'">
             <div class="project-card">
               <div class="image-card">
-                <img src="screenshots/delivery-optimizer.png" alt="Delivery Optimizer demo" onload="this.style.opacity=1" onerror="this.style.display='none'">
-                <div class="image-card-placeholder">
-                  <span class="glyph">🚚</span>
-                  <span class="filename">screenshots/delivery-optimizer.png</span>
-                </div>
+                <video class="demo-video" data-src="delivery-optimizer.mp4" muted loop playsinline preload="none"></video>
               </div>
               <div class="project-card-text">
                 <h4 class="project-card-title">Delivery Optimizer</h4>
@@ -466,7 +443,7 @@
                 <video class="demo-video" data-src="algo-trading.mp4" muted loop playsinline preload="none"></video>
               </div>
               <div class="project-card-text">
-                <h4 class="project-card-title">Algorithmic Trading Backtester</h4>
+                <h4 class="project-card-title">LagLens</h4>
                 <div class="project-card-footer">
                   <p class="project-card-desc">A fullstack platform for backtesting stock trading strategies with Monte Carlo simulation and risk analytics.</p>
                   <div class="project-card-actions">
@@ -546,7 +523,7 @@
   </footer>
 
   <!-- Detail overlay (bottom-up sheet) -->
-  <div class="detail-overlay" id="detailOverlay">
+  <div class="detail-overlay" id="detailOverlay" onclick="if (event.target === this) closeDetail()">
     <div class="detail-panel" id="detailPanel">
       <div class="detail-header">
         <button class="detail-close" onclick="closeDetail()">✕</button>
@@ -922,6 +899,29 @@
       clearTimeout(marqueeResizeTimer);
       marqueeResizeTimer = setTimeout(buildAllMarquees, 200);
     });
+
+    // ── Work-experience boxes: square, side length = a project box's
+    // rendered height. CSS can't reference another row's dynamic,
+    // content-driven height directly, so measure it and expose it as a
+    // custom property the .exp-scroll-card rule reads. ──
+    (function () {
+      const workRow = document.getElementById('workRow');
+      const referenceCard = document.querySelector('.project-card');
+      if (!workRow || !referenceCard) return;
+
+      function syncExpBoxSize() {
+        const height = referenceCard.getBoundingClientRect().height;
+        if (height > 0) workRow.style.setProperty('--exp-box-size', `${height}px`);
+      }
+
+      syncExpBoxSize();
+      window.addEventListener('load', syncExpBoxSize);
+      let expResizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(expResizeTimer);
+        expResizeTimer = setTimeout(syncExpBoxSize, 200);
+      });
+    })();
 
     // ── Horizontal scroll rows: arrow buttons + drag-to-scroll ──
     document.querySelectorAll('.scroll-arrow').forEach(btn => {

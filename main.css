@@ -87,6 +87,12 @@ html {
   cursor: url('cursor.png') 4 2, auto;
 }
 
+/* Form controls don't inherit font-family from the page by default in
+   most browsers' UA stylesheets — force them onto the same sans-serif stack. */
+button, input, textarea, select {
+  font-family: inherit;
+}
+
 body {
   font-family: var(--font-system);
   background: var(--color-cream-paper);
@@ -102,8 +108,8 @@ body {
 
 /* ── Dark mode ── */
 html[data-theme="dark"] {
-  --color-cream-paper: #1c1c1c;
-  --color-card-white: #121212;
+  --color-cream-paper: #121212;
+  --color-card-white: #1c1c1c;
   --color-studio-ink: #f2f2f2;
   --color-deep-black: #ffffff;
   --text-muted: rgba(242, 242, 242, 0.6);
@@ -114,7 +120,6 @@ html[data-theme="dark"] .bh-bold { color: rgba(242, 242, 242, 0.35); }
 html[data-theme="dark"] .skills-marquee-rows { border-top-color: rgba(242, 242, 242, 0.15); }
 html[data-theme="dark"] .skills-marquee-row { border-bottom-color: rgba(242, 242, 242, 0.15); }
 html[data-theme="dark"] .interests-marquee-row { border-top-color: rgba(242, 242, 242, 0.15); border-bottom-color: rgba(242, 242, 242, 0.15); }
-html[data-theme="dark"] .scroll-row::-webkit-scrollbar-thumb { background: rgba(242, 242, 242, 0.2); }
 html[data-theme="dark"] .lightbox { background: rgba(0, 0, 0, 0.75); }
 
 .topnav, .card-neutral, .tag, .btn-filled, .image-card, .detail-panel,
@@ -208,25 +213,45 @@ section[id] { scroll-margin-top: var(--nav-height); }
 
 .nav-clock { font-variant-numeric: tabular-nums; }
 
-/* ── Theme toggle ── */
+/* ── Theme toggle (switch styled after the attached toggle SVG) ── */
 .theme-toggle {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1px solid var(--color-studio-ink);
-  background: var(--color-card-white);
-  color: var(--color-studio-ink);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  padding: 0;
   flex-shrink: 0;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
 }
 
-.theme-toggle-icon-dark { display: none; }
-html[data-theme="dark"] .theme-toggle-icon-light { display: none; }
-html[data-theme="dark"] .theme-toggle-icon-dark { display: inline; }
+.theme-toggle-track {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* --color-studio-ink already flips light/dark, so the track reads
+     black in light mode and white in dark mode automatically. */
+  fill: var(--color-studio-ink);
+  transition: fill 0.3s ease;
+}
+
+.theme-toggle-knob {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-studio-ink);
+  border: 2px solid var(--color-cream-paper);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s ease, border-color 0.3s ease;
+}
+
+html[data-theme="dark"] .theme-toggle-knob {
+  transform: translateX(20px);
+}
 
 /* ── Header headshot ── */
 .nav-avatar {
@@ -405,18 +430,27 @@ html[data-theme="dark"] .image-card { border-color: rgba(242, 242, 242, 0.12); }
 /* ── Detail panel (bottom-up sheet, full screen minus header) ── */
 .detail-overlay {
   position: fixed;
-  top: var(--nav-height); left: 0; right: 0; bottom: 0;
+  inset: 0;
   z-index: 300;
   pointer-events: none;
+  background: rgba(0, 0, 0, 0);
+  transition: background-color 0.3s ease;
 }
 
-.detail-overlay.open { pointer-events: all; }
+.detail-overlay.open {
+  pointer-events: all;
+  background: rgba(0, 0, 0, 0.5);
+}
 
 .detail-panel {
   position: absolute;
-  inset: 0;
+  left: 0; right: 0; bottom: 0;
+  /* Sized to content, capped at ~2/3 of the viewport instead of always
+     filling the full screen (which left huge blank space under short copy). */
+  max-height: min(68vh, calc(100vh - var(--nav-height) - var(--spacing-32)));
   background: var(--color-cream-paper);
   border-top: 1px solid var(--color-studio-ink);
+  border-radius: var(--radius-cards) var(--radius-cards) 0 0;
   display: flex;
   flex-direction: column;
   transform: translateY(100%);
@@ -603,9 +637,12 @@ html[data-theme="dark"] .image-card { border-color: rgba(242, 242, 242, 0.12); }
 
 .scroll-row.dragging { cursor: grabbing; scroll-snap-type: none; }
 
-.scroll-row::-webkit-scrollbar { height: 6px; }
-.scroll-row::-webkit-scrollbar-track { background: transparent; }
-.scroll-row::-webkit-scrollbar-thumb { background: rgba(26,26,26,0.2); border-radius: 999px; }
+.scroll-row {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-row::-webkit-scrollbar { display: none; }
 
 .scroll-row-controls {
   display: flex;
@@ -717,17 +754,23 @@ html[data-theme="dark"] .project-card {
 html[data-theme="dark"] .project-card-btn:hover { color: var(--color-cream-paper); }
 
 .exp-scroll-card {
-  flex: 0 0 240px;
+  /* Square box whose side length matches the project boxes' height —
+     set as --exp-box-size on #workRow via JS, since CSS alone can't
+     reference another row's dynamic, content-driven height. */
+  flex: 0 0 var(--exp-box-size, 300px);
+  width: var(--exp-box-size, 300px);
+  height: var(--exp-box-size, 300px);
   scroll-snap-align: start;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: var(--spacing-16);
 }
 
 .company-logo {
-  width: 64px;
-  height: 64px;
+  width: 80%;
+  height: 80%;
   border-radius: var(--radius-cards);
   background: var(--color-cream-paper);
   border: 1px solid var(--color-studio-ink);
@@ -847,5 +890,5 @@ html[data-theme="dark"] .project-card-btn:hover { color: var(--color-cream-paper
   .section-heading { font-size: var(--text-heading); }
   .nav-weather { display: none; }
   .scroll-card { flex-basis: 280px; }
-  .exp-scroll-card { flex-basis: 260px; }
+  .exp-scroll-card { flex: 0 0 220px; width: 220px; height: 220px; }
 }
