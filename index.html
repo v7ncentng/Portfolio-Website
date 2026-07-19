@@ -13,7 +13,7 @@
     })();
   </script>
   <title>Vincent Ng — Software Developer</title>
-  <link rel="stylesheet" href="main.css?v=3" />
+  <link rel="stylesheet" href="main.css?v=4" />
   <style>
     /* ── Hero ── */
     .hero { padding: var(--spacing-96) 0 var(--spacing-64); }
@@ -467,7 +467,7 @@
         <div class="scroll-row" id="workRow">
 
           <div class="card-neutral exp-scroll-card" onclick="location.hash='detail/dodgers'">
-            <div class="company-logo"><img src="dodgers-logo.png" alt="Los Angeles Dodgers logo"></div>
+            <div class="company-logo company-logo-white-bg"><img src="dodgers-logo.png" alt="Los Angeles Dodgers logo"></div>
             <span class="view-link">View Details →</span>
           </div>
 
@@ -487,7 +487,7 @@
           </div>
 
           <div class="card-neutral exp-scroll-card" onclick="location.hash='detail/stanford'">
-            <div class="company-logo"><img src="stanford-logo.png" alt="Stanford John W. Gardner Center logo"></div>
+            <div class="company-logo company-logo-white-bg"><img src="stanford-logo.png" alt="Stanford John W. Gardner Center logo"></div>
             <span class="view-link">View Details →</span>
           </div>
 
@@ -813,7 +813,12 @@
             video.pause();
           }
         });
-      }, { threshold: 0.4 });
+      // Intersection ratio is area-based (width% × height%), and these cards
+      // are now large enough that a card only partially scrolled into view
+      // (e.g. ~45% visible horizontally, ~64% vertically) works out to well
+      // under 40% combined area — so a lower threshold is needed for it to
+      // reliably fire as cards scroll into a still-mostly-off-screen state.
+      }, { threshold: 0.15 });
 
       videos.forEach(v => observer.observe(v));
 
@@ -990,6 +995,26 @@
 
     // ── Header weather (via geolocation + Open-Meteo, no API key needed) ──
     (function () {
+      // BigDataCloud's `city`/`locality` fields fall back to the enclosing
+      // civil township (e.g. "Township of Timber Creek") in rural areas with
+      // no incorporated city. Prefer an actual city/town/village from the
+      // administrative hierarchy, and otherwise strip the township wording.
+      function pickCityName(geo) {
+        if (!geo) return null;
+        const admin = (geo.localityInfo && geo.localityInfo.administrative) || [];
+        for (let i = admin.length - 1; i >= 0; i--) {
+          const entry = admin[i];
+          const desc = entry.description || '';
+          if (/township/i.test(desc)) continue;
+          if (/\b(city|town|village|borough)\b/i.test(desc)) return entry.name;
+        }
+        const fallback = geo.locality || geo.city;
+        if (!fallback) return null;
+        return fallback
+          .replace(/^township of\s+/i, '')
+          .replace(/\s+township$/i, '');
+      }
+
       const weatherEl = document.getElementById('navWeather');
       if (!weatherEl || !navigator.geolocation) return;
 
@@ -1004,7 +1029,7 @@
           const geo = await geoRes.json().catch(() => null);
           const cw = data && data.current_weather;
           if (!cw) return;
-          const city = geo && (geo.city || geo.locality);
+          const city = pickCityName(geo);
           weatherEl.textContent = city
             ? `${city} ${Math.round(cw.temperature)}°F`
             : `${Math.round(cw.temperature)}°F`;
