@@ -7,24 +7,216 @@
     (function () {
       try {
         var stored = localStorage.getItem('theme-preference');
-        var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        var theme = stored || 'light';
         document.documentElement.setAttribute('data-theme', theme);
       } catch (e) {}
     })();
   </script>
   <title>Vincent Ng — Software Developer</title>
   <link rel="stylesheet" href="main.css?v=4" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet" />
   <style>
+    /* ── Intro sequence ── */
+    #introOverlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: opacity 0.9s ease;
+    }
+
+    #introOverlay.intro-done { opacity: 0; pointer-events: none; }
+
+    .intro-white-reveal {
+      position: absolute;
+      inset: 0;
+      background: #fff;
+      clip-path: circle(0% at 50% 50%);
+      will-change: clip-path;
+    }
+
+    #introOverlay.intro-reveal .intro-white-reveal {
+      transition: clip-path 1.7s cubic-bezier(0.65, 0, 0.35, 1);
+      clip-path: circle(150% at 50% 50%);
+    }
+
+    .intro-stage {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Projector, viewed from the back */
+    .intro-projector {
+      position: relative;
+      width: clamp(160px, 22vw, 240px);
+      aspect-ratio: 16 / 10;
+      background: linear-gradient(180deg, #2a2a2a, #161616);
+      border-radius: 14px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 30px 70px rgba(0,0,0,0.6);
+      transition: opacity 0.6s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #introOverlay.intro-reveal .intro-projector,
+    #introOverlay.intro-reveal .intro-cursor { opacity: 0; }
+
+    .intro-vents {
+      position: absolute;
+      top: 18%;
+      left: 10%;
+      display: flex;
+      gap: 6px;
+    }
+
+    .intro-vents span {
+      width: 3px;
+      height: 34px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 2px;
+    }
+
+    .intro-lens-hub {
+      width: 46%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #333, #0a0a0a 70%);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+    }
+
+    .intro-power-btn {
+      position: absolute;
+      right: 12%;
+      bottom: 14%;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #1c1c1c;
+      box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .intro-power-btn::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      transition: background 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    #introOverlay.intro-clicked .intro-power-btn {
+      box-shadow: inset 0 0 0 1.5px var(--color-signal-green);
+    }
+
+    #introOverlay.intro-clicked .intro-power-btn::after {
+      background: var(--color-signal-green);
+      box-shadow: 0 0 10px 2px var(--color-signal-green);
+    }
+
+    .intro-cursor {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      background: url('cursor.png') no-repeat center / contain;
+      left: 20%;
+      top: 68%;
+      /* cursor.png's declared OS hotspot (4,2) — used by the real `cursor:
+         url(...) 4 2, auto` rule in main.css — doesn't match this image's
+         actual arrow tip; measuring the source pixels directly (opaque
+         bounding box starts at x=8,y=1 in the 32px original) puts the true
+         visual tip there instead. Scaled to this element's 22px render
+         (22/32), that's (5.5, 0.6875). */
+      transform: translate(-5.5px, -0.6875px);
+      animation: intro-cursor-move 2.3s cubic-bezier(0.5, 0, 0.2, 1) forwards;
+      z-index: 3;
+    }
+
+    /* --cur-end-left/--cur-end-top are computed at runtime from the power
+       button's actual position (see the intro script) — the button's spot
+       inside the projector box isn't a fixed percentage of the stage, so a
+       hardcoded end point only lined up at one specific viewport size. */
+    @keyframes intro-cursor-move {
+      0%   { left: 20%; top: 68%; }
+      55%  { left: var(--cur-end-left, 63%); top: var(--cur-end-top, 63%); }
+      85%  { left: var(--cur-end-left, 63%); top: var(--cur-end-top, 63%); }
+      90%  { left: var(--cur-end-left, 63%); top: var(--cur-end-top, 63%); transform: translate(-5.5px, -0.6875px) scale(0.82); }
+      100% { left: var(--cur-end-left, 63%); top: var(--cur-end-top, 63%); transform: translate(-5.5px, -0.6875px) scale(1); }
+    }
+
+    .intro-signature {
+      position: absolute;
+      z-index: 2;
+      font-family: 'Caveat Brush', cursive;
+      font-size: clamp(2.6rem, 7vw, 4.5rem);
+      color: #1a1a1a;
+      white-space: nowrap;
+    }
+
+    .sig-letter {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    #introOverlay.intro-signature-on .sig-letter {
+      animation: sig-letter-in 0.5s ease forwards;
+      animation-delay: var(--sig-delay, 0ms);
+    }
+
+    @keyframes sig-letter-in {
+      0%   { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .intro-skip {
+      position: absolute;
+      right: var(--spacing-24);
+      bottom: var(--spacing-24);
+      z-index: 4;
+      background: none;
+      border: none;
+      font-family: var(--font-system);
+      font-size: var(--text-caption);
+      color: rgba(255,255,255,0.55);
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      padding: 8px 4px;
+      transition: color 0.2s ease;
+    }
+
+    .intro-skip:hover { color: rgba(255,255,255,0.9); }
+
+    #introOverlay.intro-reveal .intro-skip { color: rgba(26,26,26,0.4); }
+    #introOverlay.intro-reveal .intro-skip:hover { color: rgba(26,26,26,0.75); }
+
     /* ── Hero ── */
     .hero { padding: var(--spacing-96) 0 var(--spacing-64); }
 
     .hero-name {
-      font-size: clamp(2.6rem, 8vw, var(--text-display-xl));
+      font-size: clamp(1.4rem, 8vw, var(--text-display-xl));
       line-height: var(--leading-display-xl);
       letter-spacing: var(--tracking-display-xl);
       font-weight: var(--font-weight-bold);
       color: var(--color-studio-ink);
       margin-bottom: var(--spacing-64);
+      white-space: nowrap;
+      overflow: hidden;
     }
 
     .hero-grid {
@@ -202,6 +394,21 @@
 </head>
 <body>
 
+  <!-- Intro sequence: black stage → projector power-on → white reveal → signature → main site -->
+  <div id="introOverlay" role="presentation">
+    <div class="intro-white-reveal" aria-hidden="true"></div>
+    <div class="intro-stage" aria-hidden="true">
+      <div class="intro-projector">
+        <div class="intro-vents"><span></span><span></span><span></span></div>
+        <div class="intro-lens-hub"></div>
+        <div class="intro-power-btn"></div>
+      </div>
+      <div class="intro-cursor"></div>
+      <div class="intro-signature" id="introSignature" data-text="Vincent Ng"></div>
+    </div>
+    <button class="intro-skip" id="introSkip" type="button">Skip intro →</button>
+  </div>
+
   <!-- Nav -->
   <nav class="topnav">
     <div class="topnav-inner">
@@ -236,7 +443,7 @@
   <!-- Hero -->
   <section class="hero" id="home">
     <div class="container">
-      <h1 class="hero-name">Vincent Ng - Software Engineer</h1>
+      <h1 class="hero-name" id="heroName">Vincent Ng - Software Engineer</h1>
 
       <div class="hero-grid">
         <div class="hero-text-col">
@@ -554,6 +761,103 @@
   </div>
 
   <script>
+    (function positionIntroCursorTarget() {
+      const stage = document.querySelector('.intro-stage');
+      const btn = document.querySelector('.intro-power-btn');
+      const cursorEl = document.querySelector('.intro-cursor');
+      if (!stage || !btn || !cursorEl) return;
+      const stageRect = stage.getBoundingClientRect();
+      const btnRect = btn.getBoundingClientRect();
+      const startLeft = stageRect.width * 0.20;
+      const startTop = stageRect.height * 0.68;
+      const endLeft = (btnRect.left + btnRect.width / 2) - stageRect.left;
+      const endTop = (btnRect.top + btnRect.height / 2) - stageRect.top;
+      const hover = `translate(-5.5px, -0.6875px)`;
+      const click = `translate(-5.5px, -0.6875px) scale(0.82)`;
+
+      cursorEl.style.animation = 'none';
+      cursorEl.style.left = `${startLeft}px`;
+      cursorEl.style.top = `${startTop}px`;
+      cursorEl.style.transform = hover;
+
+      cursorEl.animate([
+        { left: `${startLeft}px`, top: `${startTop}px`, transform: hover, offset: 0 },
+        { left: `${endLeft}px`, top: `${endTop}px`, transform: hover, offset: 0.55 },
+        { left: `${endLeft}px`, top: `${endTop}px`, transform: hover, offset: 0.85 },
+        { left: `${endLeft}px`, top: `${endTop}px`, transform: click, offset: 0.90 },
+        { left: `${endLeft}px`, top: `${endTop}px`, transform: hover, offset: 1 },
+      ], { duration: 2300, easing: 'cubic-bezier(0.5, 0, 0.2, 1)', fill: 'forwards' });
+    })();
+
+    // Build the signature as one <span> per letter, each with a staggered
+    // animation-delay, so intro-signature-on triggers a letter-by-letter
+    // reveal rather than animating the whole string at once.
+    (function buildSignatureLetters() {
+      const el = document.getElementById('introSignature');
+      if (!el) return;
+      const text = el.dataset.text || '';
+      const STEP_MS = 280;
+      el.textContent = '';
+      Array.from(text).forEach((ch, i) => {
+        const span = document.createElement('span');
+        span.className = 'sig-letter';
+        span.textContent = ch === ' ' ? ' ' : ch;
+        span.style.setProperty('--sig-delay', `${i * STEP_MS}ms`);
+        el.appendChild(span);
+      });
+    })();
+
+    (function intro() {
+      const overlay = document.getElementById('introOverlay');
+      if (!overlay) return;
+
+      // sessionStorage can throw (privacy-restricted contexts, some file://
+      // origins) — a thrown error here would otherwise abort this entire
+      // <script> block, including everything below it, leaving the overlay
+      // stuck fully opaque forever. Treat storage as best-effort only.
+      const SEEN_KEY = 'intro-seen';
+      let alreadySeen = false;
+      try {
+        alreadySeen = !!sessionStorage.getItem(SEEN_KEY);
+      } catch (e) {}
+
+      if (alreadySeen) {
+        overlay.remove();
+        initWeather();
+        return;
+      }
+
+      try { sessionStorage.setItem(SEEN_KEY, '1'); } catch (e) {}
+      document.body.style.overflow = 'hidden';
+
+      let finished = false;
+      const timers = [];
+
+      function finish() {
+        if (finished) return;
+        finished = true;
+        timers.forEach(clearTimeout);
+        overlay.classList.add('intro-reveal', 'intro-clicked', 'intro-signature-on', 'intro-done');
+        document.body.style.overflow = '';
+        setTimeout(() => overlay.remove(), 950);
+        initWeather();
+      }
+
+      timers.push(setTimeout(() => overlay.classList.add('intro-clicked'), 2070));
+      timers.push(setTimeout(() => overlay.classList.add('intro-reveal'), 2400));
+      timers.push(setTimeout(() => overlay.classList.add('intro-signature-on'), 4250));
+      timers.push(setTimeout(() => {
+        finished = true;
+        overlay.classList.add('intro-done');
+        document.body.style.overflow = '';
+        setTimeout(() => overlay.remove(), 950);
+        initWeather();
+      }, 8170));
+
+      const skipBtn = document.getElementById('introSkip');
+      if (skipBtn) skipBtn.addEventListener('click', finish);
+    })();
+
     const DATA = {
       'aggie-housing': {
         type: 'Project',
@@ -928,6 +1232,38 @@
       });
     })();
 
+    // ── Hero name auto-fit: shrinks font-size until "Vincent Ng - Software
+    // Engineer" fits its container on one line, at any viewport width,
+    // instead of relying on a fluid vw-based guess that can still wrap. ──
+    (function () {
+      const el = document.getElementById('heroName');
+      if (!el) return;
+      const MAX_PX = 96;
+      const MIN_PX = 20;
+
+      function fit() {
+        // el's own clientWidth (not the .container parent's) is the correct
+        // target: the parent's clientWidth includes the parent's horizontal
+        // padding, which isn't usable space for this child's text.
+        const available = el.clientWidth;
+        let size = MAX_PX;
+        el.style.fontSize = size + 'px';
+        while (el.scrollWidth > available && size > MIN_PX) {
+          size -= 1;
+          el.style.fontSize = size + 'px';
+        }
+      }
+
+      fit();
+      window.addEventListener('load', fit);
+      document.fonts && document.fonts.ready && document.fonts.ready.then(fit);
+      let heroResizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(heroResizeTimer);
+        heroResizeTimer = setTimeout(fit, 150);
+      });
+    })();
+
     // ── Horizontal scroll rows: arrow buttons + drag-to-scroll ──
     document.querySelectorAll('.scroll-arrow').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -993,8 +1329,17 @@
       setInterval(update, 1000);
     })();
 
-    // ── Header weather (via geolocation + Open-Meteo, no API key needed) ──
-    (function () {
+    // ── Header weather (via geolocation + Open-Meteo, no API key needed).
+    // Declared as a hoisted function (not an IIFE) so intro() above — which
+    // runs first in source order — can call it once the intro sequence
+    // finishes, keeping the native location-permission prompt from popping
+    // up mid-animation. initWeatherCalled guards against firing twice
+    // (e.g. skip during the natural-completion window). ──
+    let initWeatherCalled = false;
+    function initWeather() {
+      if (initWeatherCalled) return;
+      initWeatherCalled = true;
+
       // BigDataCloud's `city`/`locality` fields fall back to the enclosing
       // civil township (e.g. "Township of Timber Creek") in rural areas with
       // no incorporated city. Prefer an actual city/town/village from the
@@ -1037,7 +1382,7 @@
           weatherEl.textContent = '';
         }
       }, () => { weatherEl.textContent = ''; }, { timeout: 8000 });
-    })();
+    }
 
     // ── Theme toggle (light/dark, persisted) ──
     (function () {
