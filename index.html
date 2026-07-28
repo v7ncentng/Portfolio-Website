@@ -131,9 +131,10 @@
 
     .intro-cursor {
       position: absolute;
-      width: 22px;
-      height: 22px;
+      width: 32px;
+      height: 32px;
       background: url('cursor.png') no-repeat center / contain;
+      image-rendering: pixelated;
       left: 20%;
       top: 68%;
       /* cursor.png's declared OS hotspot (4,2) — used by the real `cursor:
@@ -142,7 +143,7 @@
          bounding box starts at x=8,y=1 in the 32px original) puts the true
          visual tip there instead. Scaled to this element's 22px render
          (22/32), that's (5.5, 0.6875). */
-      transform: translate(-5.5px, -0.6875px);
+      transform: translate(-8px, -1px);
       animation: intro-cursor-move 2.3s cubic-bezier(0.5, 0, 0.2, 1) forwards;
       z-index: 3;
     }
@@ -175,7 +176,7 @@
     }
 
     #introOverlay.intro-signature-on .sig-letter {
-      animation: sig-letter-in 0.5s ease forwards;
+      animation: sig-letter-in 0.4s ease forwards;
       animation-delay: var(--sig-delay, 0ms);
     }
 
@@ -213,10 +214,28 @@
       line-height: var(--leading-display-xl);
       letter-spacing: var(--tracking-display-xl);
       font-weight: var(--font-weight-bold);
-      color: var(--color-studio-ink);
+      margin-top: -0.15em;
       margin-bottom: var(--spacing-64);
+    }
+
+    .hero-name-line {
+      display: block;
       white-space: nowrap;
-      overflow: hidden;
+    }
+
+    .title-letter {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(10px);
+      color: var(--color-cream-paper);
+      transition: opacity 0.4s ease, transform 0.4s ease, color 0.4s ease;
+      transition-delay: var(--td-delay, 0ms);
+    }
+
+    .hero-name.title-revealed .title-letter {
+      opacity: 1;
+      transform: translateY(0);
+      color: var(--color-studio-ink);
     }
 
     .hero-grid {
@@ -443,7 +462,7 @@
   <!-- Hero -->
   <section class="hero" id="home">
     <div class="container">
-      <h1 class="hero-name" id="heroName">Vincent Ng - Software Engineer</h1>
+      <h1 class="hero-name" id="heroName"><span class="hero-name-line" data-text="Vincent Ng"></span><span class="hero-name-line" data-text="Software Engineer"></span></h1>
 
       <div class="hero-grid">
         <div class="hero-text-col">
@@ -772,8 +791,8 @@
       const startTop = stageRect.height * 0.68;
       const endLeft = (btnRect.left + btnRect.width / 2) - stageRect.left;
       const endTop = (btnRect.top + btnRect.height / 2) - stageRect.top;
-      const hover = `translate(-5.5px, -0.6875px)`;
-      const click = `translate(-5.5px, -0.6875px) scale(0.82)`;
+      const hover = `translate(-8px, -1px)`;
+      const click = `translate(-8px, -1px) scale(0.82)`;
 
       cursorEl.style.animation = 'none';
       cursorEl.style.left = `${startLeft}px`;
@@ -796,7 +815,7 @@
       const el = document.getElementById('introSignature');
       if (!el) return;
       const text = el.dataset.text || '';
-      const STEP_MS = 280;
+      const STEP_MS = 178;
       el.textContent = '';
       Array.from(text).forEach((ch, i) => {
         const span = document.createElement('span');
@@ -806,6 +825,94 @@
         el.appendChild(span);
       });
     })();
+
+    // Built immediately (not deferred to revealHeroTitle) so the hero
+    // auto-fit script below, which measures each line's real scrollWidth,
+    // has actual letter spans to measure instead of an empty element.
+    (function buildHeroTitleLetters() {
+      const el = document.getElementById('heroName');
+      if (!el) return;
+      const STEP_MS = 178;
+      el.querySelectorAll('.hero-name-line').forEach(line => {
+        const text = line.dataset.text || '';
+        line.textContent = '';
+        Array.from(text).forEach((ch, i) => {
+          const span = document.createElement('span');
+          span.className = 'title-letter';
+          span.textContent = ch === ' ' ? ' ' : ch;
+          span.style.setProperty('--td-delay', `${i * STEP_MS}ms`);
+          line.appendChild(span);
+        });
+      });
+    })();
+
+    let revealHeroTitleCalled = false;
+    function revealHeroTitle() {
+      if (revealHeroTitleCalled) return;
+      revealHeroTitleCalled = true;
+      const el = document.getElementById('heroName');
+      if (!el) return;
+      // Newly-created spans start in their opacity:0/translateY(10px) state;
+      // adding title-revealed in the same synchronous tick would let the
+      // browser coalesce both style changes into one recalculation with no
+      // transition ever firing, so the class is added a frame later instead.
+      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('title-revealed')));
+    }
+
+    // ── Header weather (via geolocation + Open-Meteo, no API key needed).
+    // Declared as a hoisted function (not an IIFE) so intro() above — which
+    // runs first in source order — can call it once the intro sequence
+    // finishes, keeping the native location-permission prompt from popping
+    // up mid-animation. initWeatherCalled guards against firing twice
+    // (e.g. skip during the natural-completion window). ──
+    let initWeatherCalled = false;
+    function initWeather() {
+      if (initWeatherCalled) return;
+      initWeatherCalled = true;
+
+      // BigDataCloud's `city`/`locality` fields fall back to the enclosing
+      // civil township (e.g. "Township of Timber Creek") in rural areas with
+      // no incorporated city. Prefer an actual city/town/village from the
+      // administrative hierarchy, and otherwise strip the township wording.
+      function pickCityName(geo) {
+        if (!geo) return null;
+        const admin = (geo.localityInfo && geo.localityInfo.administrative) || [];
+        for (let i = admin.length - 1; i >= 0; i--) {
+          const entry = admin[i];
+          const desc = entry.description || '';
+          if (/township/i.test(desc)) continue;
+          if (/\b(city|town|village|borough)\b/i.test(desc)) return entry.name;
+        }
+        const fallback = geo.locality || geo.city;
+        if (!fallback) return null;
+        return fallback
+          .replace(/^township of\s+/i, '')
+          .replace(/\s+township$/i, '');
+      }
+
+      const weatherEl = document.getElementById('navWeather');
+      if (!weatherEl || !navigator.geolocation) return;
+
+      navigator.geolocation.getCurrentPosition(async (pos) => {
+        try {
+          const { latitude, longitude } = pos.coords;
+          const [weatherRes, geoRes] = await Promise.all([
+            fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&temperature_unit=fahrenheit`),
+            fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`)
+          ]);
+          const data = await weatherRes.json();
+          const geo = await geoRes.json().catch(() => null);
+          const cw = data && data.current_weather;
+          if (!cw) return;
+          const city = pickCityName(geo);
+          weatherEl.textContent = city
+            ? `${city} ${Math.round(cw.temperature)}°F`
+            : `${Math.round(cw.temperature)}°F`;
+        } catch (e) {
+          weatherEl.textContent = '';
+        }
+      }, () => { weatherEl.textContent = ''; }, { timeout: 8000 });
+    }
 
     (function intro() {
       const overlay = document.getElementById('introOverlay');
@@ -824,6 +931,7 @@
       if (alreadySeen) {
         overlay.remove();
         initWeather();
+        revealHeroTitle();
         return;
       }
 
@@ -841,6 +949,7 @@
         document.body.style.overflow = '';
         setTimeout(() => overlay.remove(), 950);
         initWeather();
+        revealHeroTitle();
       }
 
       timers.push(setTimeout(() => overlay.classList.add('intro-clicked'), 2070));
@@ -852,6 +961,7 @@
         document.body.style.overflow = '';
         setTimeout(() => overlay.remove(), 950);
         initWeather();
+        revealHeroTitle();
       }, 8170));
 
       const skipBtn = document.getElementById('introSkip');
@@ -1241,27 +1351,55 @@
       const MAX_PX = 96;
       const MIN_PX = 20;
 
+      const lines = el.querySelectorAll('.hero-name-line');
+      // Second line ("Software Engineer") renders 2px smaller than the
+      // first — at the shared size its descenders (the "g") clipped
+      // against .hero-name-line's overflow:hidden.
+      const lineOffsets = [0, -10];
+
+      function applySize(size) {
+        lines.forEach((line, i) => {
+          line.style.fontSize = (size + (lineOffsets[i] || 0)) + 'px';
+        });
+      }
+
+      function maxLineScrollWidth() {
+        let max = 0;
+        lines.forEach(line => { if (line.scrollWidth > max) max = line.scrollWidth; });
+        return max;
+      }
+
       function fit() {
         // el's own clientWidth (not the .container parent's) is the correct
         // target: the parent's clientWidth includes the parent's horizontal
         // padding, which isn't usable space for this child's text.
         const available = el.clientWidth;
         let size = MAX_PX;
-        el.style.fontSize = size + 'px';
-        while (el.scrollWidth > available && size > MIN_PX) {
+        applySize(size);
+        while (maxLineScrollWidth() > available && size > MIN_PX) {
           size -= 1;
-          el.style.fontSize = size + 'px';
+          applySize(size);
         }
       }
 
       fit();
       window.addEventListener('load', fit);
       document.fonts && document.fonts.ready && document.fonts.ready.then(fit);
-      let heroResizeTimer;
-      window.addEventListener('resize', () => {
-        clearTimeout(heroResizeTimer);
-        heroResizeTimer = setTimeout(fit, 150);
-      });
+
+      if ('ResizeObserver' in window) {
+        let heroResizeTimer;
+        const ro = new ResizeObserver(() => {
+          clearTimeout(heroResizeTimer);
+          heroResizeTimer = setTimeout(fit, 100);
+        });
+        ro.observe(el.parentElement);
+      } else {
+        let heroResizeTimer;
+        window.addEventListener('resize', () => {
+          clearTimeout(heroResizeTimer);
+          heroResizeTimer = setTimeout(fit, 150);
+        });
+      }
     })();
 
     // ── Horizontal scroll rows: arrow buttons + drag-to-scroll ──
@@ -1328,61 +1466,6 @@
       update();
       setInterval(update, 1000);
     })();
-
-    // ── Header weather (via geolocation + Open-Meteo, no API key needed).
-    // Declared as a hoisted function (not an IIFE) so intro() above — which
-    // runs first in source order — can call it once the intro sequence
-    // finishes, keeping the native location-permission prompt from popping
-    // up mid-animation. initWeatherCalled guards against firing twice
-    // (e.g. skip during the natural-completion window). ──
-    let initWeatherCalled = false;
-    function initWeather() {
-      if (initWeatherCalled) return;
-      initWeatherCalled = true;
-
-      // BigDataCloud's `city`/`locality` fields fall back to the enclosing
-      // civil township (e.g. "Township of Timber Creek") in rural areas with
-      // no incorporated city. Prefer an actual city/town/village from the
-      // administrative hierarchy, and otherwise strip the township wording.
-      function pickCityName(geo) {
-        if (!geo) return null;
-        const admin = (geo.localityInfo && geo.localityInfo.administrative) || [];
-        for (let i = admin.length - 1; i >= 0; i--) {
-          const entry = admin[i];
-          const desc = entry.description || '';
-          if (/township/i.test(desc)) continue;
-          if (/\b(city|town|village|borough)\b/i.test(desc)) return entry.name;
-        }
-        const fallback = geo.locality || geo.city;
-        if (!fallback) return null;
-        return fallback
-          .replace(/^township of\s+/i, '')
-          .replace(/\s+township$/i, '');
-      }
-
-      const weatherEl = document.getElementById('navWeather');
-      if (!weatherEl || !navigator.geolocation) return;
-
-      navigator.geolocation.getCurrentPosition(async (pos) => {
-        try {
-          const { latitude, longitude } = pos.coords;
-          const [weatherRes, geoRes] = await Promise.all([
-            fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&temperature_unit=fahrenheit`),
-            fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`)
-          ]);
-          const data = await weatherRes.json();
-          const geo = await geoRes.json().catch(() => null);
-          const cw = data && data.current_weather;
-          if (!cw) return;
-          const city = pickCityName(geo);
-          weatherEl.textContent = city
-            ? `${city} ${Math.round(cw.temperature)}°F`
-            : `${Math.round(cw.temperature)}°F`;
-        } catch (e) {
-          weatherEl.textContent = '';
-        }
-      }, () => { weatherEl.textContent = ''; }, { timeout: 8000 });
-    }
 
     // ── Theme toggle (light/dark, persisted) ──
     (function () {
